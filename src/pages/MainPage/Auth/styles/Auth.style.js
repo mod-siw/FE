@@ -11,7 +11,7 @@ const Input = styled.div`
   border: 1px solid var(--gray_02, #333);
   background: var(--background, #0e0c0c);
 
-  color: var(--gray_03, #686868);
+  color: var(--gray03);
 
   /* body16_medium */
   font-family: Pretendard;
@@ -22,7 +22,7 @@ const Input = styled.div`
 `;
 
 const Title = styled.div`
-  color: var(--white, #fff);
+  color: var(--white);
 
   /* body16_semibold */
   font-family: Pretendard;

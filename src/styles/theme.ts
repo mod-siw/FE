@@ -9,6 +9,7 @@ const theme = {
     orange02: '#FFB379',
     yellow01: '#F9EE19',
     yellow02: '#FFF875',
+    yellow03: '#FEE500',
     green01: '#29FF22',
     green02: '#96FF92',
     mint01: '#00FF8C',
@@ -27,6 +28,9 @@ const theme = {
     pink02: '#FEBBFF',
     magenta01: '#FF2D7A',
     magenta02: '#FFA0C3',
+    gray01: '#161616',
+    gray02: '#333',
+    gray03: '#686868',
   },
 
   fonts: {

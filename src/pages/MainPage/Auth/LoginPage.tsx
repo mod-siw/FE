@@ -15,43 +15,21 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const InputWrapper = styled.div`
-  display: flex;
-  width: 361px;
-  padding: 18px 20px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  border: 1px solid var(--gray_02, #333);
-  background: var(--background, #0e0c0c);
-`;
-
-const Input = styled.input`
-  color: var(--gray_03, #686868);
-
-  /* body16_medium */
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22px; /* 137.5% */
-`;
 const KakaoBtn = styled.div`
   width: 336px;
   height: 47px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: var(--yellow, #fee500);
+  background: var(--yellow03);
   box-shadow: 0px 0px 6.978px 0.997px rgba(0, 0, 0, 0.03);
 `;
 const Line = styled.div`
   width: 328px;
   height: 1px;
-  background: var(--gray_02, #333);
+  background: var(--gray02);
 `;
 const SignupBtn = styled.div`
-  color: var(--gray_03, #686868);
+  color: var(--gray03);
   text-align: center;
 
   /* body14_medium */
