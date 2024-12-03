@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const Input = styled.div`
+const Input = styled.input`
   display: flex;
   width: 361px;
   padding: 18px 20px;

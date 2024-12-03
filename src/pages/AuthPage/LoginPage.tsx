@@ -1,12 +1,19 @@
+import React from 'react';
 import styled from 'styled-components';
-import { S } from './styles/Auth.style';
+import { S } from './components/Auth.style';
+import TopBar from './components/TopBar';
+import { Kakaotalk } from '../../assets';
 
 const LoginPage = () => {
   return (
     <>
+      <TopBar buttonText="로그인" />
       <S.Input placeholder="아이디" />
       <S.Input placeholder="비밀번호" type="password" />
-      <KakaoBtn>카카오 로그인</KakaoBtn>
+      <KakaoBtn>
+        <Kakaotalk width={20} />
+        카카오 로그인
+      </KakaoBtn>
       <Line />
       <SignupBtn>회원가입하기</SignupBtn>
     </>
