@@ -6,10 +6,12 @@ const GlobalStyle = createGlobalStyle`
   ${Reset}
   ${Font}
 
+  html,
   body {
     background: ${({ theme }) => theme.colors.bgColor};
     color: ${({ theme }) => theme.colors.textColor};
     font-family: Pretendard;
+    font-size: 62.5%;
   }
 
   * {
