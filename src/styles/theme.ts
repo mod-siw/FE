@@ -1,5 +1,11 @@
-const theme = {
+const darkTheme = {
   colors: {
+    bgColor: '#0E0C0C',
+    textColor: '#FFFFFF',
+    gray01: '#161616',
+    gray02: '#333333',
+    gray03: '#686868',
+
     black: '#000000',
     white: '#FFFFFF',
 
@@ -28,9 +34,6 @@ const theme = {
     pink02: '#FEBBFF',
     magenta01: '#FF2D7A',
     magenta02: '#FFA0C3',
-    gray01: '#161616',
-    gray02: '#333',
-    gray03: '#686868',
   },
 
   fonts: {
@@ -91,7 +94,19 @@ const theme = {
   },
 };
 
-export type ColorType = typeof theme.colors;
-export type FontType = typeof theme.fonts;
+const lightTheme = {
+  ...darkTheme,
+  colors: {
+    ...darkTheme.colors,
+    bgColor: '#FFFFFF',
+    textColor: '#0E0C0C',
+    gray01: '#F7F7F7',
+    gray02: '#E8E8E8',
+    gray03: '#7D7D7D',
+  },
+};
 
-export default theme;
+export type ColorType = typeof darkTheme.colors;
+export type FontType = typeof darkTheme.fonts;
+
+export { lightTheme, darkTheme };

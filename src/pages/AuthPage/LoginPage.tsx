@@ -1,48 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
 import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
+const handleLogin = () => {
+  // 로그인 API 호출 로직
+  console.log('로그인 요청');
+};
+
 const LoginPage = () => {
   return (
     <>
-      <TopBar buttonText="로그인" />
-      <S.Input placeholder="아이디" />
-      <S.Input placeholder="비밀번호" type="password" />
-      <KakaoBtn>
-        <Kakaotalk width={20} />
-        카카오 로그인
-      </KakaoBtn>
-      <Line />
-      <SignupBtn>회원가입하기</SignupBtn>
+      <TopBar buttonText="로그인" onClick={handleLogin} />
+      <S.Wrapper>
+        <S.Input placeholder="아이디" num1="8.9rem" num2="2.1rem" />
+        <S.Input placeholder="비밀번호" type="password" num2="9.8rem" />
+        <S.KakaoBtn>
+          <Kakaotalk width={20} />
+          <span>카카오 로그인</span>
+        </S.KakaoBtn>
+        <S.Line />
+        <S.SignupBtn>회원가입하기</S.SignupBtn>
+      </S.Wrapper>
     </>
   );
 };
 
 export default LoginPage;
-
-const KakaoBtn = styled.div`
-  width: 336px;
-  height: 47px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: var(--yellow03);
-  box-shadow: 0px 0px 6.978px 0.997px rgba(0, 0, 0, 0.03);
-`;
-const Line = styled.div`
-  width: 328px;
-  height: 1px;
-  background: var(--gray02);
-`;
-const SignupBtn = styled.div`
-  color: var(--gray03);
-  text-align: center;
-
-  /* body14_medium */
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
