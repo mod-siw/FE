@@ -12,11 +12,11 @@ const TopBar: React.FC<TopBarProps> = ({ buttonText, onClick }) => {
   return (
     <Wrapper>
       <Back width={25} />
-      <BtnContainer>
+      <SubmitBtn>
         <Union width={12.75} />
-        <SubmitBtn onClick={onClick}>{buttonText}</SubmitBtn>
+        <span onClick={onClick}>{buttonText}</span>
         <Union width={12.75} />
-      </BtnContainer>
+      </SubmitBtn>
     </Wrapper>
   );
 };
@@ -26,11 +26,7 @@ export default TopBar;
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 8.2rem 2.25rem 2.4rem 1.9rem;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
+  padding: 3.8rem 2.25rem 2.4rem 1.9rem;
 `;
 
 const SubmitBtn = styled.div`
@@ -41,15 +37,16 @@ const SubmitBtn = styled.div`
   align-items: center;
   gap: 0.75rem;
   flex-shrink: 0;
-
-  color: var(--white);
-
-  /* body16_semibold */
-  font-family: Pretendard;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2.2rem; /* 137.5% */
-
   cursor: pointer;
+
+  span {
+    color: ${({ theme }) => theme.colors.white};
+
+    /* body16_semibold */
+    font-family: Pretendard;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.2rem; /* 137.5% */
+  }
 `;
