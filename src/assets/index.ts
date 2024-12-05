@@ -1,9 +1,10 @@
+export { default as Back } from './Back';
+export { default as Diagonalarrow } from './Diagonalarrow';
+export { default as Eximg } from './Eximg';
+export { default as Kakaotalk } from './Kakaotalk';
+export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
 export { default as SymbolMask01 } from './SymbolMask01';
 export { default as SymbolMask02 } from './SymbolMask02';
-export { default as Back } from './Back';
-export { default as Eximg } from './Eximg';
-export { default as Kakaotalk } from './Kakaotalk';
-export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Union } from './Union';
