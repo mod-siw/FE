@@ -1,16 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Mydefaultimg } from '../../../assets';
+
 interface GridProps {
-  blocks: string[];
+  blocks: JSX.Element[];
+  num?: string;
 }
 
-const MyGridBox: React.FC<{ blocks: JSX.Element[] }> = ({ blocks }) => {
+const MyGridBox: React.FC<GridProps> = ({ blocks, num }) => {
+  const filledBlocks = [...blocks];
+  while (filledBlocks.length < 9) {
+    filledBlocks.push(<Mydefaultimg data-default={true} />);
+  }
+
   return (
-    <Wrapper>
+    <Wrapper marginBottom={num}>
       <GridContainer>
-        {blocks.map((BlockComponent, index) => (
-          <Block key={index}>{BlockComponent}</Block>
+        {filledBlocks.map((BlockComponent, index) => (
+          <Block key={index} isDefault={(BlockComponent as any).props['data-default']}>
+            {BlockComponent}
+          </Block>
         ))}
       </GridContainer>
     </Wrapper>
@@ -19,9 +29,9 @@ const MyGridBox: React.FC<{ blocks: JSX.Element[] }> = ({ blocks }) => {
 
 export default MyGridBox;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ marginBottom?: string }>`
   padding: 3.7rem;
-  margin: 4.3rem 0rem 4.3rem 0rem;
+  margin: 4.3rem 0rem ${({ marginBottom }) => marginBottom || '4.3rem'} 0rem;
   width: 40.2rem;
   height: 40.2rem;
   flex-shrink: 0;
@@ -37,7 +47,7 @@ const GridContainer = styled.div`
   gap: 1.6rem;
 `;
 
-const Block = styled.div`
+const Block = styled.div<{ isDefault?: boolean }>`
   display: flex;
   width: 10rem;
   height: 10rem;
@@ -45,11 +55,5 @@ const Block = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  cursor: pointer;
-`;
-
-const Image = styled.img`
-  width: 10rem;
-  height: 10rem;
-  object-fit: cover;
+  cursor: ${({ isDefault }) => (isDefault ? 'default' : 'pointer')};
 `;

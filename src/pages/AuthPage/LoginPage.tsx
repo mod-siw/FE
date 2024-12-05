@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
@@ -9,6 +10,12 @@ const handleLogin = () => {
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const handleSignup = () => {
+    navigate('/signup');
+  };
+
   return (
     <>
       <TopBar buttonText="로그인" onClick={handleLogin} />
@@ -20,7 +27,7 @@ const LoginPage = () => {
           <span>카카오 로그인</span>
         </S.KakaoBtn>
         <S.Line />
-        <S.SignupBtn>회원가입하기</S.SignupBtn>
+        <S.SignupBtn onClick={handleSignup}>회원가입하기</S.SignupBtn>
       </S.Wrapper>
     </>
   );

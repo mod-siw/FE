@@ -9,7 +9,14 @@ import ShareMyPage from '../pages/MyPage/ShareMyPage';
 const router = createBrowserRouter([
   {
     path: '/',
-    children: [{ path: '', element: <MainPage /> }],
+    children: [
+      { path: '', element: <MainPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'signup', element: <SignupPage /> },
+      { path: 'signup/kakao', element: <KakaoSignupPage /> },
+      { path: 'my', element: <MyPage /> },
+      { path: 'my/share', element: <ShareMyPage /> },
+    ],
   },
 ]);
 

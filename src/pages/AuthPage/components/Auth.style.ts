@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 공통
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +35,7 @@ const Input = styled.input<MarginProps>`
   line-height: 2.2rem;
 `;
 
+// 로그인 페이지
 const KakaoBtn = styled.div`
   margin-bottom: 2.6rem;
   display: flex;
@@ -77,8 +79,11 @@ const SignupBtn = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  cursor: pointer;
 `;
 
+// 회원가입 페이지
 const Container = styled.div`
   padding: 0;
 `;

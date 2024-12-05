@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Union } from '../../assets';
 import GiftBox from './components/GiftBox';
@@ -11,6 +12,7 @@ interface MyPageProps {
 }
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
   const [blocks, setBlocks] = useState<JSX.Element[]>([]);
@@ -27,6 +29,16 @@ const MyPage = () => {
     }, 1000);
   };
 
+  // 홈
+  const handleMain = () => {
+    navigate('/');
+  };
+
+  // 공유하기
+  const handleShare = () => {
+    navigate('/my/share');
+  };
+
   return (
     <Wrapper>
       <Top>
@@ -37,7 +49,7 @@ const MyPage = () => {
           <br />
           뛰게 만든
         </Title>
-        {isGridVisible && <HomeBtn>home</HomeBtn>}
+        {isGridVisible && <HomeBtn onClick={handleMain}>home</HomeBtn>}
       </Top>
       {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
@@ -45,7 +57,7 @@ const MyPage = () => {
         <MyGridBox blocks={blocks} />
       )}
       {isGridVisible && (
-        <ShareBtn>
+        <ShareBtn onClick={handleShare}>
           <Union width={17} />
           <span>공유하기</span>
           <Union width={17} />
@@ -65,6 +77,10 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div`
+  margin-top: 4.2rem;
+  //padding: 0 3rem 0 3rem;
+  //margin-left: 3rem;
+
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -72,6 +88,7 @@ const Top = styled.div`
 `;
 
 const Title = styled.div`
+  padding-left: 3rem;
   color: ${({ theme }) => theme.colors.white};
 
   /* head_medium */
@@ -85,7 +102,7 @@ const Title = styled.div`
 `;
 
 const HomeBtn = styled.div`
-  margin-top: 0.3rem;
+  padding: 0.3rem 3rem 0 0;
   color: ${({ theme }) => theme.colors.white};
 
   font-family: Pretendard;
@@ -99,6 +116,7 @@ const HomeBtn = styled.div`
 
 const ShareBtn = styled.div`
   margin-bottom: 36.9rem;
+
   display: flex;
   width: 15.6rem;
   height: 5.6rem;
