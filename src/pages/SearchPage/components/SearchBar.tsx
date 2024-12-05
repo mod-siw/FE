@@ -1,14 +1,21 @@
 import * as S from './SearchBar.style';
 import { Back } from '../../../assets';
 import { Search } from '../../../assets';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export interface SearchBarProps {
+  query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ setQuery }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = query;
+    }
+  }, [query]);
 
   const handleSearch = () => {
     if (inputRef.current) {

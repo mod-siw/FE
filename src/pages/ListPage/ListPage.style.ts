@@ -21,7 +21,7 @@ export const CreateBtn = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 4.4rem;
+  margin: 4.4rem 0 4.2rem 0;
   justify-self: flex-end;
 
   border: 0.075rem solid #fff;

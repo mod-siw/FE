@@ -13,12 +13,3 @@ export const Container = styled.div`
     margin-bottom: 1.6rem;
   }
 `;
-
-export const ResultItem = styled.li`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2.1rem;
-  cursor: pointer;
-`;

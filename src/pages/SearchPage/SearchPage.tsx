@@ -20,14 +20,16 @@ const SearchPage = () => {
 
   useEffect(() => {
     console.log(query);
-    // 하위 컴포넌트에서 setQuery로 query가 변경되었을 때 함수 호출
   }, [query]);
 
   return (
     <S.Wrapper>
-      <SearchBar setQuery={setQuery} />
-      <SearchHistory data={mock.data} setQuery={setQuery} />
-      {/* <SearchResult query={query} /> */}
+      <SearchBar query={query} setQuery={setQuery} />
+      {query ? (
+        <SearchResult query={query} />
+      ) : (
+        <SearchHistory data={mock.data} query={query} setQuery={setQuery} />
+      )}
     </S.Wrapper>
   );
 };
