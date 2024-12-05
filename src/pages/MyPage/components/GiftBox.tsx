@@ -11,16 +11,20 @@ interface boxProps {
 const GiftBox: React.FC<boxProps> = ({ isOpened, onOpen }) => {
   return (
     <Wrapper>
-      <Ribbon isDiagonal={!isOpened} rotate={45} />
-      <Ribbon isDiagonal={!isOpened} rotate={-45} />
-      <Ribbon isDiagonal={false} />
-      <Ribbon isDiagonal={false} />
-      <Square />
-      <OpenBtn>
-        <Union width={12.75} />
-        <span onClick={onOpen}>Open</span>
-        <Union width={12.75} />
-      </OpenBtn>
+      <Ribbon />
+      <Ribbon rotate={90} />
+      <Ribbon isDiagonal rotate={isOpened ? 0 : 45} />
+      <Ribbon isDiagonal rotate={isOpened ? -90 : -45} />
+      {!isOpened && (
+        <>
+          <Square />
+          <OpenBtn onClick={onOpen}>
+            <Union width={12.75} />
+            <span>Open</span>
+            <Union width={12.75} />
+          </OpenBtn>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -40,17 +44,18 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.colors.gray01};
 `;
 
-const Ribbon = styled.div<{ isDiagonal: boolean; rotate?: number }>`
+const Ribbon = styled.div<{ isDiagonal?: boolean; rotate?: number }>`
   position: absolute;
   width: 8.04rem;
   height: 40.2rem;
   border: 1px solid ${({ theme }) => theme.colors.gray02};
   background: ${({ theme }) => theme.colors.bgColor};
-  ${({ isDiagonal, rotate }) =>
-    isDiagonal &&
+  z-index: ${({ isDiagonal }) => (isDiagonal ? 2 : 1)};
+  ${({ rotate }) =>
+    rotate !== undefined &&
     css`
       transform: rotate(${rotate}deg);
-      transition: transform 0.5s ease;
+      transition: transform 1s ease;
     `}
 `;
 
@@ -62,6 +67,8 @@ const Square = styled.div`
   flex-shrink: 0;
   border: 1px solid ${({ theme }) => theme.colors.gray02};
   background: ${({ theme }) => theme.colors.bgColor};
+
+  z-index: 3;
 `;
 
 const OpenBtn = styled.div`
@@ -71,7 +78,7 @@ const OpenBtn = styled.div`
   gap: 0.5rem;
 
   cursor: pointer;
-  z-index: 99;
+  z-index: 4;
 
   span {
     color: ${({ theme }) => theme.colors.white};

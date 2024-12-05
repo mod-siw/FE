@@ -4,14 +4,16 @@ import { Union } from '../../assets';
 import GiftBox from './components/GiftBox';
 import MyGridBox from './components/MyGridBox';
 
+import { Eximg } from '../../assets';
+
 interface MyPageProps {
   nickname: string;
 }
 
 const MyPage = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const [blocks, setBlocks] = useState<string[]>([]);
   const [isGridVisible, setIsGridVisible] = useState(false);
+  const [blocks, setBlocks] = useState<JSX.Element[]>([]);
 
   const handleOpen = () => {
     setIsOpened(true);
@@ -19,7 +21,7 @@ const MyPage = () => {
     // 리본 애니메이션 후 블록 API 호출
     setTimeout(() => {
       // 목데이터
-      const blocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+      const blocks = [<Eximg />, <Eximg />, <Eximg />, <Eximg />];
       setBlocks(blocks);
       setIsGridVisible(true);
     }, 1000);
@@ -27,13 +29,16 @@ const MyPage = () => {
 
   return (
     <Wrapper>
-      <Title>
-        2024년
-        <br />
-        채린님의 가슴을
-        <br />
-        뛰게 만든
-      </Title>
+      <Top>
+        <Title>
+          2024년
+          <br />
+          채린님의 가슴을
+          <br />
+          뛰게 만든
+        </Title>
+        {isGridVisible && <HomeBtn>home</HomeBtn>}
+      </Top>
       {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
@@ -59,10 +64,15 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+`;
+
 const Title = styled.div`
-  //margin: 4.2 1.64rem 4.3rem 3rem;
-  align-self: flex-start;
-  color: var(--white);
+  color: ${({ theme }) => theme.colors.white};
 
   /* head_medium */
   font-family: Pretendard;
@@ -72,6 +82,19 @@ const Title = styled.div`
   line-height: normal;
 
   white-space: pre-wrap;
+`;
+
+const HomeBtn = styled.div`
+  margin-top: 0.3rem;
+  color: ${({ theme }) => theme.colors.white};
+
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  cursor: pointer;
 `;
 
 const ShareBtn = styled.div`

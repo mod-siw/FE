@@ -5,12 +5,12 @@ interface GridProps {
   blocks: string[];
 }
 
-const MyGridBox: React.FC<GridProps> = ({ blocks }) => {
+const MyGridBox: React.FC<{ blocks: JSX.Element[] }> = ({ blocks }) => {
   return (
     <Wrapper>
       <GridContainer>
-        {blocks.map((block, index) => (
-          <Block key={index}>{block}</Block>
+        {blocks.map((BlockComponent, index) => (
+          <Block key={index}>{BlockComponent}</Block>
         ))}
       </GridContainer>
     </Wrapper>
@@ -46,4 +46,10 @@ const Block = styled.div`
   flex-shrink: 0;
 
   cursor: pointer;
+`;
+
+const Image = styled.img`
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
 `;
