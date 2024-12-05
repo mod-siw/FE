@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import * as S from './SearchPage.style';
 import SearchBar from './components/SearchBar';
 import SearchHistory from './components/SearchHistory';
+import SearchResult from './components/SearchResult';
 
 const SearchPage = () => {
   const mock = {
@@ -14,10 +16,18 @@ const SearchPage = () => {
     ],
   };
 
+  const [query, setQuery] = useState(''); // 검색어
+
+  useEffect(() => {
+    console.log(query);
+    // 하위 컴포넌트에서 setQuery로 query가 변경되었을 때 함수 호출
+  }, [query]);
+
   return (
     <S.Wrapper>
-      <SearchBar />
-      <SearchHistory data={mock.data} />
+      <SearchBar setQuery={setQuery} />
+      <SearchHistory data={mock.data} setQuery={setQuery} />
+      {/* <SearchResult query={query} /> */}
     </S.Wrapper>
   );
 };
