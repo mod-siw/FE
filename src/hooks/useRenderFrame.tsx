@@ -1,12 +1,5 @@
 import { useTheme } from 'styled-components';
-import {
-  FrameTree,
-  FrameSnow,
-  FrameHat,
-  Frame2024,
-  FrameMan,
-  FrameStar,
-} from '../assets';
+import { FrameTree, FrameSnow, FrameHat, Frame2024, FrameMan, FrameStar } from 'assets';
 
 export const useRenderFrame = () => {
   const theme = useTheme();

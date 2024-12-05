@@ -1,6 +1,6 @@
 import * as S from './SearchBar.style';
-import { Back } from '../../../assets';
-import { Search } from '../../../assets';
+import { Back } from 'assets';
+import { Search } from 'assets';
 import { useEffect, useRef } from 'react';
 
 export interface SearchBarProps {

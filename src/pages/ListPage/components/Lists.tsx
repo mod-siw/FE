@@ -1,4 +1,4 @@
-import { useRenderFrame } from '../../../hooks/useRenderFrame';
+import { useRenderFrame } from 'hooks/useRenderFrame';
 import * as S from './Lists.style';
 
 interface ListsProps {

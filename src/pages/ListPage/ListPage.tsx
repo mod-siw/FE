@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import * as S from './ListPage.style';
 import Lists from './components/Lists';
-import FAB from '../../components/FAB/FAB';
+import FAB from 'components/FAB/FAB';
 import { useTheme } from 'styled-components';
-import { Union } from '../../assets';
+import { Union } from 'assets';
 
 import { mock } from './components/Mock';
 
