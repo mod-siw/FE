@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       { path: 'my', element: <MyPage /> },
       { path: 'my/share', element: <ShareMyPage /> },
       { path: 'search/', element: <SearchPage /> },
-      { path: 'list/', element: <ListPage /> },
+      { path: 'list/:category', element: <ListPage /> },
     ],
   },
 ]);

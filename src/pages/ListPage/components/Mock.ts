@@ -40,8 +40,22 @@ export const mock = {
       id: 6,
       name: '소년이 온다',
       img: 'https://ibookpark.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-26-at-4.03.38-PM.jpg',
-      color: 10,
+      color: 11,
       frame: 'SNOW',
+    },
+    {
+      id: 7,
+      name: '소년이 온다',
+      img: 'https://ibookpark.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-26-at-4.03.38-PM.jpg',
+      color: 10,
+      frame: 'MAN',
+    },
+    {
+      id: 8,
+      name: '소년이 온다',
+      img: 'https://ibookpark.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-26-at-4.03.38-PM.jpg',
+      color: 5,
+      frame: 'STAR',
     },
   ],
 };

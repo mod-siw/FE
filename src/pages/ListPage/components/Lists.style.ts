@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.6rem;
-  margin-top: 4.2rem;
+  margin: 4.2rem 0 9.8rem 0;
 `;
 
 export const Item = styled.div`
@@ -18,7 +18,6 @@ export const Image = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
-  z-index: 0;
 `;
 
 export const FrameWrapper = styled.div`
@@ -30,10 +29,4 @@ export const FrameWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
 `;

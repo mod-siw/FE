@@ -1,12 +1,14 @@
 import styled from 'styled-components';
-export const Container = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   padding: 0 3rem;
 `;
 
-export const Title = styled.div`
+export const Title = styled.div<{
+  $titleColor: keyof typeof import('../../styles/theme').darkTheme.colors;
+}>`
   ${({ theme }) => theme.fonts.head_semibold}
-  color: ${({ theme }) => theme.colors.mint01};
+  color: ${({ theme, $titleColor }) => theme.colors[$titleColor]};
 
   margin-top: 4.2rem;
 `;
