@@ -1,6 +1,12 @@
 export { default as Back } from './Back';
 export { default as Diagonalarrow } from './Diagonalarrow';
 export { default as Eximg } from './Eximg';
+export { default as Frame2024 } from './Frame2024';
+export { default as FrameHat } from './FrameHat';
+export { default as FrameMan } from './FrameMan';
+export { default as FrameSnow } from './FrameSnow';
+export { default as FrameStar } from './FrameStar';
+export { default as FrameTree } from './FrameTree';
 export { default as Kakaotalk } from './Kakaotalk';
 export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Rectangle } from './Rectangle';
