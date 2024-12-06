@@ -1,4 +1,4 @@
-import { Search } from '../../assets';
+import { Search } from 'assets';
 import * as S from './FAB.style';
 
 const FAB = () => {

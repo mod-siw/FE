@@ -1,6 +1,6 @@
-import { SymbolMask02 } from '../../../assets';
+import { SymbolMask02 } from 'assets';
 import * as S from './Header.style';
-import { useTheme } from '../../../contexts/ThemeContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 const Header = () => {
   const { isDarkMode, toggleTheme } = useTheme();
