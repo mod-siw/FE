@@ -5,7 +5,7 @@ const FAB = () => {
   return (
     <S.Container>
       <S.FloatingBtn>
-        <Search width={23} height={138} />
+        <Search width={22} height={22} />
       </S.FloatingBtn>
     </S.Container>
   );

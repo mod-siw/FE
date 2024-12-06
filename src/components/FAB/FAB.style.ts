@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   @media (min-width: 576px) {
     width: fit-content;
-    bottom: 2.5rem;
+    bottom: 16.3rem;
     left: 50%;
     right: 0;
     transform: translateX(-50%);
@@ -22,7 +22,7 @@ export const FloatingBtn = styled.div`
   padding: 1.6rem 1.9rem;
   align-items: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: ${({ theme }) => theme.colors.FABColor};
   cursor: pointer;
 
   @media (min-width: 576px) {
