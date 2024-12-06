@@ -13,7 +13,7 @@ type ConditionState = {
 };
 
 const MadePage = () => {
-  const [step, setStep] = useState<number>(0); // 현재 단계
+  const [step, setStep] = useState<number>(0);
   const [conditions, setConditions] = useState<ConditionState>({
     pickTheme: false,
     thumbSearch: true,
@@ -46,7 +46,7 @@ const MadePage = () => {
 
   const handleNext = () => {
     const currentCondition = Object.values(conditions)[step];
-    if (!currentCondition) return; // 조건이 충족되지 않으면 진행하지 않음
+    if (!currentCondition) return;
 
     if (step < components.length - 1) {
       setStep(step + 1);

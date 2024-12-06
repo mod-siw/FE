@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import styled from 'styled-components';
+import * as S from './MadeBox.style';
 
 import {
   SymbolSnow1,
@@ -43,13 +43,13 @@ const MadeBox = ({ color = '#FF2C2C', frame = 1 }: MadeProps) => {
   };
 
   return (
-    <Wrapper>
-      {thumbnailUrl && <ImgBox thumbnailUrl={thumbnailUrl} />}
+    <S.Wrapper>
+      {thumbnailUrl && <S.ImgBox thumbnailUrl={thumbnailUrl} />}
       {/* Symbol을 감싸는 래퍼에 z-index 부여 */}
-      <SymbolWrapper>
+      <S.SymbolWrapper>
         {selectedFrame || <SymbolSnow1 color="FF2C2C" width={361} />}
-      </SymbolWrapper>
-      <UploBtn onClick={handleButtonClick}>썸네일 가져오기</UploBtn>
+      </S.SymbolWrapper>
+      <S.UploBtn onClick={handleButtonClick}>썸네일 가져오기</S.UploBtn>
       <input
         type="file"
         ref={inputRef}
@@ -57,46 +57,8 @@ const MadeBox = ({ color = '#FF2C2C', frame = 1 }: MadeProps) => {
         accept="image/*"
         onChange={handleFileChange}
       />
-    </Wrapper>
+    </S.Wrapper>
   );
 };
 
 export default MadeBox;
-
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  padding: 1.4rem 2rem;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ImgBox = styled.div<{ thumbnailUrl: string }>`
-  position: absolute;
-  width: 359px;
-  height: 359px;
-  background-image: url(${({ thumbnailUrl }) => thumbnailUrl});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
-const SymbolWrapper = styled.div`
-  position: relative;
-  z-index: 10;
-`;
-
-const UploBtn = styled.button`
-  position: absolute;
-  z-index: 15;
-  display: inline-flex;
-  padding: 1.4rem 2rem;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 5rem;
-  background: rgba(255, 255, 255, 0.2);
-
-  color: ${({ theme }) => theme.colors.textColor};
-  font: ${({ theme }) => theme.fonts.button_semibold};
-`;

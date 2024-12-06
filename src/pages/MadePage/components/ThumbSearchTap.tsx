@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import * as S from './ThumbSearchTap.style';
 
 import MadeBox from './MadeBox';
 
@@ -98,9 +98,9 @@ const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
   return (
     <>
       <MadeBox color={selectedCircle} frame={selectedFrame} />
-      <Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+      <S.Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
         {colorList.map((color) => (
-          <Circle
+          <S.Circle
             key={color.name}
             style={{ backgroundColor: color.color }}
             title={color.name}
@@ -108,52 +108,16 @@ const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
             onClick={() => handleCircleClick(color.color)}
           />
         ))}
-      </Container>
-      <Container>
+      </S.Container>
+      <S.Container>
         {frameList.map((frame) => (
-          <FrameBox key={frame.id} onClick={() => handleFrameClick(frame.id)}>
+          <S.FrameBox key={frame.id} onClick={() => handleFrameClick(frame.id)}>
             {selectedFrame === frame.id ? frame.selected : frame.unselected}
-          </FrameBox>
+          </S.FrameBox>
         ))}
-      </Container>
+      </S.Container>
     </>
   );
 };
 
 export default ThumbSearchTap;
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  gap: 1.6rem;
-  overflow-x: auto;
-  padding: 1rem 0 2rem;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const Circle = styled.div<{ isSelected: boolean }>`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: 0.3s ease;
-
-  ${({ isSelected }) =>
-    isSelected &&
-    `box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); 
-     border: 2px solid rgba(255, 255, 255, 0.3);`}
-`;
-
-const FrameBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 7.5rem;
-  height: 7.5rem;
-  cursor: pointer;
-`;

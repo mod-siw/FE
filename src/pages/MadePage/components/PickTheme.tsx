@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { SymbolTree1 } from '../../../assets';
 
 interface MadeProps {
   conditions: boolean;
@@ -52,11 +51,7 @@ const CategoryBox = styled.div`
   flex-wrap: wrap;
 `;
 
-interface CategoryProps {
-  isSelected: boolean;
-}
-
-const Category = styled.div<CategoryProps>`
+const Category = styled.div<{ isSelected: boolean }>`
   padding: 1rem 2rem;
   border: 1px solid ${({ theme }) => theme.colors.textColor};
   font: ${({ theme }) => theme.fonts.body16_medium};
