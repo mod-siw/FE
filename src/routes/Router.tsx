@@ -5,6 +5,8 @@ import SignupPage from '../pages/AuthPage/SignupPage';
 import KakaoSignupPage from '../pages/AuthPage/KakaoSignupPage';
 import MyPage from '../pages/MyPage/MyPage';
 import ShareMyPage from '../pages/MyPage/ShareMyPage';
+import SearchPage from '../pages/SearchPage/SearchPage';
+import ListPage from '../pages/ListPage/ListPage';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
       { path: 'signup/kakao', element: <KakaoSignupPage /> },
       { path: 'my', element: <MyPage /> },
       { path: 'my/share', element: <ShareMyPage /> },
+      { path: 'search/', element: <SearchPage /> },
+      { path: 'list/:category', element: <ListPage /> },
     ],
   },
 ]);
