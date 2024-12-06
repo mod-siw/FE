@@ -5,8 +5,12 @@
       "api/*": ["api/*"],
       "assets/*": ["assets/*"],
       "components/*": ["components/*"],
+      "constants/*": ["constants/*"],
+      "contexts/*": ["contexts/*"],
       "hooks/*": ["hooks/*"],
-      "styles/*": ["styles/*"]
+      "styles/*": ["styles/*"],
+      "types/*": ["types/*"],
+      "uitls/*": ["utils/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
