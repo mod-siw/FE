@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { SymbolTree1 } from '../../../assets';
 
-const PickTheme: React.FC = () => {
+interface MadeProps {
+  conditions: boolean;
+  setConditions: (value: boolean) => void;
+}
+
+const PickTheme = ({ conditions, setConditions }: MadeProps) => {
   const categoryList = ['영화', '음악', '책', '유튜브', 'OTT', '공연'];
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category === selectedCategory ? null : category);
+    const newSelectedCategory = category === selectedCategory ? null : category;
+    setSelectedCategory(newSelectedCategory);
+
+    // 조건 활성화 상태 업데이트
+    setConditions(newSelectedCategory !== null);
   };
 
   return (

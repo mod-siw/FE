@@ -1,8 +1,32 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const ThumbSearchTap = () => {
-  const [selectedCircle, setSelectedCircle] = useState<string | null>(null);
+import MadeBox from './MadeBox';
+
+import {
+  SymbolHat1,
+  SymbolSnow1,
+  SymbolTree1,
+  SymbolYear1,
+  SymbolMan1,
+  SymbolStar1,
+  SymbolHat2,
+  SymbolSnow2,
+  SymbolTree2,
+  SymbolYear2,
+  SymbolMan2,
+  SymbolStar2,
+} from '../../../assets';
+
+interface MadeProps {
+  conditions: boolean;
+  setConditions: (value: boolean) => void;
+}
+
+const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
+  const [selectedCircle, setSelectedCircle] = useState<string | null>('#FF2C2C');
+  const [selectedFrame, setSelectedFrame] = useState<number | null>(1);
+
   const colorList = [
     { name: 'red01', color: '#FF2C2C' },
     { name: 'orange01', color: '#FF8E2C' },
@@ -30,22 +54,69 @@ const ThumbSearchTap = () => {
     { name: 'magenta02', color: '#FFA0C3' },
   ];
 
-  const handleCircleClick = (name: string) => {
-    setSelectedCircle(name === selectedCircle ? null : name);
+  const frameList = [
+    {
+      id: 1,
+      selected: <SymbolSnow1 width={75} />,
+      unselected: <SymbolSnow2 width={75} />,
+    },
+    {
+      id: 2,
+      selected: <SymbolTree1 width={75} />,
+      unselected: <SymbolTree2 width={75} />,
+    },
+    {
+      id: 3,
+      selected: <SymbolHat1 width={75} />,
+      unselected: <SymbolHat2 width={75} />,
+    },
+    {
+      id: 4,
+      selected: <SymbolYear1 width={75} />,
+      unselected: <SymbolYear2 width={75} />,
+    },
+    {
+      id: 5,
+      selected: <SymbolMan1 width={75} />,
+      unselected: <SymbolMan2 width={75} />,
+    },
+    {
+      id: 6,
+      selected: <SymbolStar1 width={75} />,
+      unselected: <SymbolStar2 width={75} />,
+    },
+  ];
+
+  const handleCircleClick = (color: string) => {
+    setSelectedCircle(color === selectedCircle ? '#FF2C2C' : color);
+  };
+
+  const handleFrameClick = (id: number) => {
+    setSelectedFrame(id === selectedFrame ? 1 : id);
   };
 
   return (
-    <Container>
-      {colorList.map((color) => (
-        <Circle
-          key={color.name}
-          style={{ backgroundColor: color.color }}
-          title={color.name}
-          isSelected={selectedCircle === color.name}
-          onClick={() => handleCircleClick(color.name)}
-        />
-      ))}
-    </Container>
+    <>
+      <MadeBox color={selectedCircle} frame={selectedFrame} />
+      <Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+        {colorList.map((color) => (
+          <Circle
+            key={color.name}
+            style={{ backgroundColor: color.color }}
+            title={color.name}
+            isSelected={selectedCircle === color.color}
+            onClick={() => handleCircleClick(color.color)}
+          />
+        ))}
+      </Container>
+      <Container>
+        {frameList.map((frame) => (
+          <FrameBox key={frame.id} onClick={() => handleFrameClick(frame.id)}>
+            {selectedFrame === frame.id ? frame.selected : frame.unselected}
+          </FrameBox>
+        ))}
+      </Container>
+    </>
   );
 };
 
@@ -57,18 +128,14 @@ const Container = styled.div`
   width: 100%;
   gap: 1.6rem;
   overflow-x: auto;
-  padding: 1rem 0;
+  padding: 1rem 0 2rem;
 
   &::-webkit-scrollbar {
     display: none;
   }
 `;
 
-interface CircleProps {
-  isSelected: boolean;
-}
-
-const Circle = styled.div<CircleProps>`
+const Circle = styled.div<{ isSelected: boolean }>`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -78,8 +145,15 @@ const Circle = styled.div<CircleProps>`
 
   ${({ isSelected }) =>
     isSelected &&
-    `
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.30); 
-    border: 2px solid rgba(255, 255, 255, 0.30);
-  `}
+    `box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); 
+     border: 2px solid rgba(255, 255, 255, 0.3);`}
+`;
+
+const FrameBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.5rem;
+  height: 7.5rem;
+  cursor: pointer;
 `;
