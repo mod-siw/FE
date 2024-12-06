@@ -11,7 +11,7 @@ import { useItemContext } from 'contexts/ItemContext';
 
 const ListPage = () => {
   const { category } = useParams<{ category: string }>();
-  const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
+  const { isItemClicked } = useItemContext();
 
   return (
     <S.Wrapper>

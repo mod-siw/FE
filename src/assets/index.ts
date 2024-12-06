@@ -1,4 +1,5 @@
 export { default as Back } from './Back';
+export { default as ClickedSnow } from './ClickedSnow';
 export { default as Diagonalarrow } from './Diagonalarrow';
 export { default as Eximg } from './Eximg';
 export { default as Frame2024 } from './Frame2024';
