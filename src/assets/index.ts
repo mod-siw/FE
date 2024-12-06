@@ -1,4 +1,5 @@
 export { default as Back } from './Back';
+export { default as ClickedSnow } from './ClickedSnow';
 export { default as Diagonalarrow } from './Diagonalarrow';
 export { default as Delete } from './Delete';
 export { default as Eximg } from './Eximg';
@@ -15,6 +16,7 @@ export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
 export { default as SymbolMask01 } from './SymbolMask01';
 export { default as SymbolMask02 } from './SymbolMask02';
+export { default as UnionDetail } from './UnionDetail';
 export { default as SymbolHat1 } from './SymbolHat1';
 export { default as SymbolHat2 } from './SymbolHat2';
 export { default as SymbolMan1 } from './SymbolMan1';

@@ -1,18 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: grid;
-  width: 33.6rem;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.6rem;
-  margin-bottom: 9.8rem;
-  justify-self: center;
-`;
-
-export const Item = styled.div`
+export const Wrapper = styled.div<{ size: number }>`
   position: relative;
-  width: 16rem;
-  height: 16rem;
+  width: ${({ size }) => `${size}rem`};
+  height: ${({ size }) => `${size}rem`};
+  cursor: pointer;
+  z-index: 3;
 `;
 
 export const Image = styled.img`

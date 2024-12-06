@@ -1,5 +1,5 @@
 import * as S from './SearchResult.style';
-import Lists from '../../ListPage/components/Lists';
+import ItemList from 'components/ItemList/ItemList';
 
 import { mock } from '../../ListPage/components/Mock';
 
@@ -12,7 +12,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ query }) => {
       <S.Container>
         <div>"{query}"에 대한 검색결과입니다</div>
       </S.Container>
-      <Lists data={mock.data} />
+      {/* <ItemList data={mock.data} /> */}
     </>
   );
 };

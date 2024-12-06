@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div<{
-  $titleColor: keyof typeof import('../../styles/theme').darkTheme.colors;
+  $titleColor: keyof typeof import('styles/theme').darkTheme.colors;
 }>`
   ${({ theme }) => theme.fonts.head_semibold}
   color: ${({ theme, $titleColor }) => theme.colors[$titleColor]};

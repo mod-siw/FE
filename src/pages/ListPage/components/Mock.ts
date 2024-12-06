@@ -3,9 +3,9 @@ export const mock = {
   data: [
     {
       id: 1,
-      name: '더글로리',
-      img: 'https://i.namu.wiki/i/SdJHio7UtRjLALnLn4TLhHAgY5fvfY1mkQhFBA6_6jqglUtW1BTvjIlseI_lpEw2-v3kuUkIwT6YXBYVkGlnOA.webp',
-      color: 1,
+      name: 'Whiplash',
+      img: 'https://cdn.newsculture.press/news/photo/202410/556370_704792_2941.jpg',
+      color: 2,
       frame: 'HAT',
     },
     {
@@ -17,10 +17,10 @@ export const mock = {
     },
     {
       id: 3,
-      name: 'Whiplash',
-      img: 'https://cdn.newsculture.press/news/photo/202410/556370_704792_2941.jpg',
+      name: '더글로리',
+      img: 'https://i.namu.wiki/i/SdJHio7UtRjLALnLn4TLhHAgY5fvfY1mkQhFBA6_6jqglUtW1BTvjIlseI_lpEw2-v3kuUkIwT6YXBYVkGlnOA.webp',
       color: 5,
-      frame: 'STAR',
+      frame: 'SNOW',
     },
     {
       id: 4,
@@ -33,7 +33,7 @@ export const mock = {
       id: 5,
       name: '소년이 온다',
       img: 'https://ibookpark.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-26-at-4.03.38-PM.jpg',
-      color: 2,
+      color: 1,
       frame: '2024',
     },
     {
