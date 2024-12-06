@@ -7,6 +7,7 @@ import MyPage from '../pages/MyPage/MyPage';
 import ShareMyPage from '../pages/MyPage/ShareMyPage';
 import SearchPage from '../pages/SearchPage/SearchPage';
 import ListPage from '../pages/ListPage/ListPage';
+import DetailPage from 'pages/DetailPage/DetailPage';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: 'my/share', element: <ShareMyPage /> },
       { path: 'search/', element: <SearchPage /> },
       { path: 'list/:category', element: <ListPage /> },
+      { path: 'detail/:id', element: <DetailPage /> },
     ],
   },
 ]);
