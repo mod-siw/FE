@@ -14,4 +14,5 @@ export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
 export { default as SymbolMask01 } from './SymbolMask01';
 export { default as SymbolMask02 } from './SymbolMask02';
+export { default as UnionDetail } from './UnionDetail';
 export { default as Union } from './Union';
