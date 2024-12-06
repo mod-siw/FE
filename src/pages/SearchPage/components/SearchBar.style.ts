@@ -18,7 +18,7 @@ export const InputContainer = styled.div`
   padding: 1.9rem 1.6rem;
   background: ${({ theme }) => theme.colors.gray02};
   border-radius: 6rem;
-  gap: 2rem;
+  gap: 1rem;
 
   input {
     width: 100%;

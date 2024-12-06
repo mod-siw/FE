@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media (min-width: 576px) {
     body {
-      width: 402px;
+      width: 390px;
       margin: 0 auto;
     } 
   }
