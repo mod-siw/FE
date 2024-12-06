@@ -85,11 +85,6 @@ const darkTheme = {
       fontWeight: 600,
       lineHeight: 'normal',
       textDecorationLine: 'underline',
-      textDecorationStyle: 'solid',
-      textDecorationSkipInk: 'none',
-      textDecorationThickness: 'auto',
-      textUnderlineOffset: 'auto',
-      textUnderlinePosition: 'from-font',
     },
   },
 };
