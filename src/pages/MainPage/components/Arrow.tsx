@@ -1,4 +1,4 @@
-import { Rectangle } from '../../../assets';
+import { Rectangle } from 'assets';
 import * as S from './Arrow.style';
 
 const Arrow = () => {

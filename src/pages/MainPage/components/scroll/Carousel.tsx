@@ -4,8 +4,8 @@ import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import * as S from './Carousel.style';
-import SvgSymbolMask01 from '../../../../assets/SymbolMask01';
-import SvgSymbolMask02 from '../../../../assets/SymbolMask02';
+import SvgSymbolMask01 from 'assets/SymbolMask01';
+import SvgSymbolMask02 from 'assets/SymbolMask02';
 
 const Carousel: React.FC = () => {
   const swiperRef = useRef<any>(null);

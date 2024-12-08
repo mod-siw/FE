@@ -2,6 +2,7 @@ const darkTheme = {
   colors: {
     bgColor: '#0E0C0C',
     textColor: '#FFFFFF',
+    FABColor: '#00000080',
     gray01: '#161616',
     gray02: '#333333',
     gray03: '#686868',
@@ -95,6 +96,7 @@ const lightTheme = {
     ...darkTheme.colors,
     bgColor: '#FFFFFF',
     textColor: '#0E0C0C',
+    FABColor: '#E9E9E980',
     gray01: '#F7F7F7',
     gray02: '#E8E8E8',
     gray03: '#7D7D7D',

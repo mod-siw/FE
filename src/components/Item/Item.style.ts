@@ -19,6 +19,6 @@ export const FrameWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 16rem;
-  height: 16rem;
+  width: 100%;
+  height: 100%;
 `;
