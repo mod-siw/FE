@@ -17,6 +17,18 @@ export const useRenderFrame = () => {
     10: theme.colors.purple01,
     11: theme.colors.pink01,
     12: theme.colors.magenta01,
+    13: theme.colors.red02,
+    14: theme.colors.orange02,
+    15: theme.colors.yellow02,
+    16: theme.colors.green02,
+    17: theme.colors.mint02,
+    18: theme.colors.cyon02,
+    19: theme.colors.sky02,
+    20: theme.colors.aqua02,
+    21: theme.colors.violet02,
+    22: theme.colors.purple02,
+    23: theme.colors.pink02,
+    24: theme.colors.magenta02,
   };
 
   const renderFrame = (frame: string, color: number) => {

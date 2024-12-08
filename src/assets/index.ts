@@ -11,6 +11,7 @@ export { default as FrameStar } from './FrameStar';
 export { default as FrameTree } from './FrameTree';
 export { default as Kakaotalk } from './Kakaotalk';
 export { default as MiniSymbol } from './MiniSymbol';
+export { default as MiniSymbol2 } from './MiniSymbol2';
 export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
