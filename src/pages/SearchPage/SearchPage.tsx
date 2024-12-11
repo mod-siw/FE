@@ -24,7 +24,7 @@ const SearchPage = () => {
 
   return (
     <S.Wrapper>
-      <SearchBar query={query} setQuery={setQuery} />
+      <SearchBar isBack={true} query={query} setQuery={setQuery} />
       {query ? (
         <SearchResult query={query} />
       ) : (

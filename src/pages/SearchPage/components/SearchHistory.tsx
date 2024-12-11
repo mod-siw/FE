@@ -1,8 +1,9 @@
 import * as S from './SearchHistory.style';
 import { Diagonalarrow } from 'assets';
-import { SearchBarProps } from './SearchBar';
 
-interface SearchHistoryProps extends SearchBarProps {
+interface SearchHistoryProps {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
   data: { keyword: string }[];
 }
 
