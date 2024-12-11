@@ -4,11 +4,12 @@ import { Search } from 'assets';
 import { useEffect, useRef } from 'react';
 
 export interface SearchBarProps {
+  isBack: boolean;
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery }) => {
 
   return (
     <S.Container>
-      <Back width={24} height={24} style={{ cursor: 'pointer' }} />
+      {isBack ? <Back width={24} height={24} style={{ cursor: 'pointer' }} /> : <></>}
       <S.InputContainer>
         <input ref={inputRef} placeholder="작품 분야, 제목, 작성자로 검색해보세요" />
         <Search
