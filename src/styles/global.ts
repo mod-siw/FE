@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.textColor};
     font-family: Pretendard;
     font-size: 62.5%;
+    transition: background 0.3s ease;
   }
 
   * {
