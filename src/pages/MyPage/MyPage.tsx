@@ -4,9 +4,10 @@ import { S } from './MyPage.style';
 
 import GiftBox from './components/GiftBox';
 import MyGridBox from './components/MyGridBox';
+import Popup from './components/Popup';
 
 import { Union } from '../../assets';
-import { Eximg } from '../../assets';
+import { mock } from './components/Mock';
 
 interface MyPageProps {
   nickname: string;
@@ -16,16 +17,12 @@ const MyPage = () => {
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
-  const [blocks, setBlocks] = useState<JSX.Element[]>([]);
 
   const handleOpen = () => {
     setIsOpened(true);
 
     // 리본 애니메이션 후 블록 API 호출
     setTimeout(() => {
-      // 목데이터
-      const blocks = [<Eximg />, <Eximg />, <Eximg />, <Eximg />];
-      setBlocks(blocks);
       setIsGridVisible(true);
     }, 1000);
   };
@@ -55,7 +52,7 @@ const MyPage = () => {
       {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
-        <MyGridBox blocks={blocks} />
+        <MyGridBox data={mock.data} />
       )}
       {isGridVisible && (
         <S.ShareBtn onClick={handleShare}>

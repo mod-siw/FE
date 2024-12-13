@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { S } from './MyPage.style';
 import MyGridBox from './components/MyGridBox';
+import Popup from './components/Popup';
 
-import { Eximg } from '../../assets';
+import { mock } from './components/Mock';
 
 const ShareMyPage: React.FC = () => {
-  // 목데이터
-  const [blocks, setBlocks] = useState<JSX.Element[]>([
-    <Eximg key={0} />,
-    <Eximg key={1} />,
-    <Eximg key={2} />,
-    <Eximg key={3} />,
-  ]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  useEffect(() => {
+    // URL 복사 후 팝업 표시
+    const url = `${window.location.origin}/my/share`;
+    navigator.clipboard.writeText(url).then(() => {
+      setIsPopupVisible(true);
+    });
+  }, []);
 
   return (
     <S.Wrapper>
@@ -24,7 +27,8 @@ const ShareMyPage: React.FC = () => {
           뛰게 만든
         </S.Title>
       </S.Top>
-      <MyGridBox blocks={blocks} num="14.4rem" />
+      <MyGridBox data={mock.data} num="14.4rem" />
+      {isPopupVisible && <Popup onClose={() => setIsPopupVisible(false)} />}
     </S.Wrapper>
   );
 };
