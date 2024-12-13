@@ -48,12 +48,6 @@ const SubmitBtn = styled.div`
 
   span {
     color: ${({ theme }) => theme.colors.white};
-
-    /* body16_semibold */
-    font-family: Pretendard;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 2.2rem; /* 137.5% */
+    ${({ theme }) => theme.fonts.body16_semibold}
   }
 `;
