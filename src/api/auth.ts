@@ -3,7 +3,7 @@ import { http } from './http';
 import { getCookie, setCookie } from './http';
 import { setLocalStorageItem } from 'contexts/UserContext';
 
-// 회원가입
+// POST: 회원가입
 export const PostSignUp = async (
   username: string,
   password: string,
@@ -19,7 +19,6 @@ export const PostSignUp = async (
     setLocalStorageItem('nickname', nickname);
     console.log('회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
 
-    // 토큰 저장
     setCookie('access_token', access_token, 5 / 24);
     setCookie('refresh_token', refresh_token, 3);
 
@@ -30,7 +29,7 @@ export const PostSignUp = async (
   }
 };
 
-// 로그인
+// POST: 로그인
 export const PostLogIn = async (username: string, password: string) => {
   try {
     const response = await http.post('/accounts/login/', {
@@ -50,6 +49,19 @@ export const PostLogIn = async (username: string, password: string) => {
     return Promise.resolve(response.data);
   } catch (error) {
     console.error('로그인 실패:', error);
+    return Promise.reject(error);
+  }
+};
+
+// POST : 아이디 중복 확인
+export const PostDuplicateId = async (username: string) => {
+  try {
+    const response = await http.post('/accounts/duplicate/', {
+      username: username,
+    });
+    return Promise.resolve(response.data.data.duplicate);
+  } catch (error) {
+    console.error('중복확인 실패', error);
     return Promise.reject(error);
   }
 };
