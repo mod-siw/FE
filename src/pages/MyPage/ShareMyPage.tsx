@@ -28,7 +28,9 @@ const ShareMyPage: React.FC = () => {
         </S.Title>
       </S.Top>
       <MyGridBox data={mock.data} num="14.4rem" />
-      {isPopupVisible && <Popup onClose={() => setIsPopupVisible(false)} />}
+      {isPopupVisible && (
+        <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
+      )}
     </S.Wrapper>
   );
 };

@@ -1,6 +1,7 @@
+import axios from 'axios';
 import { http } from './http';
-import { getCookie, setCookie, clearCookies } from './http';
-import axios, { AxiosError } from 'axios';
+import { getCookie, setCookie } from './http';
+import { setLocalStorageItem } from 'contexts/UserContext';
 
 // 회원가입
 export const PostSignUp = async (
@@ -9,24 +10,22 @@ export const PostSignUp = async (
   nickname: string,
 ) => {
   try {
-    const response = await http.post('accounts/signup/', {
+    const response = await http.post('/accounts/signup/', {
       username,
       password,
       nickname,
     });
     const { access_token, refresh_token } = response.data.data;
+    setLocalStorageItem('nickname', nickname);
+    console.log('회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
 
     // 토큰 저장
     setCookie('access_token', access_token, 5 / 24);
     setCookie('refresh_token', refresh_token, 3);
 
     return Promise.resolve(response.data);
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error('회원가입 실패:', error.response?.data || error.message);
-    } else {
-      console.error('알 수 없는 오류:', error);
-    }
+  } catch (error) {
+    console.error('회원가입 실패:', error);
     return Promise.reject(error);
   }
 };
@@ -34,24 +33,33 @@ export const PostSignUp = async (
 // 로그인
 export const PostLogIn = async (username: string, password: string) => {
   try {
-    const response = await http.post('accounts/login/', {
+    const response = await http.post('/accounts/login/', {
       username,
       password,
     });
-    const { access_token, refresh_token } = response.data.data;
+    console.log('로그인 API 응답 데이터:', response.data);
+
+    const { access_token, refresh_token, nickname } = response.data.data;
+    setLocalStorageItem('nickname', nickname);
+    console.log('로그인 시 로컬스토리지에 저장된 닉네임:', nickname);
 
     // 토큰 저장
     setCookie('access_token', access_token, 5 / 24); // 5시간
     setCookie('refresh_token', refresh_token, 3); // 3일
 
     return Promise.resolve(response.data);
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error('로그인 실패:', error.response?.data || error.message);
-    } else {
-      console.error('알 수 없는 오류:', error);
-    }
+  } catch (error) {
+    console.error('로그인 실패:', error);
     return Promise.reject(error);
+  }
+};
+
+// 로그아웃
+export const PostLogout = async (): Promise<void> => {
+  try {
+    await http.post('/accounts/logout/');
+  } catch (error) {
+    console.error('로그아웃 요청 실패:', error);
   }
 };
 
@@ -81,10 +89,4 @@ export const refreshAccessToken = async (): Promise<string | null> => {
     window.location.replace('/login'); // 리다이렉트
     return null;
   }
-};
-
-// 로그아웃
-export const logOut = () => {
-  clearCookies();
-  window.location.replace('/login');
 };

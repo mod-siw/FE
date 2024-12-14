@@ -3,35 +3,42 @@ import { useNavigate } from 'react-router-dom';
 import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 
+import { useUser } from 'contexts/UserContext';
 import { PostSignUp } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const SignupPage = () => {
   const navigate = useNavigate();
-
+  const { setUsername, setNickname } = useUser();
   const [inputData, setInputData] = useState({
-    id: '',
-    pw: '',
-    confirmPw: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
     nickname: '',
   });
-  const [isIdValid, setIsIdValid] = useState<boolean | null>(null);
+  const [isUsernameValid, setIsUsernameValid] = useState<boolean | null>(null);
 
   const isActive = () =>
-    inputData.id.trim() !== '' &&
-    inputData.pw.trim() !== '' &&
-    inputData.confirmPw.trim() !== '' &&
+    inputData.username.trim() !== '' &&
+    inputData.password.trim() !== '' &&
+    inputData.confirmPassword.trim() !== '' &&
     inputData.nickname.trim() !== '' &&
-    isPwMatching();
+    isPasswordMatching();
 
   // 비밀번호 일치 여부
-  const isPwMatching = () => inputData.pw === inputData.confirmPw;
+  const isPasswordMatching = () => inputData.password === inputData.confirmPassword;
 
   const handleSignup = async () => {
     if (isActive()) {
       try {
         clearCookies();
-        await PostSignUp(inputData.id, inputData.pw, inputData.nickname);
+        const response = await PostSignUp(
+          inputData.username,
+          inputData.password,
+          inputData.nickname,
+        );
+        setUsername(inputData.username);
+        setNickname(inputData.nickname);
         alert('회원가입 성공!');
         navigate('/');
       } catch (error) {
@@ -46,8 +53,8 @@ const SignupPage = () => {
     setInputData((prev) => ({ ...prev, [name]: value }));
 
     // 아이디 유효성 검사
-    if (name === 'id') {
-      setIsIdValid(value.length > 0 && value !== '사용불가'); // 임시 로직
+    if (name === 'username') {
+      setIsUsernameValid(value.length > 0 && value !== '사용불가'); // 임시 로직
     }
   };
 
@@ -58,15 +65,15 @@ const SignupPage = () => {
         <S.Container>
           <S.Title num1="4.8rem">아이디</S.Title>
           <S.Input
-            name="id"
+            name="username"
             placeholder="아이디를 입력해주세요"
             num2="1rem"
             onChange={handleInputChange}
           />
-          <S.Message isValid={isIdValid}>
-            {isIdValid === null
+          <S.Message isValid={isUsernameValid}>
+            {isUsernameValid === null
               ? '' // 초기 상태
-              : isIdValid
+              : isUsernameValid
                 ? '사용 가능한 아이디예요'
                 : '다른 아이디를 입력해주세요'}
           </S.Message>
@@ -74,23 +81,23 @@ const SignupPage = () => {
         <S.Container>
           <S.Title num1="3.2rem">비밀번호</S.Title>
           <S.Input
-            name="pw"
+            name="password"
             placeholder="비밀번호를 입력해주세요"
             type="password"
             num2="0.8rem"
             onChange={handleInputChange}
           />
           <S.Input
-            name="confirmPw"
+            name="confirmPassword"
             placeholder="비밀번호를 다시 입력해주세요"
             type="password"
             num2="1.0rem"
             onChange={handleInputChange}
           />
-          <S.Message isValid={isPwMatching()}>
-            {inputData.pw && inputData.confirmPw && !isPwMatching()
+          <S.Message isValid={isPasswordMatching()}>
+            {inputData.password && inputData.confirmPassword && !isPasswordMatching()
               ? '비밀번호가 일치하지 않아요'
-              : isPwMatching()
+              : isPasswordMatching()
                 ? '비밀번호가 일치해요'
                 : ''}
           </S.Message>

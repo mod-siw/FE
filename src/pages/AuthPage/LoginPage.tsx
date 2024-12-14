@@ -4,24 +4,27 @@ import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
+import { useUser } from 'contexts/UserContext';
 import { PostLogIn } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
+  const { setUsername, setNickname } = useUser();
   const [inputData, setInputData] = useState({
-    id: '',
-    pw: '',
+    username: '',
+    password: '',
   });
 
-  const isActive = inputData.id.trim() !== '' && inputData.pw.trim() !== '';
+  const isActive = inputData.username.trim() !== '' && inputData.password.trim() !== '';
 
   const handleLogin = async () => {
     if (isActive) {
       try {
         clearCookies();
-        await PostLogIn(inputData.id, inputData.pw);
+        const response = await PostLogIn(inputData.username, inputData.password);
+        setUsername(inputData.username);
+        setNickname(response.nickname);
         alert('로그인 성공!');
         navigate('/');
       } catch (error) {
@@ -48,14 +51,14 @@ const LoginPage = () => {
       <TopBar buttonText="로그인" onClick={handleLogin} isActive={isActive} />
       <S.Wrapper>
         <S.Input
-          name="id"
+          name="username"
           placeholder="아이디"
           num1="8.9rem"
           num2="2.1rem"
           onChange={handleInputChange}
         />
         <S.Input
-          name="pw"
+          name="password"
           placeholder="비밀번호"
           type="password"
           num2="9.8rem"

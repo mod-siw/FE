@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { S } from './MyPage.style';
 
@@ -9,14 +9,20 @@ import Popup from './components/Popup';
 import { Union } from '../../assets';
 import { mock } from './components/Mock';
 
+import { useUser } from 'contexts/UserContext';
+import { PostLogout } from 'api/auth';
+
 interface MyPageProps {
   nickname: string;
 }
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const { nickname, clearUserData } = useUser();
+
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
+  const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
 
   const handleOpen = () => {
     setIsOpened(true);
@@ -37,13 +43,28 @@ const MyPage = () => {
     navigate('/my/share');
   };
 
+  // 로그아웃
+  const handleLogout = async () => {
+    try {
+      await PostLogout();
+      clearUserData();
+      navigate('/login');
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('nickname in MyPage:', nickname);
+  }, [nickname]);
+
   return (
     <S.Wrapper>
       <S.Top>
         <S.Title>
           2024년
           <br />
-          채린님의 가슴을
+          {nickname}님의 가슴을
           <br />
           뛰게 만든
         </S.Title>
@@ -55,11 +76,21 @@ const MyPage = () => {
         <MyGridBox data={mock.data} />
       )}
       {isGridVisible && (
-        <S.ShareBtn onClick={handleShare}>
-          <Union width={17} />
-          <span>공유하기</span>
-          <Union width={17} />
-        </S.ShareBtn>
+        <>
+          <S.ShareBtn onClick={handleShare}>
+            <Union width={17} />
+            <span>공유하기</span>
+            <Union width={17} />
+          </S.ShareBtn>
+          <S.LogoutBtn onClick={() => setLogoutPopupVisible(true)}>로그아웃</S.LogoutBtn>
+        </>
+      )}
+      {isLogoutPopupVisible && (
+        <Popup
+          type="logout"
+          onClose={() => setLogoutPopupVisible(false)}
+          onConfirm={handleLogout}
+        />
       )}
     </S.Wrapper>
   );

@@ -39,7 +39,7 @@ const HomeBtn = styled.div`
 `;
 
 const ShareBtn = styled.div`
-  margin-bottom: 36.9rem;
+  margin-bottom: 4.8rem;
 
   display: flex;
   width: 15.6rem;
@@ -62,4 +62,21 @@ const ShareBtn = styled.div`
   }
 `;
 
-export const S = { Wrapper, Top, Title, HomeBtn, ShareBtn };
+const LogoutBtn = styled.div`
+  margin-bottom: 28.6rem;
+
+  color: ${({ theme }) => theme.colors.gray03};
+  text-align: center;
+
+  ${({ theme }) => theme.fonts.body14_medium}
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+
+  cursor: pointer;
+`;
+
+export const S = { Wrapper, Top, Title, HomeBtn, ShareBtn, LogoutBtn };
