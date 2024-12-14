@@ -41,12 +41,18 @@ export const PostLogIn = async (username: string, password: string) => {
     const { access_token, refresh_token, nickname } = response.data.data;
     setLocalStorageItem('nickname', nickname);
     console.log('로그인 시 로컬스토리지에 저장된 닉네임:', nickname);
+    console.log(
+      '닉네임이 localStorage에 저장되었는지 확인:',
+      localStorage.getItem('nickname'),
+    );
+    console.log('로그인 API 응답 데이터:', response.data);
+    console.log('nickname:', response.data.data.nickname);
 
     // 토큰 저장
     setCookie('access_token', access_token, 5 / 24); // 5시간
     setCookie('refresh_token', refresh_token, 3); // 3일
 
-    return Promise.resolve(response.data);
+    return Promise.resolve(response);
   } catch (error) {
     console.error('로그인 실패:', error);
     return Promise.reject(error);

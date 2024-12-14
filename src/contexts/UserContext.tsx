@@ -27,12 +27,17 @@ export const setLocalStorageItem = (key: string, value: string | null) => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   // 초기 상태 복원
-  const [username, setUsername] = useState<string | null>(() =>
-    getLocalStorageItem('username'),
-  );
-  const [nickname, setNickname] = useState<string | null>(() =>
-    getLocalStorageItem('nickname'),
-  );
+  const [username, setUsername] = useState<string | null>(() => {
+    const storedUsername = getLocalStorageItem('username');
+    console.log('Restored username from localStorage:', storedUsername);
+    return storedUsername;
+  });
+
+  const [nickname, setNickname] = useState<string | null>(() => {
+    const storedNickname = getLocalStorageItem('nickname');
+    console.log('Restored nickname from localStorage:', storedNickname);
+    return storedNickname;
+  });
 
   // username & nickname 변경 시 localStorage 업데이트
   useEffect(() => {

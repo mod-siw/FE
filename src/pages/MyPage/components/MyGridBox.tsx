@@ -10,20 +10,28 @@ interface GridProps {
   num?: string;
 }
 
-const MyGridBox: React.FC<GridProps> = ({ data, num }) => {
+const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
+  data,
+  num,
+  animate = true,
+}) => {
   const [fadeOut, setFadeOut] = useState<number | null>(null); // 애니메이션 상태
   const [clickedId, setClickedId] = useState<number | null>(null); // 클릭된 아이템 ID
   const navigate = useNavigate();
 
   // 클릭 시 애니메이션과 navigate 적용
   const handleClick = (id: number) => {
-    setFadeOut(id);
-    setTimeout(() => {
-      setClickedId(id);
-    }, 600); // 애니메이션 지속 시간과 동일
-    setTimeout(() => {
-      navigate(`/detail/${id}`);
-    }, 1500); // 애니메이션 후 이동
+    if (animate) {
+      setFadeOut(id);
+      setTimeout(() => {
+        setClickedId(id);
+      }, 600); // 애니메이션 지속 시간과 동일
+      setTimeout(() => {
+        navigate(`/detail/${id}`);
+      }, 1500); // 애니메이션 후 이동
+    } else {
+      navigate(`/detail/${id}`); // 바로 이동
+    }
   };
 
   const filledData = [...data];
@@ -41,10 +49,10 @@ const MyGridBox: React.FC<GridProps> = ({ data, num }) => {
       <GridContainer>
         {filledData.map((item) => (
           <Block key={item.id}>
-            {clickedId === item.id ? (
+            {clickedId === item.id && animate ? (
               <ClickedSnow />
             ) : (
-              <FadeWrapper isFading={fadeOut === item.id}>
+              <FadeWrapper isFading={animate && fadeOut === item.id}>
                 {item.id > 0 ? (
                   <Item
                     id={item.id}
