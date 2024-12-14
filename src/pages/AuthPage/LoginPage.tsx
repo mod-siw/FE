@@ -24,7 +24,8 @@ const LoginPage = () => {
         clearCookies();
         const response = await PostLogIn(inputData.username, inputData.password);
         setUsername(inputData.username);
-        setNickname(response.nickname);
+        console.log('nickname returned from PostLogIn:', response.data.data.nickname);
+        setNickname(response.data.data.nickname);
         alert('로그인 성공!');
         navigate('/');
       } catch (error) {

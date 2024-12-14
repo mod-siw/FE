@@ -4,7 +4,7 @@ import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 
 import { useUser } from 'contexts/UserContext';
-import { PostSignUp } from 'api/auth';
+import { PostSignUp, PostDuplicateId } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const SignupPage = () => {
@@ -52,9 +52,23 @@ const SignupPage = () => {
     const { name, value } = e.target;
     setInputData((prev) => ({ ...prev, [name]: value }));
 
-    // 아이디 유효성 검사
+    // 아이디 입력 중 초기화
     if (name === 'username') {
-      setIsUsernameValid(value.length > 0 && value !== '사용불가'); // 임시 로직
+      setIsUsernameValid(null);
+    }
+  };
+
+  const handleUsernameBlur = async () => {
+    if (inputData.username.trim() === '') {
+      setIsUsernameValid(null);
+      return;
+    }
+
+    try {
+      const isDuplicate = await PostDuplicateId(inputData.username);
+      setIsUsernameValid(!isDuplicate);
+    } catch (error) {
+      setIsUsernameValid(false);
     }
   };
 
@@ -69,6 +83,7 @@ const SignupPage = () => {
             placeholder="아이디를 입력해주세요"
             num2="1rem"
             onChange={handleInputChange}
+            onBlur={handleUsernameBlur}
           />
           <S.Message isValid={isUsernameValid}>
             {isUsernameValid === null
@@ -95,11 +110,11 @@ const SignupPage = () => {
             onChange={handleInputChange}
           />
           <S.Message isValid={isPasswordMatching()}>
-            {inputData.password && inputData.confirmPassword && !isPasswordMatching()
-              ? '비밀번호가 일치하지 않아요'
-              : isPasswordMatching()
-                ? '비밀번호가 일치해요'
-                : ''}
+            {inputData.password === '' || inputData.confirmPassword === ''
+              ? ''
+              : !isPasswordMatching()
+                ? '비밀번호가 일치하지 않아요'
+                : '비밀번호가 일치해요'}
           </S.Message>
         </S.Container>
         <S.Container>
