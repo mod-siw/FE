@@ -12,7 +12,7 @@ export const GetCategoryList = async (category: string, page: number) => {
   }
 };
 
-export const GetDetail = async (post_id: number) => {
+export const GetPostDetail = async (post_id: number) => {
   try {
     const response = await http.get(`/main/black/${post_id}/`);
     console.log('포스트 상세 조회 성공');

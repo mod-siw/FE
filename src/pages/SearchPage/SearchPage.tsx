@@ -6,16 +6,16 @@ import SearchResult from './components/SearchResult';
 import { useSearchInfiniteQuery } from 'hooks/useInfiniteQuery';
 
 const SearchPage = () => {
-  const mock = {
-    message: '블랙 검색기록 조회 성공',
-    data: [
-      { keyword: '허채린' },
-      { keyword: '에스파' },
-      { keyword: '영화' },
-      { keyword: '음악' },
-      { keyword: '디자인' },
-    ],
-  };
+  // const mock = {
+  //   message: '블랙 검색기록 조회 성공',
+  //   data: [
+  //     { keyword: '허채린' },
+  //     { keyword: '에스파' },
+  //     { keyword: '영화' },
+  //     { keyword: '음악' },
+  //     { keyword: '디자인' },
+  //   ],
+  // };
 
   const [query, setQuery] = useState(''); // 검색어
   const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
@@ -37,7 +37,7 @@ const SearchPage = () => {
           fetchNextPage={fetchNextPage}
         />
       ) : (
-        <SearchHistory data={mock.data} query={query} setQuery={setQuery} />
+        <SearchHistory query={query} setQuery={setQuery} />
       )}
     </S.Wrapper>
   );

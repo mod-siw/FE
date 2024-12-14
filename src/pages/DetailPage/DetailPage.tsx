@@ -1,4 +1,4 @@
-import { GetDetail } from 'api/category';
+import { GetPostDetail } from 'api/post';
 import * as S from './DeatilPage.style';
 import { UnionDetail } from 'assets/index';
 import { Union } from 'assets/index';
@@ -23,7 +23,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     const numberId = Number(id);
-    GetDetail(numberId).then((res) => setItemData(res.data));
+    GetPostDetail(numberId).then((res) => setItemData(res.data));
   }, [id]);
 
   return (

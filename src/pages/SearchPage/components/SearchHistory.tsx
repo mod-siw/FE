@@ -1,18 +1,29 @@
+import { useEffect, useState } from 'react';
 import * as S from './SearchHistory.style';
 import { Diagonalarrow } from 'assets';
+import { GetSearchHistory } from 'api/search';
+
+interface HistoryData {
+  keyword: string;
+}
 
 interface SearchHistoryProps {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  data: { keyword: string }[];
 }
 
-const SearchHistory: React.FC<SearchHistoryProps> = ({ data, setQuery }) => {
+const SearchHistory: React.FC<SearchHistoryProps> = ({ setQuery }) => {
+  const [historyData, setHistoryData] = useState<HistoryData[] | null>(null);
+
+  useEffect(() => {
+    GetSearchHistory().then((res) => setHistoryData(res.data));
+  }, []);
+
   return (
     <S.Container>
       <div>최근 검색어</div>
       <ul>
-        {data.map((item, index) => (
+        {historyData?.map((item, index) => (
           <S.HistoryItem key={index} onClick={() => setQuery(item.keyword)}>
             <span>{item.keyword}</span>
             <Diagonalarrow width={24} height={24} />

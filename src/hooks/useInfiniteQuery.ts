@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { GetCategoryList } from 'api/category';
+import { GetCategoryList } from 'api/post';
 import { GetSearchList } from 'api/search';
 import { useMemo } from 'react';
 
