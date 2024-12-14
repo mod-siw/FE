@@ -3,6 +3,7 @@ import * as S from './SearchPage.style';
 import SearchBar from './components/SearchBar';
 import SearchHistory from './components/SearchHistory';
 import SearchResult from './components/SearchResult';
+import { useSearchInfiniteQuery } from 'hooks/useInfiniteQuery';
 
 const SearchPage = () => {
   const mock = {
@@ -17,6 +18,8 @@ const SearchPage = () => {
   };
 
   const [query, setQuery] = useState(''); // 검색어
+  const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useSearchInfiniteQuery(query);
 
   useEffect(() => {
     console.log(query);
@@ -26,7 +29,13 @@ const SearchPage = () => {
     <S.Wrapper>
       <SearchBar isBack={true} query={query} setQuery={setQuery} />
       {query ? (
-        <SearchResult query={query} />
+        <SearchResult
+          query={query}
+          data={items}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
       ) : (
         <SearchHistory data={mock.data} query={query} setQuery={setQuery} />
       )}
