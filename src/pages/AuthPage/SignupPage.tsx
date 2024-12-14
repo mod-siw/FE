@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 
+import { PostSignUp } from 'api/auth';
+import { clearCookies } from 'api/http';
+
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const [inputData, setInputData] = useState({
     id: '',
     pw: '',
@@ -21,10 +27,17 @@ const SignupPage = () => {
   // 비밀번호 일치 여부
   const isPwMatching = () => inputData.pw === inputData.confirmPw;
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (isActive()) {
-      // 회원가입 API 호출 로직
-      console.log('회원가입 요청');
+      try {
+        clearCookies();
+        await PostSignUp(inputData.id, inputData.pw, inputData.nickname);
+        alert('회원가입 성공!');
+        navigate('/');
+      } catch (error) {
+        console.error('회원가입 실패:', error);
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+      }
     }
   };
 

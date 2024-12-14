@@ -4,6 +4,9 @@ import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
+import { PostLogIn } from 'api/auth';
+import { clearCookies } from 'api/http';
+
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -14,10 +17,17 @@ const LoginPage = () => {
 
   const isActive = inputData.id.trim() !== '' && inputData.pw.trim() !== '';
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (isActive) {
-      // 로그인 API 호출 로직
-      console.log('로그인 요청');
+      try {
+        clearCookies();
+        await PostLogIn(inputData.id, inputData.pw);
+        alert('로그인 성공!');
+        navigate('/');
+      } catch (error) {
+        console.error('로그인 실패:', error);
+        alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
+      }
     }
   };
 
