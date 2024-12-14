@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Union } from '../../assets';
+import { S } from './MyPage.style';
+
 import GiftBox from './components/GiftBox';
 import MyGridBox from './components/MyGridBox';
+import Popup from './components/Popup';
 
-import { Eximg } from '../../assets';
+import { Union } from '../../assets';
+import { mock } from './components/Mock';
+
+import { useUser } from 'contexts/UserContext';
+import { PostLogout } from 'api/auth';
 
 interface MyPageProps {
   nickname: string;
@@ -13,18 +18,17 @@ interface MyPageProps {
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const { nickname, clearUserData } = useUser();
+
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
-  const [blocks, setBlocks] = useState<JSX.Element[]>([]);
+  const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
 
   const handleOpen = () => {
     setIsOpened(true);
 
     // 리본 애니메이션 후 블록 API 호출
     setTimeout(() => {
-      // 목데이터
-      const blocks = [<Eximg />, <Eximg />, <Eximg />, <Eximg />];
-      setBlocks(blocks);
       setIsGridVisible(true);
     }, 1000);
   };
@@ -39,106 +43,57 @@ const MyPage = () => {
     navigate('/my/share');
   };
 
+  // 로그아웃
+  const handleLogout = async () => {
+    try {
+      await PostLogout();
+      clearUserData();
+      navigate('/login');
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('nickname in MyPage:', nickname);
+  }, [nickname]);
+
   return (
-    <Wrapper>
-      <Top>
-        <Title>
+    <S.Wrapper>
+      <S.Top>
+        <S.Title>
           2024년
           <br />
-          채린님의 가슴을
+          {nickname}님의 가슴을
           <br />
           뛰게 만든
-        </Title>
-        {isGridVisible && <HomeBtn onClick={handleMain}>home</HomeBtn>}
-      </Top>
+        </S.Title>
+        {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
+      </S.Top>
       {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
-        <MyGridBox blocks={blocks} />
+        <MyGridBox data={mock.data} />
       )}
       {isGridVisible && (
-        <ShareBtn onClick={handleShare}>
-          <Union width={17} />
-          <span>공유하기</span>
-          <Union width={17} />
-        </ShareBtn>
+        <>
+          <S.ShareBtn onClick={handleShare}>
+            <Union width={17} />
+            <span>공유하기</span>
+            <Union width={17} />
+          </S.ShareBtn>
+          <S.LogoutBtn onClick={() => setLogoutPopupVisible(true)}>로그아웃</S.LogoutBtn>
+        </>
       )}
-    </Wrapper>
+      {isLogoutPopupVisible && (
+        <Popup
+          type="logout"
+          onClose={() => setLogoutPopupVisible(false)}
+          onConfirm={handleLogout}
+        />
+      )}
+    </S.Wrapper>
   );
 };
 
 export default MyPage;
-
-const Wrapper = styled.div`
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Top = styled.div`
-  margin-top: 4.2rem;
-  //padding: 0 3rem 0 3rem;
-  //margin-left: 3rem;
-
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0;
-`;
-
-const Title = styled.div`
-  padding-left: 3rem;
-  color: ${({ theme }) => theme.colors.white};
-
-  /* head_medium */
-  font-family: Pretendard;
-  font-size: 3.3rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  white-space: pre-wrap;
-`;
-
-const HomeBtn = styled.div`
-  padding: 0.3rem 3rem 0 0;
-  color: ${({ theme }) => theme.colors.white};
-
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-
-  cursor: pointer;
-`;
-
-const ShareBtn = styled.div`
-  margin-bottom: 36.9rem;
-
-  display: flex;
-  width: 15.6rem;
-  height: 5.6rem;
-  padding: 0.9rem 2.2rem;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  flex-shrink: 0;
-
-  border: 1px solid ${({ theme }) => theme.colors.gray03};
-  background: ${({ theme }) => theme.colors.black};
-
-  cursor: pointer;
-
-  span {
-    color: ${({ theme }) => theme.colors.white};
-
-    /* body16_semibold */
-    font-family: Pretendard;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 2.2rem; /* 137.5% */
-  }
-`;

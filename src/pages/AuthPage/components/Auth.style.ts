@@ -28,11 +28,7 @@ const Input = styled.input<MarginProps>`
 
   color: ${({ theme }) => theme.colors.gray03};
 
-  font-family: Pretendard;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2rem;
+  ${({ theme }) => theme.fonts.body16_medium}
 `;
 
 // 로그인 페이지
@@ -60,6 +56,8 @@ const KakaoBtn = styled.div`
     font-weight: 700;
     line-height: normal;
   }
+
+  cursor: pointer;
 `;
 
 const Line = styled.div`
@@ -74,11 +72,7 @@ const SignupBtn = styled.div`
   color: ${({ theme }) => theme.colors.gray03};
   text-align: center;
 
-  font-family: Pretendard;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  ${({ theme }) => theme.fonts.body14_medium}
 
   cursor: pointer;
 `;
@@ -95,11 +89,7 @@ const Title = styled.div<MarginProps>`
   align-self: flex-start;
   color: ${({ theme }) => theme.colors.white};
 
-  font-family: Pretendard;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2.2rem;
+  ${({ theme }) => theme.fonts.body16_semibold}
 `;
 
 interface MessageProps {
@@ -115,11 +105,7 @@ const Message = styled.div<MessageProps>`
         ? theme.colors.mint01 // 유효
         : theme.colors.magenta01}; // 유효X
 
-  font-family: Pretendard;
-  font-size: 1.2rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  ${({ theme }) => theme.fonts.body16_medium}
 `;
 
 export const S = {
