@@ -97,7 +97,12 @@ const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
 
   return (
     <>
-      <MadeBox color={selectedCircle} frame={selectedFrame} />
+      <MadeBox
+        color={selectedCircle}
+        frame={selectedFrame}
+        conditions={conditions}
+        setConditions={setConditions}
+      />
       <S.Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
         {colorList.map((color) => (
           <S.Circle

@@ -2,8 +2,8 @@ import * as React from 'react';
 import type { SVGProps } from 'react';
 const SvgSymbolTree2 = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100" {...props}>
-    <path fill="#000" d="M.5.5h99v99H.5z" />
-    <path stroke="#fff" d="M.5.5h99v99H.5z" />
+    {/* <path fill="#000" d="M.5.5h99v99H.5z" /> */}
+    <path stroke="#333333" d="M.5.5h99v99H.5z" />
     <mask id="symbolTree2_svg__a" fill="#fff">
       <path
         fillRule="evenodd"
