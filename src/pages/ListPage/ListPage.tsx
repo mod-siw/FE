@@ -1,6 +1,7 @@
 import * as S from './ListPage.style';
 import { useParams } from 'react-router-dom';
 import { pathToCategory } from 'constants/category';
+import { useTheme } from 'contexts/ThemeContext';
 
 // components
 import { Union } from 'assets';
@@ -15,6 +16,7 @@ import { useCategoryInfiniteQuery } from 'hooks/useInfiniteQuery';
 const ListPage = () => {
   const { category } = useParams<{ category: string }>();
   const { isItemClicked } = useItemContext();
+  const { isDarkMode } = useTheme();
 
   const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useCategoryInfiniteQuery(category || 'movie');
@@ -26,10 +28,10 @@ const ListPage = () => {
         <br />
         인생 {pathToCategory[category || 'movie'].name}들
       </S.Title>
-      <S.CreateBtn>
-        <Union width={12.75} height={12.75} />
+      <S.CreateBtn isDarkMode={isDarkMode}>
+        <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
         <span>내 인생작 소개하기</span>
-        <Union width={12.75} height={12.75} />
+        <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
       </S.CreateBtn>
       <ItemList
         data={items}

@@ -3,7 +3,7 @@ import { http } from './http';
 import { getCookie } from './http';
 import { setLocalStorageItem } from 'contexts/UserContext';
 
-// POST: 회원가입
+// POST : 회원가입
 export const PostSignUp = async (
   username: string,
   password: string,
@@ -35,7 +35,7 @@ export const PostSignUp = async (
   }
 };
 
-// POST: 로그인
+// POST : 로그인
 export const PostLogIn = async (username: string, password: string) => {
   try {
     const response = await http.post('/accounts/login/', {
@@ -76,12 +76,107 @@ export const PostDuplicateId = async (username: string) => {
   }
 };
 
-// 로그아웃
+// GET : 카카오 로그인
+export const GetKakaoLogin = async () => {
+  try {
+    const response = await http.get('/accounts/kakao/');
+    console.log('카카오 로그인 성공:', response.data);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('카카오 로그인 실패:', error);
+    return Promise.reject(error);
+  }
+};
+
+// GET : 카카오 로그인 리다이렉트
+export const GetKakaoCallback = async (code: string) => {
+  try {
+    const response = await http.get(`/accounts/kakao/callback/`, {
+      params: { code },
+    });
+
+    const { exist, nickname, username, id, access_token, refresh_token } =
+      response.data.data;
+
+    if (exist) {
+      // 로그인 성공 => 토큰 저장
+      const accessExpirationDate = new Date();
+      accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
+
+      const refreshExpirationDate = new Date();
+      refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3);
+
+      document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+      document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+
+      setLocalStorageItem('nickname', nickname);
+      console.log('카카오 로그인 성공:', response.data);
+    } else {
+      console.log('카카오 회원가입 진행:', response.data);
+    }
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('카카오 리다이렉트 요청 실패:', error);
+    return Promise.reject(error);
+  }
+};
+
+// POST : 카카오 닉네임 입력
+export const PostKakaoNickname = async (nickname: string, username: string) => {
+  try {
+    const response = await http.post('/accounts/kakao/nickname/', {
+      nickname,
+      username,
+    });
+
+    const { access_token, refresh_token } = response.data.data;
+
+    // 토큰 저장
+    const accessExpirationDate = new Date();
+    accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
+
+    const refreshExpirationDate = new Date();
+    refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3);
+
+    document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+
+    setLocalStorageItem('nickname', nickname);
+    console.log('카카오 회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
+    console.log('카카오 회원가입 완료:', response.data);
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('카카오 회원가입 실패:', error);
+    return Promise.reject(error);
+  }
+};
+
+// POST : 로그아웃
 export const PostLogout = async (): Promise<void> => {
   try {
-    await http.post('/accounts/logout/');
+    const accessToken = getCookie('access_token');
+    const refreshToken = getCookie('refresh_token');
+
+    if (!accessToken || !refreshToken) {
+      console.error('토큰이 없습니다. 로그아웃 요청 불가');
+      alert('로그아웃에 실패했습니다. 다시 로그인해 주세요.');
+      return;
+    }
+
+    await http.post(
+      '/accounts/logout/',
+      { refresh_token: refreshToken },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    console.log('로그아웃 성공');
   } catch (error) {
-    console.error('로그아웃 요청 실패:', error);
+    console.error('로그아웃 실패:', error);
   }
 };
 

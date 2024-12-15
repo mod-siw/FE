@@ -9,10 +9,12 @@ import Item from 'components/Item/Item';
 // data
 import { GetPostDetail } from 'api/post';
 import { useItemContext } from 'contexts/ItemContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 const Onboarding = () => {
   const { colorMap } = useRenderFrame();
   const { itemId } = useItemContext();
+  const { isDarkMode } = useTheme();
 
   const [animationStart, setAnimationStart] = useState(false);
 
@@ -20,7 +22,7 @@ const Onboarding = () => {
   const [itemImg, setItemImg] = useState<string>('');
 
   useEffect(() => {
-    GetPostDetail(itemId).then((res) => setItemData(res.data));
+    GetPostDetail(isDarkMode, itemId).then((res) => setItemData(res.data));
   }, []);
 
   const boxColor = itemData?.color ? colorMap[itemData.color] : 'transparent';

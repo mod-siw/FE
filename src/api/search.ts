@@ -1,9 +1,16 @@
 import { http } from './http';
 
-export const GetSearchList = async (keyword: string, page: number) => {
+// GET : 검색 목록 조회
+export const GetSearchList = async (
+  isDarkMode: boolean,
+  keyword: string,
+  page: number,
+) => {
+  const theme = isDarkMode ? 'black' : 'white';
+
   try {
     const response = await http.get(
-      `/main/black/search/?keyword=${keyword}&page=${page}`,
+      `/main/${theme}/search/?keyword=${keyword}&page=${page}`,
     );
     console.log('검색 조회 성공');
     console.log(response);
@@ -14,9 +21,12 @@ export const GetSearchList = async (keyword: string, page: number) => {
   }
 };
 
-export const GetSearchHistory = async () => {
+// GET : 검색 기록 조회
+export const GetSearchHistory = async (isDarkMode: boolean) => {
+  const theme = isDarkMode ? 'black' : 'white';
+
   try {
-    const response = await http.get(`/home/black/search/history`);
+    const response = await http.get(`/home/${theme}/search/history`);
     console.log('검색 기록 조회 성공');
     console.log(response);
     return Promise.resolve(response.data);

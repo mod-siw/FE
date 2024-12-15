@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 
+import { useUser } from 'contexts/UserContext';
+import { PostKakaoNickname } from 'api/auth';
+import { clearCookies } from 'api/http';
+
 const KakaoSignupPage = () => {
+  const navigate = useNavigate();
+  const { setUsername, setNickname } = useUser();
   const [inputData, setInputData] = useState({
     nickname: '',
   });
 
   const isActive = inputData.nickname.trim() !== '';
 
-  const handleKakaoSignup = () => {
-    if (isActive) {
-      // API 로직 추가
-      console.log('카카오 회원가입 요청');
+  const handleKakaoSignup = async () => {
+    if (!isActive) return;
+
+    try {
+      clearCookies();
+      const username = localStorage.getItem('kakao_username');
+      if (!username) throw new Error('카카오 회원가입 중 username을 찾을 수 없습니다.');
+
+      const response = await PostKakaoNickname(inputData.nickname, username);
+
+      setNickname(inputData.nickname);
+      alert('카카오 회원가입이 완료되었습니다!');
+      navigate('/');
+    } catch (error) {
+      console.error('카카오 회원가입 실패:', error);
+      alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 
