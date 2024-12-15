@@ -12,6 +12,10 @@ export const Container = styled.div`
   .swiper-wrapper {
     transition-timing-function: linear;
   }
+  .swiper-slide {
+    width: 35.2rem;
+    margin-right: 3.5rem;
+  }
 `;
 
 export const Slide = styled.img<{ maskId: string }>`

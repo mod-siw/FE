@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTheme } from 'contexts/ThemeContext';
 import * as S from './MainPage.style';
 import { PanInfo } from 'framer-motion';
 
@@ -6,16 +7,21 @@ import Landing from './components/landing/Landing';
 import Scroll from './components/scroll/Scroll';
 import Header from './components/Header';
 import FAB from 'components/FAB/FAB';
-import { mainCategory } from 'constants/main/mainCategory';
+import { mainCategoryBlack, mainCategoryWhite } from 'constants/main/mainCategory';
 
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [dragging, setDragging] = useState(false);
   const yOffsetRef = useRef(0);
 
+  const { isDarkMode } = useTheme();
+  const mainCategories = isDarkMode ? mainCategoryBlack : mainCategoryWhite;
+
   const pages = [
     <Landing />,
-    ...mainCategory.map((category, index) => <Scroll key={index} category={category} />),
+    ...mainCategories.map((category, index) => (
+      <Scroll key={index} category={category} />
+    )),
   ];
 
   const handleDrag = (event: MouseEvent | TouchEvent, info: PanInfo) => {

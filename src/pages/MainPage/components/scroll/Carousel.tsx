@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
@@ -13,24 +13,6 @@ interface CarouselProps {
 
 const Carousel = ({ data }: CarouselProps) => {
   const swiperRef = useRef<any>(null);
-
-  // useEffect(() => {
-  //   const swiperInstance = swiperRef.current?.swiper;
-
-  //   if (swiperInstance) {
-  //     const handleSlideMove = () => {
-  //       if (swiperInstance.isBeginning) {
-  //         swiperInstance.slideNext(8000);
-  //       }
-  //     };
-
-  //     swiperInstance.on('touchMove', handleSlideMove);
-
-  //     return () => {
-  //       swiperInstance.off('touchMove', handleSlideMove);
-  //     };
-  //   }
-  // }, []);
 
   return (
     <S.Container>
