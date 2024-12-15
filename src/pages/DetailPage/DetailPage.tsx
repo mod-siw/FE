@@ -117,12 +117,14 @@ const DetailPage = () => {
                 함께 한 {itemData.category}
               </S.Title>
               <S.Background>
-                <UnionDetail width={535} height={535} />
+                <S.CenterContainer>
+                  <UnionDetail width={535} height={535} />
+                  <S.InfoWrapper>
+                    <S.Information>{itemData.information}</S.Information>
+                    <S.Name>{itemData.name}</S.Name>
+                  </S.InfoWrapper>
+                </S.CenterContainer>
               </S.Background>
-              <S.InfoWrapper>
-                <S.Information>{itemData.information}</S.Information>
-                <S.Name>{itemData.name}</S.Name>
-              </S.InfoWrapper>
               <S.CommentWrapper>
                 <S.Comment color={color}>
                   {itemData.nickname}'s 한줄평
