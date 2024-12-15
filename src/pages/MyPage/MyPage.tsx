@@ -8,8 +8,10 @@ import Popup from './components/Popup';
 
 import { Union } from '../../assets';
 import { mock } from './components/Mock';
+import { useTheme } from 'contexts/ThemeContext';
 
 import { useUser } from 'contexts/UserContext';
+import { GetMyBlack, GetMyWhite } from 'api/my';
 import { PostLogout } from 'api/auth';
 
 interface MyPageProps {
@@ -19,10 +21,26 @@ interface MyPageProps {
 const MyPage = () => {
   const navigate = useNavigate();
   const { nickname, clearUserData } = useUser();
+  const { isDarkMode } = useTheme();
 
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const GetMyList = async () => {
+      try {
+        const data = isDarkMode ? await GetMyBlack() : await GetMyWhite();
+        setItems(data.data.content_list || []);
+        console.log('마이페이지 데이터:', data.data.content_list);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      }
+    };
+
+    GetMyList();
+  }, [isDarkMode]);
 
   const handleOpen = () => {
     setIsOpened(true);
@@ -74,14 +92,14 @@ const MyPage = () => {
       {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
-        <MyGridBox data={mock.data} animate={false} />
+        <MyGridBox data={items} animate={false} />
       )}
       {isGridVisible && (
         <>
           <S.ShareBtn onClick={handleShare}>
-            <Union width={17} />
+            <Union width={17} fill="FFFFFF" />
             <span>공유하기</span>
-            <Union width={17} />
+            <Union width={17} fill="FFFFFF" />
           </S.ShareBtn>
           <S.LogoutBtn onClick={() => setLogoutPopupVisible(true)}>로그아웃</S.LogoutBtn>
         </>
