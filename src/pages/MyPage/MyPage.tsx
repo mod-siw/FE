@@ -87,11 +87,23 @@ const MyPage = () => {
     <S.Wrapper>
       <S.Top>
         <S.Title>
-          2024년
-          <br />
-          {nickname}님의 가슴을
-          <br />
-          뛰게 만든
+          {isDarkMode ? (
+            <>
+              2024년
+              <br />
+              {nickname} 님의 가슴을
+              <br />
+              뛰게 만든
+            </>
+          ) : (
+            <>
+              2024년
+              <br />
+              {nickname} 님의 순간들을
+              <br />
+              함께한
+            </>
+          )}
         </S.Title>
         {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
       </S.Top>
@@ -103,9 +115,9 @@ const MyPage = () => {
       {isGridVisible && (
         <>
           <S.ShareBtn onClick={handleShare}>
-            <Union width={17} fill="FFFFFF" />
+            <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
             <span>공유하기</span>
-            <Union width={17} fill="FFFFFF" />
+            <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
           </S.ShareBtn>
           <S.LogoutBtn onClick={() => setLogoutPopupVisible(true)}>로그아웃</S.LogoutBtn>
         </>

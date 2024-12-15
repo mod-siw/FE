@@ -4,12 +4,14 @@ import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
+import { useTheme } from 'contexts/ThemeContext';
 import { useUser } from 'contexts/UserContext';
 import { PostLogIn } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
   const { setUsername, setNickname } = useUser();
   const [inputData, setInputData] = useState({
     username: '',
