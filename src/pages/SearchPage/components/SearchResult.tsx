@@ -1,7 +1,7 @@
 import * as S from './SearchResult.style';
-import ItemList from 'components/ItemList/ItemList';
 
-import { mock } from '../../ListPage/components/Mock';
+// components
+import ItemList from 'components/ItemList/ItemList';
 
 interface SearchResultProps {
   query: string;
@@ -10,6 +10,7 @@ interface SearchResultProps {
   hasNextPage: boolean;
   fetchNextPage: () => void;
 }
+
 const SearchResult: React.FC<SearchResultProps> = ({
   query,
   data,
@@ -17,17 +18,23 @@ const SearchResult: React.FC<SearchResultProps> = ({
   hasNextPage,
   fetchNextPage,
 }) => {
+  const isNone = data.length === 0; // 데이터 유무
+
   return (
     <>
       <S.Container>
         <div>"{query}"에 대한 검색결과입니다</div>
       </S.Container>
-      <ItemList
-        data={data}
-        isFetchingNextPage={isFetchingNextPage}
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
+      {isNone ? (
+        <S.NoneDiv>검색결과를 찾을 수 없어요</S.NoneDiv>
+      ) : (
+        <ItemList
+          data={data}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      )}
     </>
   );
 };

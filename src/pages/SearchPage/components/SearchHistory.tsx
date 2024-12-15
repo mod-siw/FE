@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as S from './SearchHistory.style';
 import { Diagonalarrow } from 'assets';
+
+// data
 import { GetSearchHistory } from 'api/search';
 
 interface HistoryData {

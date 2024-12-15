@@ -10,25 +10,21 @@ export const useCategoryInfiniteQuery = (category: string) => {
       return GetCategoryList(category, pageParam);
     },
     getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.total_page ? lastPage.page + 1 : undefined,
+      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
     initialPageParam: 1,
   });
 
   const items = useMemo(() => {
-    const allItems = data?.pages ? data.pages.flatMap((page) => page.data) : [];
-    return allItems;
+    if (data?.pages) {
+      return data.pages.flatMap((page) => {
+        if (page.data.results) {
+          return page.data.results;
+        }
+        return page.data;
+      });
+    }
+    return [];
   }, [data]);
-
-  // const items = useMemo(() => {
-  //   if (data?.pages) {
-  //     const allItems = data.pages.flatMap((page) => {
-  //       console.log('page.data', page.data);
-  //       return page.data.results;
-  //     });
-  //     return allItems;
-  //   }
-  //   return [];
-  // }, [data]);
 
   return {
     items,
@@ -45,7 +41,7 @@ export const useSearchInfiniteQuery = (keyword: string) => {
       return GetSearchList(keyword, pageParam);
     },
     getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.total_page ? lastPage.page + 1 : undefined,
+      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
     initialPageParam: 1,
   });
 
