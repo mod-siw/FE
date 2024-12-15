@@ -28,13 +28,13 @@ const expandAnimation = keyframes`
   }
 `;
 
-export const Box = styled.div<{ animationStart: boolean }>`
+export const Box = styled.div<{ animationStart: boolean; color: string }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.mint01};
+  background-color: ${({ color }) => color};
   z-index: 1;
 
   transform-origin: center;

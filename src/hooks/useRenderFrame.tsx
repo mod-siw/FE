@@ -41,7 +41,7 @@ export const useRenderFrame = () => {
         return <FrameSnow fill={fillColor} />;
       case 'HAT':
         return <FrameHat fill={fillColor} />;
-      case '2024':
+      case 'YEAR':
         return <Frame2024 fill={fillColor} />;
       case 'MAN':
         return <FrameMan fill={fillColor} />;
@@ -52,5 +52,5 @@ export const useRenderFrame = () => {
     }
   };
 
-  return { renderFrame };
+  return { colorMap, renderFrame };
 };

@@ -8,6 +8,7 @@ export const Container = styled.header`
   align-items: center;
   width: 100%;
   padding: 0 2.1rem;
+  z-index: 5;
 
   @media (min-width: 576px) {
     width: 390px;
