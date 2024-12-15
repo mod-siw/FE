@@ -5,7 +5,7 @@ import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 
-import { slidesData } from 'constants/mainSlide';
+import { slidesData } from 'constants/main/mainSlide';
 import SnowEffect from './SnowEffect';
 import ItemEffect from './ItemEffect';
 import { mock } from '../Mock';
