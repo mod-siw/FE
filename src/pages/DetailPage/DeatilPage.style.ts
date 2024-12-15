@@ -28,9 +28,9 @@ export const Container = styled.div`
   z-index: 2;
 `;
 
-export const Title = styled.div`
+export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
-  color: ${({ theme }) => theme.colors.mint01};
+  color: ${({ color }) => color};
   margin: 5.1rem 0 0 3.5rem;
 `;
 
@@ -67,21 +67,21 @@ export const CommentWrapper = styled.div`
   padding: 0 3rem;
 `;
 
-export const Comment = styled.div`
+export const Comment = styled.div<{ color: string }>`
   display: flex;
   align-items: center;
   gap: 0.3rem;
   ${({ theme }) => theme.fonts.body16_semibold}
-  color: ${({ theme }) => theme.colors.mint01};
+  color: ${({ color }) => color};
 `;
 
-export const Line = styled.div`
+export const Line = styled.div<{ color: string }>`
   width: 100%;
   height: 0.13rem;
-  background-color: ${({ theme }) => theme.colors.mint01};
+  background-color: ${({ color }) => color};
   margin: 1.1rem 0;
 `;
-export const Description = styled.div`
+export const Description = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body14_medium}
-  color: ${({ theme }) => theme.colors.mint01};
+  color: ${({ color }) => color};
 `;
