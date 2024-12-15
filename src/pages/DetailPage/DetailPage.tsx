@@ -10,14 +10,16 @@ import { Union } from 'assets/index';
 
 // data
 import { GetPostDetail } from 'api/post';
+import { useTheme } from 'contexts/ThemeContext';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const [itemData, setItemData] = useState<ItemData | null>(null);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const numberId = Number(id);
-    GetPostDetail(numberId).then((res) => setItemData(res.data));
+    GetPostDetail(isDarkMode, numberId).then((res) => setItemData(res.data));
   }, [id]);
 
   const { colorMap } = useRenderFrame();
