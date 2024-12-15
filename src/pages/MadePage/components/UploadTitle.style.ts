@@ -14,7 +14,6 @@ export const Input = styled.input`
   color: ${({ theme }) => theme.colors.textColor};
   font: ${({ theme }) => theme.fonts.body16_medium};
 
-  /* placeholder 스타일 */
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray03};
   }
@@ -31,7 +30,11 @@ export const InputWhy = styled.textarea`
   resize: none;
 
   color: ${({ theme }) => theme.colors.textColor};
-  font: ${({ theme }) => theme.fonts.body16_medium};
+
+  font-family: 'Pretendard';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray03};

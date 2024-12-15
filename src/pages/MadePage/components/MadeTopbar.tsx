@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-import { Delete, MiniSymbol } from '../../../assets';
-import { darkTheme } from '../../../styles/theme';
+import { Delete, MiniSymbol } from 'assets';
+import { darkTheme } from 'styles/theme';
+
+import { useFormContext } from '../MadeFormContext';
+import { PostMadeData } from 'api/made';
 
 interface MadeTopbarProps {
   step: number;
@@ -10,10 +14,28 @@ interface MadeTopbarProps {
 }
 
 const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
+  const navigate = useNavigate();
+  const { formData } = useFormContext();
+
+  const handlePost = async () => {
+    await PostMadeData(formData);
+  };
+
+  const handleClick = () => {
+    if (isNextEnabled) {
+      if (step === 2) {
+        handlePost();
+        navigate('/my');
+      } else {
+        onNext();
+      }
+    }
+  };
+
   return (
     <Wrapper>
-      <Delete width={25} />
-      <NextDiv onClick={isNextEnabled ? onNext : undefined} isDisabled={!isNextEnabled}>
+      <Delete width={25} onClick={() => navigate('/my')} />
+      <NextDiv onClick={handleClick} isDisabled={!isNextEnabled}>
         <MiniSymbol
           width={12.75}
           color={!isNextEnabled ? darkTheme.colors.gray02 : darkTheme.colors.textColor}

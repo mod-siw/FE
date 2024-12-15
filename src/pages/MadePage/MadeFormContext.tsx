@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface FormData {
-  category: string | null;
+export interface FormDataType {
+  category: string;
   name: string;
   description: string;
   information: string;
@@ -11,8 +11,8 @@ interface FormData {
 }
 
 interface FormContextValue {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormDataType;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
 }
 
 interface FormProviderProps {
@@ -22,7 +22,7 @@ interface FormProviderProps {
 const FormContext = createContext<FormContextValue | null>(null);
 
 export function FormProvider({ children }: FormProviderProps) {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormDataType>({
     category: '',
     name: '',
     description: '',

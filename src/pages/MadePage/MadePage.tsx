@@ -5,6 +5,7 @@ import MadeTopbar from './components/MadeTopbar';
 import PickTheme from './components/PickTheme';
 import ThumbSearchTap from './components/ThumbSearchTap';
 import UploadTitle from './components/UploadTitle';
+
 import { FormProvider } from './MadeFormContext';
 
 type ConditionState = {
@@ -51,9 +52,6 @@ const MadePage = () => {
 
     if (step < components.length - 1) {
       setStep(step + 1);
-    } else {
-      // 모든 스텝 완료 시 formData를 가져와 API 전송 가능
-      // formData 접근은 useFormContext()를 사용하는 마지막 단계 로직에서 가능
     }
   };
 

@@ -3,8 +3,9 @@ import * as S from './ThumbSearchTap.style';
 
 import MadeBox from './MadeBox';
 import { useFormContext } from '../MadeFormContext';
+import { useRenderFrame } from 'hooks/useRenderFrame';
 
-import { colorList, thumbFrames } from '../dataList';
+import { thumbFrames } from '../dataList';
 
 interface MadeProps {
   conditions: boolean;
@@ -12,43 +13,40 @@ interface MadeProps {
 }
 
 const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
-  const { formData, setFormData } = useFormContext();
+  const { setFormData } = useFormContext();
+  const { colorMap } = useRenderFrame();
 
-  const [selectedCircle, setSelectedCircle] = useState<string | null>('#FF2C2C');
+  const [selectedColorId, setSelectedColorId] = useState<number>(1); // 기본 빨간색 ID: 1
   const [selectedFrame, setSelectedFrame] = useState<string>('SNOW');
 
-  const handleCircleClick = (colorHex: string) => {
-    const newColor = colorHex === selectedCircle ? '#FF2C2C' : colorHex;
-    setSelectedCircle(newColor);
-
-    // newColor에 해당하는 colorList id 찾기
-    const found = colorList.find((c) => c.color === newColor);
-    const colorId = found ? found.id : 1;
-    setFormData((prev) => ({ ...prev, color: colorId }));
+  const handleCircleClick = (colorId: number) => {
+    const newColorId = colorId === selectedColorId ? 1 : colorId;
+    setSelectedColorId(newColorId);
+    setFormData((prev) => ({ ...prev, color: newColorId }));
   };
 
   const handleFrameClick = (name: string) => {
-    const newName = name === selectedFrame ? 'SNOW' : name;
-    setSelectedFrame(newName);
-    setFormData((prev) => ({ ...prev, frame: newName }));
+    const newFrame = name === selectedFrame ? 'SNOW' : name;
+    setSelectedFrame(newFrame);
+    setFormData((prev) => ({ ...prev, frame: newFrame }));
   };
 
   return (
     <>
       <MadeBox
-        color={selectedCircle || '#FF2C2C'}
+        color={selectedColorId}
         frame={selectedFrame}
         conditions={conditions}
         setConditions={setConditions}
       />
       <S.Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-        {colorList.map((c) => (
+        {Object.entries(colorMap).map(([id, color]) => (
           <S.Circle
-            key={c.id}
-            style={{ backgroundColor: c.color }}
-            title={`color-${c.id}`}
-            isSelected={selectedCircle === c.color}
-            onClick={() => handleCircleClick(c.color)}
+            key={id}
+            style={{ backgroundColor: color }}
+            title={`color-${id}`}
+            isSelected={selectedColorId === Number(id)}
+            onClick={() => handleCircleClick(Number(id))}
           />
         ))}
       </S.Container>

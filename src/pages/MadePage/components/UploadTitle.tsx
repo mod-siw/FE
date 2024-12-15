@@ -23,7 +23,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
       const isTitleValid = title.trim().length > 0 && title.trim().length <= 16;
       const isReasonValid = reason.trim().length > 0 && reason.trim().length <= 55;
       setConditions(isTitleValid && isReasonValid);
-
+      console.log(formData);
       setFormData((prev) => ({
         ...prev,
         name: title,
