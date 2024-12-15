@@ -12,7 +12,10 @@ export const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.gray02};
 
   color: ${({ theme }) => theme.colors.textColor};
-  font: ${({ theme }) => theme.fonts.body16_medium};
+  font-family: 'Pretendard';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray03};

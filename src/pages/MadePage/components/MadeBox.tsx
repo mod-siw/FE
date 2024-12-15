@@ -3,7 +3,9 @@ import * as S from './MadeBox.style';
 
 import { madeBoxFrames } from '../dataList';
 import { useFormContext } from '../MadeFormContext';
+import { useTheme } from 'contexts/ThemeContext';
 import { useRenderFrame } from 'hooks/useRenderFrame';
+
 import { SymbolSnow1 } from '../../../assets';
 import SelectPopup from './SelectPopup';
 
@@ -16,6 +18,8 @@ interface MadeProps {
 
 const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeProps) => {
   const { formData, setFormData } = useFormContext();
+  const { isDarkMode } = useTheme();
+
   const { colorMap } = useRenderFrame();
 
   const [file, setFile] = useState<File | null>(null);
@@ -46,11 +50,19 @@ const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeP
     }
   };
 
+  const handleBtn = () => {
+    if (isDarkMode) {
+      setShowSelectPopup(true);
+    } else {
+      handleAlbumClick();
+    }
+  };
+
   // 폼 데이터 업데이트
   useEffect(() => {
     setConditions(Boolean(thumbnailUrl));
     setFormData((prev) => ({ ...prev, img: file || null }));
-    console.log(formData); // 디버깅용
+    console.log(formData);
   }, [thumbnailUrl, file]);
 
   return (
@@ -58,7 +70,9 @@ const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeP
       <S.Wrapper>
         {thumbnailUrl && <S.ImgBox thumbnailUrl={thumbnailUrl} />}
         <S.SymbolWrapper>{selectedFrame}</S.SymbolWrapper>
-        <S.UploBtn onClick={() => setShowSelectPopup(true)}>썸네일 가져오기</S.UploBtn>
+        <S.UploBtn onClick={handleBtn} isDarkMode={isDarkMode}>
+          썸네일 가져오기
+        </S.UploBtn>
         <input
           type="file"
           ref={inputRef}
@@ -67,7 +81,7 @@ const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeP
           onChange={handleFileChange}
         />
       </S.Wrapper>
-      {showSelectPopup && (
+      {showSelectPopup && isDarkMode && (
         <SelectPopup
           onAlbumClick={handleAlbumClick}
           onClose={() => setShowSelectPopup(false)}
