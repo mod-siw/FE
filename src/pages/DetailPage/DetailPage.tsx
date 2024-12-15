@@ -1,22 +1,15 @@
-import { GetPostDetail } from 'api/post';
-import * as S from './DeatilPage.style';
-import { UnionDetail } from 'assets/index';
-import { Union } from 'assets/index';
 import { useEffect, useState } from 'react';
+import * as S from './DeatilPage.style';
 import { useParams } from 'react-router-dom';
 import { useRenderFrame } from 'hooks/useRenderFrame';
+import { ItemData } from 'types/type';
 
-interface ItemData {
-  nickname: string;
-  category: string;
-  name: string;
-  information: string;
-  description: string;
-  is_owner: boolean;
-  img: string;
-  color: number;
-  frame: string;
-}
+// components
+import { UnionDetail } from 'assets/index';
+import { Union } from 'assets/index';
+
+// data
+import { GetPostDetail } from 'api/post';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();

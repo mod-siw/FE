@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as S from './Onboarding.style';
 import { useRenderFrame } from 'hooks/useRenderFrame';
+import { ItemData } from 'types/type';
 
 // components
 import Item from 'components/Item/Item';
@@ -8,18 +9,6 @@ import Item from 'components/Item/Item';
 // data
 import { GetPostDetail } from 'api/post';
 import { useItemContext } from 'contexts/ItemContext';
-
-interface ItemData {
-  nickname: string;
-  category: string;
-  name: string;
-  information: string;
-  description: string;
-  is_owner: boolean;
-  img: string;
-  color: number;
-  frame: string;
-}
 
 const Onboarding = () => {
   const { colorMap } = useRenderFrame();
