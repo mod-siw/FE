@@ -1,5 +1,15 @@
 import { http } from './http';
 
+export const GetMain = async (isDarkMode: boolean) => {
+  const theme = isDarkMode ? 'black' : 'white';
+  try {
+    const response = await http.get(`/home/${theme}/`);
+    return Promise.resolve(response.data.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const GetCategoryList = async (category: string, page: number) => {
   try {
     const response = await http.get(`/main/black/list/${category}/?page=${page}`);
