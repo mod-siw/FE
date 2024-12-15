@@ -3,13 +3,16 @@ import router from './routes/Router';
 import GlobalStyle from './styles/global';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ItemProvider } from 'contexts/ItemContext';
+import { UserProvider } from 'contexts/UserContext';
 
 const App = () => (
   <ThemeProvider>
-    <ItemProvider>
-      <GlobalStyle />
-      <RouterProvider router={router} />
-    </ItemProvider>
+    <UserProvider>
+      <ItemProvider>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </ItemProvider>
+    </UserProvider>
   </ThemeProvider>
 );
 

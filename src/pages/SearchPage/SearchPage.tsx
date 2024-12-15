@@ -1,35 +1,42 @@
 import { useEffect, useState } from 'react';
 import * as S from './SearchPage.style';
+
+// components
 import SearchBar from './components/SearchBar';
 import SearchHistory from './components/SearchHistory';
 import SearchResult from './components/SearchResult';
+import Onboarding from 'pages/ListPage/components/Onboarding';
+
+// data
+import { useItemContext } from 'contexts/ItemContext';
+import { useSearchInfiniteQuery } from 'hooks/useInfiniteQuery';
 
 const SearchPage = () => {
-  const mock = {
-    message: '블랙 검색기록 조회 성공',
-    data: [
-      { keyword: '허채린' },
-      { keyword: '에스파' },
-      { keyword: '영화' },
-      { keyword: '음악' },
-      { keyword: '디자인' },
-    ],
-  };
-
   const [query, setQuery] = useState(''); // 검색어
+  const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useSearchInfiniteQuery(query);
 
   useEffect(() => {
-    console.log(query);
+    console.log('query: ' + query);
   }, [query]);
+
+  const { isItemClicked } = useItemContext(); // 온보딩 트리거
 
   return (
     <S.Wrapper>
-      <SearchBar query={query} setQuery={setQuery} />
+      <SearchBar isBack={true} query={query} setQuery={setQuery} />
       {query ? (
-        <SearchResult query={query} />
+        <SearchResult
+          query={query}
+          data={items}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
       ) : (
-        <SearchHistory data={mock.data} query={query} setQuery={setQuery} />
+        <SearchHistory query={query} setQuery={setQuery} />
       )}
+      {isItemClicked && <Onboarding />}
     </S.Wrapper>
   );
 };

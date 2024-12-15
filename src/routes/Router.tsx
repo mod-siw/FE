@@ -9,6 +9,7 @@ import ShareMyPage from '../pages/MyPage/ShareMyPage';
 import SearchPage from '../pages/SearchPage/SearchPage';
 import ListPage from '../pages/ListPage/ListPage';
 import DetailPage from 'pages/DetailPage/DetailPage';
+import ImgSearchPage from 'pages/SearchPage/ImgSearchPage';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: 'my', element: <MyPage /> },
       { path: 'my/share', element: <ShareMyPage /> },
       { path: 'made', element: <MadePage /> },
+      { path: 'made/img', element: <ImgSearchPage /> },
       { path: 'search/', element: <SearchPage /> },
       { path: 'list/:category', element: <ListPage /> },
       { path: 'detail/:id', element: <DetailPage /> },

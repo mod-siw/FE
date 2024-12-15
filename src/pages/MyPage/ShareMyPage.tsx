@@ -1,62 +1,38 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { S } from './MyPage.style';
 import MyGridBox from './components/MyGridBox';
+import Popup from './components/Popup';
 
-import { Eximg } from '../../assets';
+import { mock } from './components/Mock';
 
 const ShareMyPage: React.FC = () => {
-  // 목데이터
-  const [blocks, setBlocks] = useState<JSX.Element[]>([
-    <Eximg key={0} />,
-    <Eximg key={1} />,
-    <Eximg key={2} />,
-    <Eximg key={3} />,
-  ]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  useEffect(() => {
+    // URL 복사 후 팝업 표시
+    const url = `${window.location.origin}/my/share`;
+    navigator.clipboard.writeText(url).then(() => {
+      setIsPopupVisible(true);
+    });
+  }, []);
 
   return (
-    <Wrapper>
-      <Top>
-        <Title>
+    <S.Wrapper>
+      <S.Top>
+        <S.Title>
           2024년
           <br />
           채린님의 가슴을
           <br />
           뛰게 만든
-        </Title>
-      </Top>
-      <MyGridBox blocks={blocks} num="14.4rem" />
-    </Wrapper>
+        </S.Title>
+      </S.Top>
+      <MyGridBox data={mock.data} num="14.4rem" />
+      {isPopupVisible && (
+        <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
+      )}
+    </S.Wrapper>
   );
 };
 
 export default ShareMyPage;
-
-const Wrapper = styled.div`
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Top = styled.div`
-  margin-top: 4.2rem;
-
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0;
-`;
-
-const Title = styled.div`
-  padding-left: 3rem;
-  color: ${({ theme }) => theme.colors.white};
-
-  /* head_medium */
-  font-family: Pretendard;
-  font-size: 3.3rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  white-space: pre-wrap;
-`;
