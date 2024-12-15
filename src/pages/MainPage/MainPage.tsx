@@ -6,13 +6,17 @@ import Landing from './components/landing/Landing';
 import Scroll from './components/scroll/Scroll';
 import Header from './components/Header';
 import FAB from 'components/FAB/FAB';
+import { mainCategory } from 'constants/main/mainCategory';
 
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [yOffset, setYOffset] = useState(0);
 
-  const pages = [<Landing />, <Scroll />, <Scroll />, <Scroll />];
+  const pages = [
+    <Landing />,
+    ...mainCategory.map((category, index) => <Scroll key={index} category={category} />),
+  ];
 
   const handleDrag = (event: MouseEvent | TouchEvent, info: PanInfo) => {
     setYOffset(info.offset.y);

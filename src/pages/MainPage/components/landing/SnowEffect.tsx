@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './Carousel.style';
 import { useTheme } from 'styled-components';
 import { MiniSymbol2 } from 'assets';
-import { snowData } from 'constants/mainSlide';
+import { snowData } from 'constants/main/mainSlide';
 
 interface SnowEffectProps {
   slideIndex: number;
