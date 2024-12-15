@@ -32,8 +32,8 @@ const MyPage = () => {
     const GetMyList = async () => {
       try {
         const data = isDarkMode ? await GetMyBlack() : await GetMyWhite();
-        setItems(data.content_list || []);
-        console.log('마이페이지 데이터:', data.content_list);
+        setItems(data.data.content_list || []);
+        console.log('마이페이지 데이터:', data.data.content_list);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       }
