@@ -2,7 +2,7 @@ import axios from 'axios';
 import { http } from './http';
 import { getCookie } from './http';
 
-// GET: 화이트 마이페이지
+// GET : 화이트 마이페이지
 export const GetMyWhite = async () => {
   try {
     const accessToken = getCookie('access_token');
@@ -23,7 +23,7 @@ export const GetMyWhite = async () => {
   }
 };
 
-// GET: 블랙 마이페이지
+// GET : 블랙 마이페이지
 export const GetMyBlack = async () => {
   try {
     const accessToken = getCookie('access_token');

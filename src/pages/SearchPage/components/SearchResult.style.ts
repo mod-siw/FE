@@ -12,3 +12,12 @@ export const Container = styled.div`
     margin-bottom: 1.6rem;
   }
 `;
+
+export const NoneDiv = styled.div`
+  width: 100%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${({ theme }) => theme.fonts.body14_medium}
+`;

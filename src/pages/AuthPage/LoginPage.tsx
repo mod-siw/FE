@@ -5,7 +5,7 @@ import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
 import { useUser } from 'contexts/UserContext';
-import { PostLogIn } from 'api/auth';
+import { PostLogIn, GetKakaoLogin } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const LoginPage = () => {
@@ -32,6 +32,22 @@ const LoginPage = () => {
         console.error('로그인 실패:', error);
         alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
       }
+    }
+  };
+
+  const handleKakaoLogin = async () => {
+    try {
+      const response = await GetKakaoLogin();
+
+      const { redirect_url } = response.data;
+      if (redirect_url) {
+        window.location.href = redirect_url;
+      } else {
+        console.error('카카오 로그인 리다이렉트 URL 없음');
+      }
+    } catch (error) {
+      console.error('카카오 로그인 실패:', error);
+      alert('카카오 로그인에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -65,7 +81,7 @@ const LoginPage = () => {
           num2="9.8rem"
           onChange={handleInputChange}
         />
-        <S.KakaoBtn>
+        <S.KakaoBtn onClick={handleKakaoLogin}>
           <Kakaotalk width={20} />
           <span>카카오 로그인</span>
         </S.KakaoBtn>

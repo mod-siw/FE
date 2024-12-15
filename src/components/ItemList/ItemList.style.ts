@@ -25,3 +25,9 @@ export const FadeWrapper = styled.div<{ isFading: boolean }>`
       animation: ${fadeOut} 0.5s forwards;
     `}
 `;
+
+export const BottomDiv = styled.div`
+  width: 100%;
+  height: 10rem;
+  background-color: transparent;
+`;
