@@ -71,10 +71,10 @@ export const GetShareBlack = async () => {
     }
 
     const response = await http.get(`/main/blackshare/${user_id}`);
-    console.log('화이트모드 공유페이지 로드 성공:', response.data);
+    console.log('다크모드 공유페이지 로드 성공:', response.data);
     return response.data;
   } catch (error) {
-    console.error('화이트모드 공유페이지 로드 실패:', error);
+    console.error('다크모드 공유페이지 로드 실패:', error);
     return Promise.reject(error);
   }
 };

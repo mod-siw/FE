@@ -57,7 +57,14 @@ const MyPage = () => {
 
   // 공유하기
   const handleShare = () => {
-    navigate('/my/share', { state: { isDarkMode } });
+    const id = localStorage.getItem('id');
+    const mode = isDarkMode ? 'black' : 'white';
+    if (id) {
+      navigate(`/${nickname}/${id}/${mode}`);
+    } else {
+      console.error('유저 ID를 찾을 수 없습니다.');
+      alert('유저 ID를 확인할 수 없습니다.');
+    }
   };
 
   // 로그아웃
