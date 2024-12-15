@@ -47,7 +47,7 @@ const KakaoBtn = styled.div`
 
   span {
     width: 8.2rem;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.textColor};
     text-align: center;
 
     font-family: Pretendard;
@@ -87,7 +87,7 @@ const Title = styled.div<MarginProps>`
   margin-bottom: 1.7rem;
 
   align-self: flex-start;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textColor};
 
   ${({ theme }) => theme.fonts.body16_semibold}
 `;

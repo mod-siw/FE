@@ -7,7 +7,6 @@ import MyGridBox from './components/MyGridBox';
 import Popup from './components/Popup';
 
 import { Union } from '../../assets';
-import { mock } from './components/Mock';
 import { useTheme } from 'contexts/ThemeContext';
 
 import { useUser } from 'contexts/UserContext';
@@ -31,9 +30,9 @@ const MyPage = () => {
   useEffect(() => {
     const GetMyList = async () => {
       try {
-        const data = isDarkMode ? await GetMyBlack() : await GetMyWhite();
-        setItems(data.data.content_list || []);
-        console.log('마이페이지 데이터:', data.data.content_list);
+        const response = isDarkMode ? await GetMyBlack() : await GetMyWhite();
+        setItems(response.data.content_list || []);
+        console.log('마이페이지 데이터:', response.data.content_list);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       }
@@ -58,7 +57,14 @@ const MyPage = () => {
 
   // 공유하기
   const handleShare = () => {
-    navigate('/my/share');
+    const id = localStorage.getItem('id');
+    const mode = isDarkMode ? 'black' : 'white';
+    if (id) {
+      navigate(`/${nickname}/${id}/${mode}`);
+    } else {
+      console.error('유저 ID를 찾을 수 없습니다.');
+      alert('유저 ID를 확인할 수 없습니다.');
+    }
   };
 
   // 로그아웃
@@ -81,11 +87,23 @@ const MyPage = () => {
     <S.Wrapper>
       <S.Top>
         <S.Title>
-          2024년
-          <br />
-          {nickname}님의 가슴을
-          <br />
-          뛰게 만든
+          {isDarkMode ? (
+            <>
+              2024년
+              <br />
+              {nickname} 님의 가슴을
+              <br />
+              뛰게 만든
+            </>
+          ) : (
+            <>
+              2024년
+              <br />
+              {nickname} 님의 순간들을
+              <br />
+              함께한
+            </>
+          )}
         </S.Title>
         {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
       </S.Top>
@@ -97,9 +115,9 @@ const MyPage = () => {
       {isGridVisible && (
         <>
           <S.ShareBtn onClick={handleShare}>
-            <Union width={17} fill="FFFFFF" />
+            <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
             <span>공유하기</span>
-            <Union width={17} fill="FFFFFF" />
+            <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
           </S.ShareBtn>
           <S.LogoutBtn onClick={() => setLogoutPopupVisible(true)}>로그아웃</S.LogoutBtn>
         </>

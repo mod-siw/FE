@@ -6,6 +6,8 @@ import PickTheme from './components/PickTheme';
 import ThumbSearchTap from './components/ThumbSearchTap';
 import UploadTitle from './components/UploadTitle';
 
+import { FormProvider } from './MadeFormContext';
+
 type ConditionState = {
   pickTheme: boolean;
   thumbSearch: boolean;
@@ -16,7 +18,7 @@ const MadePage = () => {
   const [step, setStep] = useState<number>(0);
   const [conditions, setConditions] = useState<ConditionState>({
     pickTheme: false,
-    thumbSearch: true,
+    thumbSearch: false,
     uploadTitle: false,
   });
 
@@ -54,14 +56,14 @@ const MadePage = () => {
   };
 
   return (
-    <>
+    <FormProvider>
       <MadeTopbar
         step={step}
         onNext={handleNext}
         isNextEnabled={Object.values(conditions)[step]}
       />
       <Wrapper>{components[step]}</Wrapper>
-    </>
+    </FormProvider>
   );
 };
 

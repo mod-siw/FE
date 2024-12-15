@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { useTheme } from 'contexts/ThemeContext';
 import { Union } from '../../../assets';
 
 interface PopupProps {
@@ -9,20 +9,22 @@ interface PopupProps {
 }
 
 const Popup: React.FC<PopupProps> = ({ type, onClose, onConfirm }) => {
+  const { isDarkMode } = useTheme();
+
   return (
     <Wrapper>
       {type === 'clipboard' && (
         <Text>
-          <Union width={12.75} fill="#FFFFFF" />
+          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
           <span>클립보드에 링크 복사 완료</span>
-          <Union width={12.75} fill="#FFFFFF" />
+          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
         </Text>
       )}
       {type === 'logout' && (
         <Text>
-          <Union width={12.75} fill="#FFFFFF" />
+          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
           <span>로그아웃 하시겠어요?</span>
-          <Union width={12.75} fill="#FFFFFF" />
+          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
         </Text>
       )}
       <Line />
@@ -55,7 +57,7 @@ const Wrapper = styled.div`
   width: 29.1rem;
   height: 16.2rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.bgColor};
   background: ${({ theme }) => theme.colors.bgColor};
 
   z-index: 99;
@@ -73,7 +75,7 @@ const Text = styled.div`
   flex-shrink: 0;
 
   span {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.textColor};
     ${({ theme }) => theme.fonts.body16_semibold}
   }
 `;
@@ -87,7 +89,7 @@ const Line = styled.div`
 `;
 
 const CloseBtn = styled.div`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textColor};
   text-align: center;
   ${({ theme }) => theme.fonts.body16_medium}
 
@@ -102,7 +104,7 @@ const Container = styled.div`
 `;
 
 const ActionBtn = styled.div`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textColor};
   text-align: center;
   ${({ theme }) => theme.fonts.body16_medium}
 

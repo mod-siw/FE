@@ -18,7 +18,7 @@ const Top = styled.div`
 
 const Title = styled.div`
   padding-left: 3rem;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textColor};
 
   ${({ theme }) => theme.fonts.head_medium}
 
@@ -27,7 +27,7 @@ const Title = styled.div`
 
 const HomeBtn = styled.div`
   padding: 0.3rem 3rem 0 0;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textColor};
 
   font-family: Pretendard;
   font-size: 14px;
@@ -51,12 +51,12 @@ const ShareBtn = styled.div`
   flex-shrink: 0;
 
   border: 1px solid ${({ theme }) => theme.colors.gray03};
-  background: ${({ theme }) => theme.colors.black};
+  background: ${({ theme }) => theme.colors.bgColor};
 
   cursor: pointer;
 
   span {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.textColor};
 
     ${({ theme }) => theme.fonts.body16_semibold}
   }

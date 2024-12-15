@@ -3,7 +3,7 @@ import type { SVGProps } from 'react';
 const SvgSymbolSnow2 = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100" {...props}>
     <g clipPath="url(#symbolSnow2_svg__a)">
-      <path fill="#000" d="M0 0h100v100H0z" />
+      {/* <path fill="#000" d="M0 0h100v100H0z" /> */}
       <mask id="symbolSnow2_svg__b" fill="#fff">
         <path
           fillRule="evenodd"
@@ -17,7 +17,7 @@ const SvgSymbolSnow2 = (props: SVGProps<SVGSVGElement>) => (
         mask="url(#symbolSnow2_svg__b)"
       />
     </g>
-    <path stroke="#fff" d="M.5.5h99v99H.5z" />
+    <path stroke="#333333" d="M.5.5h99v99H.5z" />
     <defs>
       <clipPath id="symbolSnow2_svg__a">
         <path fill="#fff" d="M0 0h100v100H0z" />

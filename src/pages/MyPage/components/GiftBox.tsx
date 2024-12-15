@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import { useTheme } from 'contexts/ThemeContext';
 
 import { Union } from '../../../assets';
 
@@ -9,6 +10,8 @@ interface boxProps {
 }
 
 const GiftBox: React.FC<boxProps> = ({ isOpened, onOpen }) => {
+  const { isDarkMode } = useTheme();
+
   return (
     <Wrapper>
       <Ribbon />
@@ -19,9 +22,9 @@ const GiftBox: React.FC<boxProps> = ({ isOpened, onOpen }) => {
         <>
           <Square />
           <OpenBtn onClick={onOpen}>
-            <Union width={12.75} />
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
             <span>Open</span>
-            <Union width={12.75} />
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
           </OpenBtn>
         </>
       )}
@@ -81,7 +84,7 @@ const OpenBtn = styled.div`
   z-index: 4;
 
   span {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.textColor};
     ${({ theme }) => theme.fonts.body16_semibold}
   }
 `;

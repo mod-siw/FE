@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       { path: 'signup/kakao', element: <KakaoSignupPage /> },
       { path: 'accounts/kakao/callback', element: <KakaoCallbackHandler /> },
       { path: 'my', element: <MyPage /> },
-      { path: 'my/share', element: <ShareMyPage /> },
+      { path: '/:nickname/:id/:mode', element: <ShareMyPage /> },
       { path: 'made', element: <MadePage /> },
       { path: 'made/img', element: <ImgSearchPage /> },
       { path: 'search/', element: <SearchPage /> },
