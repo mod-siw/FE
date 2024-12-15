@@ -77,19 +77,7 @@ export const PostDuplicateId = async (username: string) => {
 };
 
 // GET : 카카오 로그인
-export const GetKakaoLogin = async () => {
-  try {
-    const response = await http.get('/accounts/kakao/');
-    console.log('카카오 로그인 성공:', response.data);
-    return Promise.resolve(response.data);
-  } catch (error) {
-    console.error('카카오 로그인 실패:', error);
-    return Promise.reject(error);
-  }
-};
-
-// GET : 카카오 로그인 리다이렉트
-export const GetKakaoCallback = async (code: string) => {
+export const KakaoLogin = async (code: string) => {
   try {
     const response = await http.get(`/accounts/kakao/callback/`, {
       params: { code },
@@ -98,26 +86,30 @@ export const GetKakaoCallback = async (code: string) => {
     const { exist, nickname, username, id, access_token, refresh_token } =
       response.data.data;
 
+    const accessExpirationDate = new Date();
+    accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
+
+    const refreshExpirationDate = new Date();
+    refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3);
+
     if (exist) {
-      // 로그인 성공 => 토큰 저장
-      const accessExpirationDate = new Date();
-      accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
-
-      const refreshExpirationDate = new Date();
-      refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3);
-
+      // 이미 접속한 적 있는 경우
+      setLocalStorageItem('nickname', nickname);
       document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
 
       setLocalStorageItem('nickname', nickname);
       console.log('카카오 로그인 성공:', response.data);
-    } else {
-      console.log('카카오 회원가입 진행:', response.data);
-    }
 
+      window.location.replace('/');
+    } else {
+      // 처음 접속한 경우
+      setLocalStorageItem('username', username);
+      window.location.replace('signup/kakao');
+    }
     return Promise.resolve(response.data);
   } catch (error) {
-    console.error('카카오 리다이렉트 요청 실패:', error);
+    console.error('카카오 로그인 실패:', error);
     return Promise.reject(error);
   }
 };
@@ -184,7 +176,8 @@ export const PostLogout = async (): Promise<void> => {
 export const PostToken = async (): Promise<string | null> => {
   const refreshToken = getCookie('refresh_token');
   if (!refreshToken) {
-    window.location.replace('/login'); // 리다이렉트
+    alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+    window.location.replace('/login');
     return null;
   }
 
