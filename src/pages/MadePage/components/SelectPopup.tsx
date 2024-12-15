@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import { MiniSymbol } from '../../../assets';
 
 interface SelectPopupProps {
@@ -7,10 +9,12 @@ interface SelectPopupProps {
 }
 
 const SelectPopup = ({ onAlbumClick, onClose }: SelectPopupProps) => {
+  const navigate = useNavigate();
+
   return (
     <Wrapper onClick={onClose}>
       <Container onClick={(e) => e.stopPropagation()}>
-        <BtnBox>
+        <BtnBox onClick={() => navigate('/made/img')}>
           <MiniSymbol width={12.75} color="#fff" />
           <p>검색</p>
           <MiniSymbol width={12.75} color="#fff" />
