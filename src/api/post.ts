@@ -11,9 +11,15 @@ export const GetMain = async (isDarkMode: boolean) => {
   }
 };
 
-export const GetCategoryList = async (category: string, page: number) => {
+// GET : 카테고리 목록 조회
+export const GetCategoryList = async (
+  isDarkMode: boolean,
+  category: string,
+  page: number,
+) => {
+  const theme = isDarkMode ? 'black' : 'white';
   try {
-    const response = await http.get(`/main/black/list/${category}/?page=${page}`);
+    const response = await http.get(`/main/${theme}/list/${category}/?page=${page}`);
     console.log('카테고리 목록 조회 성공');
     console.log(response);
     return Promise.resolve(response.data);
@@ -23,9 +29,11 @@ export const GetCategoryList = async (category: string, page: number) => {
   }
 };
 
-export const GetPostDetail = async (post_id: number) => {
+// GET : 상세 조회회
+export const GetPostDetail = async (isDarkMode: boolean, post_id: number) => {
+  const theme = isDarkMode ? 'black' : 'white';
   try {
-    const response = await http.get(`/main/black/${post_id}/`);
+    const response = await http.get(`/main/${theme}/${post_id}/`);
     console.log('포스트 상세 조회 성공');
     console.log(response);
     return Promise.resolve(response.data);
