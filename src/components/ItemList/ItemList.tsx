@@ -6,9 +6,11 @@ import { useInView } from 'react-intersection-observer';
 // components
 import Item from 'components/Item/Item';
 import { ClickedSnow } from 'assets/index';
+import { ClickedSnowWhite } from 'assets/index';
 
 // data
 import { useItemContext } from 'contexts/ItemContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 interface ItemListProps {
   data: { id: number; img: string; frame: string; color: number }[];
@@ -24,6 +26,7 @@ const ItemList: React.FC<ItemListProps> = ({
   fetchNextPage,
 }) => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
   const [fadeOut, setFadeOut] = useState<number | null>(null); // 클릭한 아이템 페이드아웃
@@ -71,7 +74,11 @@ const ItemList: React.FC<ItemListProps> = ({
       {data.map((item) => (
         <React.Fragment key={item.id}>
           {itemId === item.id ? (
-            <ClickedSnow />
+            isDarkMode ? (
+              <ClickedSnow />
+            ) : (
+              <ClickedSnowWhite />
+            )
           ) : (
             <S.FadeWrapper isFading={fadeOut === item.id}>
               <Item

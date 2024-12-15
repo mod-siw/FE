@@ -1,5 +1,7 @@
 export { default as Back } from './Back';
 export { default as ClickedSnow } from './ClickedSnow';
+export { default as ClickedSnowWhite } from './ClickedSnowWhite';
+export { default as Close } from './Close';
 export { default as Delete } from './Delete';
 export { default as Diagonalarrow } from './Diagonalarrow';
 export { default as Eximg } from './Eximg';
@@ -10,6 +12,7 @@ export { default as FrameSnow } from './FrameSnow';
 export { default as FrameStar } from './FrameStar';
 export { default as FrameTree } from './FrameTree';
 export { default as Kakaotalk } from './Kakaotalk';
+export { default as Menu } from './Menu';
 export { default as MiniSymbol } from './MiniSymbol';
 export { default as MiniSymbol2 } from './MiniSymbol2';
 export { default as Mydefaultimg } from './Mydefaultimg';

@@ -29,7 +29,7 @@ export const GetCategoryList = async (
   }
 };
 
-// GET : 상세 조회회
+// GET : 상세 조회
 export const GetPostDetail = async (isDarkMode: boolean, post_id: number) => {
   const theme = isDarkMode ? 'black' : 'white';
   try {
