@@ -1,5 +1,6 @@
 export { default as Back } from './Back';
 export { default as ClickedSnow } from './ClickedSnow';
+export { default as ClickedSnowWhite } from './ClickedSnowWhite';
 export { default as Close } from './Close';
 export { default as Delete } from './Delete';
 export { default as Diagonalarrow } from './Diagonalarrow';
