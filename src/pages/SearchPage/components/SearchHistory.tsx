@@ -4,6 +4,7 @@ import { Diagonalarrow } from 'assets';
 
 // data
 import { GetSearchHistory } from 'api/search';
+import { useTheme } from 'contexts/ThemeContext';
 
 interface HistoryData {
   keyword: string;
@@ -15,10 +16,11 @@ interface SearchHistoryProps {
 }
 
 const SearchHistory: React.FC<SearchHistoryProps> = ({ setQuery }) => {
+  const { isDarkMode } = useTheme();
   const [historyData, setHistoryData] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
-    GetSearchHistory().then((res) => setHistoryData(res.data));
+    GetSearchHistory(isDarkMode).then((res) => setHistoryData(res.data));
   }, []);
 
   return (

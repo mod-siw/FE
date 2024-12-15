@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import * as S from './MainPage.style';
 import { PanInfo } from 'framer-motion';
 
@@ -11,7 +11,7 @@ import { mainCategory } from 'constants/main/mainCategory';
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [dragging, setDragging] = useState(false);
-  const [yOffset, setYOffset] = useState(0);
+  const yOffsetRef = useRef(0);
 
   const pages = [
     <Landing />,
@@ -19,7 +19,7 @@ const MainPage = () => {
   ];
 
   const handleDrag = (event: MouseEvent | TouchEvent, info: PanInfo) => {
-    setYOffset(info.offset.y);
+    yOffsetRef.current = info.offset.y;
 
     if (info.offset.y < -100) {
       setDragging(true);
@@ -31,7 +31,7 @@ const MainPage = () => {
       setCurrentPage((prev) => (prev + 1) % pages.length);
       setDragging(true);
     }
-    setYOffset(0);
+    yOffsetRef.current = 0;
     setDragging(false);
   };
 
@@ -43,11 +43,11 @@ const MainPage = () => {
         dragging={dragging}
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={0.8}
+        dragElastic={1}
         onDrag={handleDrag}
         onDragEnd={handleDragEnd}
         initial={{ y: 0 }}
-        animate={dragging ? { y: yOffset } : { y: 0 }}
+        animate={dragging ? { y: yOffsetRef.current } : { y: 0 }}
         transition={{ duration: 0.8 }}
       >
         {pages[currentPage]}
@@ -56,7 +56,9 @@ const MainPage = () => {
       <S.NextPage
         key={`next-${currentPage}`}
         initial={{ y: '50%' }}
-        animate={dragging ? { y: yOffset > 0 ? yOffset : 0 } : { y: '50%' }}
+        animate={
+          dragging ? { y: yOffsetRef.current > 0 ? yOffsetRef.current : 0 } : { y: '50%' }
+        }
         transition={{ duration: 1 }}
         style={{ opacity: dragging ? 0.5 : 1 }}
       >

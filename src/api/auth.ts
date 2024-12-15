@@ -15,7 +15,9 @@ export const PostSignUp = async (
       password,
       nickname,
     });
-    const { access_token, refresh_token } = response.data.data;
+    const { id, access_token, refresh_token } = response.data.data;
+
+    setLocalStorageItem('id', id.toString());
     setLocalStorageItem('nickname', nickname);
     console.log('회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
 
@@ -43,8 +45,11 @@ export const PostLogIn = async (username: string, password: string) => {
       password,
     });
 
-    const { access_token, refresh_token, nickname } = response.data.data;
+    const { id, access_token, refresh_token, nickname } = response.data.data;
+
+    setLocalStorageItem('id', id.toString());
     setLocalStorageItem('nickname', nickname);
+    console.log('로그인 시 로컬스토리지에 저장된 아이디:', id);
 
     // 토큰 저장
     const accessExpirationDate = new Date();
@@ -94,6 +99,7 @@ export const KakaoLogin = async (code: string) => {
 
     if (exist) {
       // 이미 접속한 적 있는 경우
+      setLocalStorageItem('id', id.toString());
       setLocalStorageItem('nickname', nickname);
       document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
@@ -172,7 +178,7 @@ export const PostLogout = async (): Promise<void> => {
   }
 };
 
-// POST : 액세스 토큰 재발급
+// POST: 액세스 토큰 재발급
 export const PostToken = async (): Promise<string | null> => {
   const refreshToken = getCookie('refresh_token');
   if (!refreshToken) {

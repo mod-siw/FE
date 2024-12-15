@@ -35,9 +35,9 @@ const createRollAnimation = (angle: string) => keyframes`
 `;
 
 interface BoxProps {
-  top: string;
-  left: string;
-  angle: string;
+  $top: string;
+  $left: string;
+  $angle: string;
   className: string;
 }
 
@@ -46,40 +46,17 @@ export const Box = styled.div<BoxProps>`
   width: 12rem;
   height: 12rem;
   transform-origin: center;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  transform: rotate(${(props) => props.angle});
+  top: ${(props) => props.$top};
+  left: ${(props) => props.$left};
+  transform: rotate(${(props) => props.$angle});
   &.animate-roll {
-    animation: ${(props) => createRollAnimation(props.angle)} 6s infinite;
-  }
-`;
-
-const moveSnow = (props: SnowProps) => keyframes`
-  0% {
-    top: ${props.top};
-    left: ${props.left};
-  }
-  16.66% {
-    top: calc(${props.top} - 0.5rem);
-    left: calc(${props.left} - 0.5rem);
-  }
-  50% {
-    top: calc(${props.top} - 0.5rem);
-    left: calc(${props.left} - 0.5rem);
-  }
-  66.66% {
-    top: ${props.top};
-    left: ${props.left};
-  }
-  100% {
-    top: ${props.top};
-    left: ${props.left};
+    animation: ${(props) => createRollAnimation(props.$angle)} 6s infinite;
   }
 `;
 
 interface SnowProps {
-  top: string;
-  left: string;
+  $top: string;
+  $left: string;
   className: string;
 }
 
@@ -87,8 +64,8 @@ export const Snow = styled.div<SnowProps>`
   position: absolute;
   width: 1.5rem;
   height: 1.5rem;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
+  top: ${(props) => props.$top};
+  left: ${(props) => props.$left};
   &.animate-roll {
     animation: ${() => createRollAnimation('0deg')} 6s infinite;
   }

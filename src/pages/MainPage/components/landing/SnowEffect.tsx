@@ -15,7 +15,12 @@ const SnowEffect = ({ slideIndex, animationClass }: SnowEffectProps) => {
   return (
     <>
       {snowData[slideIndex]?.map((snow) => (
-        <S.Snow key={snow.id} top={snow.top} left={snow.left} className={animationClass}>
+        <S.Snow
+          key={snow.id}
+          $top={snow.top}
+          $left={snow.left}
+          className={animationClass}
+        >
           <MiniSymbol2 fill={theme.colors.textColor} />
         </S.Snow>
       ))}

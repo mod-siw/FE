@@ -1,15 +1,34 @@
+import { useEffect, useState } from 'react';
+import { useTheme } from 'contexts/ThemeContext';
 import * as S from './Landing.style';
+
 import Carousel from './Carousel';
 import Arrow from '../Arrow';
+import { GetMain } from 'api/post';
+import { Post } from 'types/post';
 
 const Landing = () => {
+  const { isDarkMode } = useTheme();
+  const [nickname, setNickname] = useState('');
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const mainData = await GetMain(isDarkMode);
+      setNickname(mainData.nickname);
+      setPosts(mainData.posts);
+    };
+
+    fetchData();
+  }, [isDarkMode]);
+
   return (
     <S.Wrapper>
       <S.Title>
-        올해의 기억을 담은 <br />
-        채린님의 컬쳐 박스
+        MoY가 포착한 <br />
+        {nickname} 님의 {isDarkMode ? '문화 생활들' : '일상들'}
       </S.Title>
-      <Carousel />
+      <Carousel posts={posts} />
       <Arrow />
     </S.Wrapper>
   );

@@ -7,7 +7,6 @@ import MyGridBox from './components/MyGridBox';
 import Popup from './components/Popup';
 
 import { Union } from '../../assets';
-import { mock } from './components/Mock';
 import { useTheme } from 'contexts/ThemeContext';
 
 import { useUser } from 'contexts/UserContext';
@@ -31,9 +30,9 @@ const MyPage = () => {
   useEffect(() => {
     const GetMyList = async () => {
       try {
-        const data = isDarkMode ? await GetMyBlack() : await GetMyWhite();
-        setItems(data.data.content_list || []);
-        console.log('마이페이지 데이터:', data.data.content_list);
+        const response = isDarkMode ? await GetMyBlack() : await GetMyWhite();
+        setItems(response.data.content_list || []);
+        console.log('마이페이지 데이터:', response.data.content_list);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       }
@@ -58,7 +57,7 @@ const MyPage = () => {
 
   // 공유하기
   const handleShare = () => {
-    navigate('/my/share');
+    navigate('/my/share', { state: { isDarkMode } });
   };
 
   // 로그아웃
