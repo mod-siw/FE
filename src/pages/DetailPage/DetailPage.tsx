@@ -4,6 +4,7 @@ import { UnionDetail } from 'assets/index';
 import { Union } from 'assets/index';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRenderFrame } from 'hooks/useRenderFrame';
 
 interface ItemData {
   nickname: string;
@@ -26,12 +27,15 @@ const DetailPage = () => {
     GetPostDetail(numberId).then((res) => setItemData(res.data));
   }, [id]);
 
+  const { colorMap } = useRenderFrame();
+  const color = itemData?.color ? colorMap[itemData.color] : 'transparent';
+
   return (
     <>
       {itemData && (
         <S.Wrapper img={itemData.img}>
           <S.Container>
-            <S.Title>
+            <S.Title color={color}>
               2024년
               <br />
               {itemData.nickname} 님의 순간을
@@ -46,12 +50,12 @@ const DetailPage = () => {
               <S.Name>{itemData.name}</S.Name>
             </S.InfoWrapper>
             <S.CommentWrapper>
-              <S.Comment>
+              <S.Comment color={color}>
                 {itemData.nickname}'s 한줄평
-                <Union width={17} height={17} fill="#00F184" />
+                <Union width={17} height={17} fill={color} />
               </S.Comment>
-              <S.Line />
-              <S.Description>{itemData.description}</S.Description>
+              <S.Line color={color} />
+              <S.Description color={color}>{itemData.description}</S.Description>
             </S.CommentWrapper>
           </S.Container>
         </S.Wrapper>
