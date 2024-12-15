@@ -37,7 +37,7 @@ const ItemList: React.FC<ItemListProps> = ({
     }
   }, [inView]);
 
-  // 클릭된 아이템에 대해 빈 프레임으로 2초 간 표기
+  // 클릭된 아이템에 대해 빈 프레임으로 1.5초 간 표기
   const handleClick = (id: number) => {
     setFadeOut(id); // 클릭된 아이템 id로 fadeout 활성화
     setTimeout(() => {
@@ -53,7 +53,7 @@ const ItemList: React.FC<ItemListProps> = ({
     if (isItemClicked) {
       const timer = setTimeout(() => {
         setIsItemClicked(false);
-        navigate('/detail/1');
+        navigate(`/detail/${itemId}`);
         setItemId(0);
       }, 6500);
 

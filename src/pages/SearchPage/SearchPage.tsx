@@ -4,6 +4,8 @@ import SearchBar from './components/SearchBar';
 import SearchHistory from './components/SearchHistory';
 import SearchResult from './components/SearchResult';
 import { useSearchInfiniteQuery } from 'hooks/useInfiniteQuery';
+import { useItemContext } from 'contexts/ItemContext';
+import Onboarding from 'pages/ListPage/components/Onboarding';
 
 const SearchPage = () => {
   // const mock = {
@@ -22,13 +24,15 @@ const SearchPage = () => {
     useSearchInfiniteQuery(query);
 
   useEffect(() => {
-    console.log(query);
+    console.log('query: ' + query);
   }, [query]);
+
+  const { isItemClicked } = useItemContext();
 
   return (
     <S.Wrapper>
       <SearchBar isBack={true} query={query} setQuery={setQuery} />
-      {query ? (
+      {/* {query ? (
         <SearchResult
           query={query}
           data={items}
@@ -38,7 +42,15 @@ const SearchPage = () => {
         />
       ) : (
         <SearchHistory query={query} setQuery={setQuery} />
-      )}
+      )} */}
+      <SearchResult
+        query={query}
+        data={items}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+      />
+      {isItemClicked && <Onboarding />}
     </S.Wrapper>
   );
 };

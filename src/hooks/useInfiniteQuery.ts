@@ -14,21 +14,21 @@ export const useCategoryInfiniteQuery = (category: string) => {
     initialPageParam: 1,
   });
 
-  // const items = useMemo(() => {
-  //   const allItems = data?.pages ? data.pages.flatMap((page) => page.data) : [];
-  //   return allItems;
-  // }, [data]);
-
   const items = useMemo(() => {
-    if (data?.pages) {
-      const allItems = data.pages.flatMap((page) => {
-        console.log('page.data', page.data);
-        return page.data;
-      });
-      return allItems;
-    }
-    return [];
+    const allItems = data?.pages ? data.pages.flatMap((page) => page.data) : [];
+    return allItems;
   }, [data]);
+
+  // const items = useMemo(() => {
+  //   if (data?.pages) {
+  //     const allItems = data.pages.flatMap((page) => {
+  //       console.log('page.data', page.data);
+  //       return page.data.results;
+  //     });
+  //     return allItems;
+  //   }
+  //   return [];
+  // }, [data]);
 
   return {
     items,
@@ -51,11 +51,12 @@ export const useSearchInfiniteQuery = (keyword: string) => {
 
   const items = useMemo(() => {
     if (data?.pages) {
-      const allItems = data.pages.flatMap((page) => {
-        console.log('page.data', page.data);
+      return data.pages.flatMap((page) => {
+        if (page.data.results) {
+          return page.data.results;
+        }
         return page.data;
       });
-      return allItems;
     }
     return [];
   }, [data]);

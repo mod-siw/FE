@@ -34,8 +34,8 @@ const ListPage = () => {
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
       />
-      <FAB />
       {isItemClicked && <Onboarding />}
+      <FAB />
     </S.Wrapper>
   );
 };
