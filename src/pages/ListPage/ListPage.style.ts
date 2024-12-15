@@ -14,7 +14,7 @@ export const Title = styled.div<{
   margin-top: 4.2rem;
 `;
 
-export const CreateBtn = styled.div`
+export const CreateBtn = styled.div<{ isDarkMode: boolean }>`
   width: 16rem;
   height: 4.2rem;
   padding: 0.75rem;
@@ -25,11 +25,11 @@ export const CreateBtn = styled.div`
   margin: 4.4rem 0 4.2rem 0;
   justify-self: flex-end;
 
-  border: 0.075rem solid #fff;
+  border: 0.075rem solid ${({ isDarkMode }) => (isDarkMode ? '#ffffff' : '#000000')};
   cursor: pointer;
 
   span {
     ${({ theme }) => theme.fonts.button_semibold}
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ isDarkMode }) => (isDarkMode ? '#ffffff' : '#000000')};
   }
 `;
