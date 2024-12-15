@@ -10,7 +10,7 @@ export const useCategoryInfiniteQuery = (category: string) => {
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getCategoryList', category],
     queryFn: ({ pageParam = 1 }) => {
-      return GetCategoryList(isDarkMode, '영화', pageParam);
+      return GetCategoryList(isDarkMode, category, pageParam);
     },
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,

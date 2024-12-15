@@ -28,6 +28,7 @@ export const UpperBtn = styled.div`
   position: absolute;
   top: 1.76rem;
   right: 1.5rem;
+  cursor: pointer;
 `;
 
 export const Container = styled.div`

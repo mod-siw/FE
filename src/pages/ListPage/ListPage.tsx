@@ -18,8 +18,10 @@ const ListPage = () => {
   const { isItemClicked } = useItemContext();
   const { isDarkMode } = useTheme();
 
+  const categoryName = pathToCategory[category || 'movie']?.name || '영화';
+
   const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useCategoryInfiniteQuery(category || 'movie');
+    useCategoryInfiniteQuery(categoryName);
 
   return (
     <S.Wrapper>

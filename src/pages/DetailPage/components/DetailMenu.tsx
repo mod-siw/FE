@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface DetailMenuProps {
   post_id: number;
+  handleCapture: () => void;
+  setOpenMenu: (value: boolean) => void;
 }
-const DetailMenu = ({ post_id }: DetailMenuProps) => {
+const DetailMenu = ({ post_id, handleCapture, setOpenMenu }: DetailMenuProps) => {
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
 
@@ -16,16 +18,19 @@ const DetailMenu = ({ post_id }: DetailMenuProps) => {
     navigate('/my');
   };
 
-  // 내보내기
-  const handleCapture = () => {
-    // 캡처~~
+  // 내보내기 (메뉴 모달 닫힌 후 캡처)
+  const handleExport = () => {
+    setOpenMenu(false);
+    setTimeout(() => {
+      handleCapture();
+    }, 500);
   };
 
   return (
     <>
       <Wrapper>
         <Btn onClick={handleDelete}>삭제</Btn>
-        <Btn onClick={handleCapture}>내보내기</Btn>
+        <Btn onClick={handleExport}>내보내기</Btn>
       </Wrapper>
     </>
   );
