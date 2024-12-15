@@ -1,11 +1,14 @@
-import { useParams } from 'react-router-dom';
 import * as S from './ListPage.style';
-import ItemList from 'components/ItemList/ItemList';
-import FAB from 'components/FAB/FAB';
+import { useParams } from 'react-router-dom';
 import { pathToCategory } from 'constants/category';
-import { Union } from 'assets';
 
+// components
+import { Union } from 'assets';
+import FAB from 'components/FAB/FAB';
 import Onboarding from './components/Onboarding';
+import ItemList from 'components/ItemList/ItemList';
+
+// data
 import { useItemContext } from 'contexts/ItemContext';
 import { useCategoryInfiniteQuery } from 'hooks/useInfiniteQuery';
 
