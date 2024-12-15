@@ -180,7 +180,7 @@ export const PostLogout = async (): Promise<void> => {
   }
 };
 
-// POST : 액세스 토큰 재발급
+// POST: 액세스 토큰 재발급
 export const PostToken = async (): Promise<string | null> => {
   const refreshToken = getCookie('refresh_token');
   if (!refreshToken) {

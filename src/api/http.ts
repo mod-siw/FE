@@ -9,6 +9,7 @@ export const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const token = getCookie('access_token');
+    console.log('인터셉터에서 읽은 토큰:', token);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -65,6 +66,7 @@ http.interceptors.response.use(
 // 쿠키
 
 export const getCookie = (name: string): string | null => {
+  console.log('현재 저장된 쿠키:', document.cookie);
   const cookies = document.cookie.split(';');
   for (let cookie of cookies) {
     cookie = cookie.trim();
