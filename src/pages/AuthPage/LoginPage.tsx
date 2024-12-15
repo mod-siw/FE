@@ -4,12 +4,14 @@ import { S } from './components/Auth.style';
 import TopBar from './components/TopBar';
 import { Kakaotalk } from '../../assets';
 
+import { useTheme } from 'contexts/ThemeContext';
 import { useUser } from 'contexts/UserContext';
-import { PostLogIn, GetKakaoLogin } from 'api/auth';
+import { PostLogIn } from 'api/auth';
 import { clearCookies } from 'api/http';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
   const { setUsername, setNickname } = useUser();
   const [inputData, setInputData] = useState({
     username: '',
@@ -36,19 +38,15 @@ const LoginPage = () => {
   };
 
   const handleKakaoLogin = async () => {
-    try {
-      const response = await GetKakaoLogin();
+    const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
 
-      const { redirect_url } = response.data;
-      if (redirect_url) {
-        window.location.href = redirect_url;
-      } else {
-        console.error('카카오 로그인 리다이렉트 URL 없음');
-      }
-    } catch (error) {
-      console.error('카카오 로그인 실패:', error);
-      alert('카카오 로그인에 실패했습니다. 다시 시도해주세요.');
+    if (!kakaoAuthUrl) {
+      console.error('Kakao Auth URL이 설정되지 않았습니다.');
+      alert('카카오 로그인 URL 설정이 잘못되었습니다. 관리자에게 문의하세요.');
+      return;
     }
+
+    window.location.href = kakaoAuthUrl;
   };
 
   const handleSignup = () => {
