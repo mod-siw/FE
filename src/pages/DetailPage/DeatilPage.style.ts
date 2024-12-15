@@ -24,6 +24,12 @@ export const Wrapper = styled.div<{ img: string }>`
   }
 `;
 
+export const UpperBtn = styled.div`
+  position: absolute;
+  top: 1.76rem;
+  right: 1.5rem;
+`;
+
 export const Container = styled.div`
   z-index: 2;
 `;
@@ -31,7 +37,7 @@ export const Container = styled.div`
 export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
   color: ${({ color }) => color};
-  margin: 5.1rem 0 0 3.5rem;
+  margin: 4.16rem 0 0 2.9rem;
 `;
 
 export const Background = styled.div`

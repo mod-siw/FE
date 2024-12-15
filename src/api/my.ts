@@ -43,3 +43,23 @@ export const GetMyBlack = async () => {
     return Promise.reject(error);
   }
 };
+
+// DEL : 포스트 삭제
+export const DeleteMyPost = async (isDarkMode: boolean, post_id: number) => {
+  const theme = isDarkMode ? 'black' : 'white';
+
+  try {
+    const accessToken = getCookie('access_token');
+
+    if (!accessToken) {
+      throw new Error('토큰이 올바르지 않습니다.');
+    }
+    const response = await http.delete(`/main/${theme}/${post_id}/delete/`);
+    console.log('포스트 삭제 성공');
+    console.log(response);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log('포스트 삭제 실패', error);
+    return Promise.reject(error);
+  }
+};

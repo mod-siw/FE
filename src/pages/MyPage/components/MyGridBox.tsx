@@ -27,10 +27,10 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
         setClickedId(id);
       }, 600); // 애니메이션 지속 시간과 동일
       setTimeout(() => {
-        navigate(`/detail/${id}`);
+        navigate(`/detail/${id}`, { state: { from: 'my' } });
       }, 1500); // 애니메이션 후 이동
     } else {
-      navigate(`/detail/${id}`); // 바로 이동
+      navigate(`/detail/${id}`, { state: { from: 'my' } }); // 바로 이동
     }
   };
 
