@@ -9,6 +9,7 @@ export const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const token = getCookie('access_token');
+    console.log('인터셉터에서 읽은 토큰:', token);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -42,7 +43,10 @@ http.interceptors.response.use(
         const newAccessToken = response.data.data.access_token;
 
         // Access Token 갱신
-        setCookie('access_token', newAccessToken, 5 / 24); // 5시간
+        setCookie('access_token', newAccessToken, 5 / 24);
+        //const expires = new Date();
+        //expires.setHours(expires.getHours() + 5);
+        //document.cookie = `access_token=${newAccessToken};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
 
         // 갱신된 토큰으로 재요청
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -62,6 +66,7 @@ http.interceptors.response.use(
 // 쿠키
 
 export const getCookie = (name: string): string | null => {
+  console.log('현재 저장된 쿠키:', document.cookie);
   const cookies = document.cookie.split(';');
   for (let cookie of cookies) {
     cookie = cookie.trim();
@@ -75,7 +80,7 @@ export const getCookie = (name: string): string | null => {
 export const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date();
   expires.setDate(expires.getDate() + days);
-  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
 };
 
 export const deleteCookie = (name: string) => {

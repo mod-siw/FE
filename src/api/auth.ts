@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { http } from './http';
-import { getCookie, setCookie } from './http';
+import { getCookie } from './http';
 import { setLocalStorageItem } from 'contexts/UserContext';
 
 // POST: 회원가입
@@ -19,8 +19,14 @@ export const PostSignUp = async (
     setLocalStorageItem('nickname', nickname);
     console.log('회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
 
-    setCookie('access_token', access_token, 5 / 24);
-    setCookie('refresh_token', refresh_token, 3);
+    // 토큰 저장
+    const accessExpirationDate = new Date();
+    accessExpirationDate.setHours(accessExpirationDate.getHours() + 5); // 5시간 후 만료
+    const refreshExpirationDate = new Date();
+    refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3); // 3일 후 만료
+
+    document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
 
     return Promise.resolve(response.data);
   } catch (error) {
@@ -36,21 +42,19 @@ export const PostLogIn = async (username: string, password: string) => {
       username,
       password,
     });
-    console.log('로그인 API 응답 데이터:', response.data);
 
     const { access_token, refresh_token, nickname } = response.data.data;
     setLocalStorageItem('nickname', nickname);
-    console.log('로그인 시 로컬스토리지에 저장된 닉네임:', nickname);
-    console.log(
-      '닉네임이 localStorage에 저장되었는지 확인:',
-      localStorage.getItem('nickname'),
-    );
-    console.log('로그인 API 응답 데이터:', response.data);
-    console.log('nickname:', response.data.data.nickname);
 
     // 토큰 저장
-    setCookie('access_token', access_token, 5 / 24); // 5시간
-    setCookie('refresh_token', refresh_token, 3); // 3일
+    const accessExpirationDate = new Date();
+    accessExpirationDate.setHours(accessExpirationDate.getHours() + 5); // 5시간 후 만료
+    const refreshExpirationDate = new Date();
+    refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3); // 3일 후 만료
+
+    document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    console.log('token: ', document.cookie);
 
     return Promise.resolve(response);
   } catch (error) {
@@ -81,8 +85,8 @@ export const PostLogout = async (): Promise<void> => {
   }
 };
 
-// Access Token 갱신
-export const refreshAccessToken = async (): Promise<string | null> => {
+// POST: 액세스 토큰 재발급
+export const PostToken = async (): Promise<string | null> => {
   const refreshToken = getCookie('refresh_token');
   if (!refreshToken) {
     window.location.replace('/login'); // 리다이렉트
@@ -96,7 +100,12 @@ export const refreshAccessToken = async (): Promise<string | null> => {
     const newAccessToken = response.data.data.access_token;
 
     // Access Token 갱신
-    setCookie('access_token', newAccessToken, 5 / 24); // 5시간
+    const accessExpirationDate = new Date();
+    accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
+
+    document.cookie = `access_token=${newAccessToken}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    console.log('Access Token 갱신 후 쿠키 상태:', document.cookie);
+
     return newAccessToken;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
