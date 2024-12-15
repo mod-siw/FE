@@ -8,7 +8,7 @@ import ImgItem from './components/ImgItem';
 const ImgSearchPage = () => {
   const [query, setQuery] = useState(''); // 검색어
   const data = ImgMock.data;
-  const isNone = false; // 임시
+  const isNone = true; // 임시
 
   const handleClick = (id: number) => {
     console.log(id);
