@@ -1,5 +1,6 @@
 import { http } from './http';
 
+// GET: 메인 조회
 export const GetMain = async (isDarkMode: boolean) => {
   const theme = isDarkMode ? 'black' : 'white';
   try {

@@ -17,8 +17,7 @@ const Scroll = ({ category }: ScrollProps) => {
   return (
     <S.Wrapper>
       <S.Title color={categoryColor}>
-        {category.title[0]}
-        <br />
+        {category.title[0]} <br />
         {category.title[1]}
       </S.Title>
       <S.ListLink color={categoryColor}>-&gt; 리스트로 보기</S.ListLink>
