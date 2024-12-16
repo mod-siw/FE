@@ -160,7 +160,7 @@ export const mainCategoryBlack = [
 export const mainCategoryWhite = [
   {
     category: 'travel',
-    title: ['유저들의 2024년 속', '여행지 한 곳씩 모아봤어요'],
+    title: ['유저들의 2024년 속', '여행지 하나씩 모아봤어요'],
     data: [
       {
         id: 1,
@@ -264,7 +264,7 @@ export const mainCategoryWhite = [
   },
   {
     category: 'item',
-    title: ['유저들의 2024년 속', '아이템 한 개씩 모아봤어요'],
+    title: ['유저들의 2024년 속', '아이템 하나씩 모아봤어요'],
     data: [
       {
         id: 1,

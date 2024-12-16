@@ -6,21 +6,16 @@ import { snowData } from 'constants/main/mainSlide';
 
 interface SnowEffectProps {
   slideIndex: number;
-  animationClass: string;
+  $angle: string;
 }
 
-const SnowEffect = ({ slideIndex, animationClass }: SnowEffectProps) => {
+const SnowEffect = ({ slideIndex, $angle }: SnowEffectProps) => {
   const theme = useTheme();
 
   return (
     <>
       {snowData[slideIndex]?.map((snow) => (
-        <S.Snow
-          key={snow.id}
-          $top={snow.top}
-          $left={snow.left}
-          className={animationClass}
-        >
+        <S.Snow key={snow.id} $top={snow.top} $left={snow.left} $angle={$angle}>
           <MiniSymbol2 fill={theme.colors.textColor} />
         </S.Snow>
       ))}

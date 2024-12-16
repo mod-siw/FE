@@ -31,7 +31,7 @@ const Input = styled.input<MarginProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray02};
   background: transparent;
 
-  color: ${({ theme }) => theme.colors.gray03};
+  color: ${({ theme }) => theme.colors.textColor};
 
   ${({ theme }) => theme.fonts.body16_medium}
 

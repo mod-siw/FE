@@ -38,14 +38,14 @@ const Onboarding = () => {
           ? 'https://cafe24.poxo.com/ec01/isjm01/1A66J+oWTqAze9jtV45BSnUy6sLYarZlZVaIv2IR+OXbKUJU/yjrdIqeQVsgSq/TPAqgTmUf6IUaF2SAEgkhVg==/_/web/product/big/202408/62215000a72ff9c85d3dfe6cf494f150.jpg'
           : 'https://www.shutterstock.com/image-illustration/white-background-full-hd-image-260nw-2225809323.jpg',
       );
-    }, 1500);
+    }, 800);
     return () => clearTimeout(timer);
   }, [itemData?.img]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimationStart(true);
-    }, 1500); // 확장 애니메이션 전 1.5초 지연
+    }, 800); // 확장 애니메이션 전 1.5초 지연
 
     return () => clearTimeout(timer);
   }, []);

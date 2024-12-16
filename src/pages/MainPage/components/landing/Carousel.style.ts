@@ -1,11 +1,12 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 6.6rem;
+  margin-top: auto;
+  margin-bottom: 35%;
   overflow-x: hidden;
   flex-shrink: 0;
   .swiper {
-    height: 40rem;
+    height: 29rem;
   }
 `;
 
@@ -15,63 +16,35 @@ export const BoxContainer = styled.div`
   width: 100%;
 `;
 
-const createRollAnimation = (angle: string) => keyframes`
-  0%, 12.53% {
-    transform: rotate(${angle});
-  }
-  16.7%, 29.23% {
-    transform: rotate(${parseInt(angle) + 60}deg);
-  }
-  33.4%, 45.93% {
-    transform: rotate(${parseInt(angle) + 120}deg);
-  }
-  50.1%, 62.63% {
-    transform: rotate(${parseInt(angle) + 180}deg);
-  }
-  66.8%, 79.33% {
-    transform: rotate(${parseInt(angle) + 240}deg);
-  }
-  83.5%, 95.97% {
-    transform: rotate(${parseInt(angle) + 300}deg); 
-  }
-  100% {
-    transform: rotate(${parseInt(angle) + 360}deg); 
-  }
-`;
-
 interface BoxProps {
   $top: string;
   $left: string;
   $angle: string;
-  className: string;
 }
 
 export const Box = styled.div<BoxProps>`
   position: absolute;
-  width: 12rem;
-  height: 12rem;
+  width: 10.2rem;
+  height: 10.2rem;
   transform-origin: center;
   top: ${(props) => props.$top};
   left: ${(props) => props.$left};
   transform: rotate(${(props) => props.$angle});
-  &.animate-roll {
-    animation: ${(props) => createRollAnimation(props.$angle)} 24s infinite;
-  }
+  transition: transform 1s cubic-bezier(0.5, 1, 0.5, 1);
 `;
 
 interface SnowProps {
   $top: string;
   $left: string;
-  className: string;
+  $angle: string;
 }
 
 export const Snow = styled.div<SnowProps>`
   position: absolute;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   top: ${(props) => props.$top};
   left: ${(props) => props.$left};
-  &.animate-roll {
-    animation: ${() => createRollAnimation('0deg')} 24s infinite;
-  }
+  transform: rotate(${(props) => props.$angle});
+  transition: transform 1s cubic-bezier(0.5, 1, 0.5, 1);
 `;

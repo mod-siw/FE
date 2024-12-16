@@ -16,8 +16,7 @@ interface CarouselProps {
 
 const Carousel = ({ posts }: CarouselProps) => {
   const [reverseDirection, setReverseDirection] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [animationClass, setAnimationClass] = useState('animate-roll');
+  const [currentAngle, setCurrentAngle] = useState(0);
 
   const handleSlideChange = useCallback(
     (swiper: any) => {
@@ -27,20 +26,10 @@ const Carousel = ({ posts }: CarouselProps) => {
         setReverseDirection(false);
       }
 
-      if (!isAnimating) {
-        setIsAnimating(true);
-        setTimeout(() => {
-          setAnimationClass('animate-roll');
-        }, 1000);
-      }
+      setCurrentAngle((prevAngle) => prevAngle + (reverseDirection ? -60 : 60));
     },
-    [isAnimating],
+    [reverseDirection],
   );
-
-  const handleTouchStart = useCallback(() => {
-    setIsAnimating(false);
-    setAnimationClass('');
-  }, []);
 
   const repeatedPosts = useMemo(() => {
     return [...Array(17)].map((_, index) => posts[index % posts.length]);
@@ -59,7 +48,6 @@ const Carousel = ({ posts }: CarouselProps) => {
         slidesPerView="auto"
         freeMode={true}
         onSlideChange={handleSlideChange}
-        onTouchStart={handleTouchStart}
       >
         {slidesData.map((boxes, slideIndex) => (
           <SwiperSlide key={slideIndex}>
@@ -76,15 +64,14 @@ const Carousel = ({ posts }: CarouselProps) => {
                       key={box.id}
                       top={box.top}
                       left={box.left}
-                      angle={box.initialAngle}
-                      animationClass={animationClass}
+                      angle={`${parseInt(box.initialAngle) + currentAngle}deg`}
                       data={repeatedPosts[dataIndex]}
                     />
                   );
                 }
                 return null;
               })}
-              <SnowEffect slideIndex={slideIndex} animationClass={animationClass} />
+              <SnowEffect slideIndex={slideIndex} $angle={`${currentAngle}deg`} />
             </S.BoxContainer>
           </SwiperSlide>
         ))}

@@ -28,8 +28,6 @@ http.interceptors.response.use(
 
       const refreshToken = getCookie('refresh_token');
       if (!refreshToken) {
-        // Refresh token 없음
-        console.warn('Refresh token이 없습니다.');
         return Promise.reject(error);
       }
 
@@ -51,7 +49,7 @@ http.interceptors.response.use(
         console.error('Access Token 갱신 실패:', refreshError);
         deleteCookie('access_token');
         deleteCookie('refresh_token');
-        return Promise.reject(refreshError); // 강제 리다이렉션 제거
+        return Promise.reject(refreshError);
       }
     }
 
