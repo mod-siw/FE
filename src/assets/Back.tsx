@@ -3,7 +3,7 @@ import type { SVGProps } from 'react';
 const SvgBack = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" {...props}>
     <path
-      stroke="#fff"
+      stroke={props.stroke}
       strokeLinecap="square"
       strokeLinejoin="round"
       strokeMiterlimit={10}

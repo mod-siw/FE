@@ -37,15 +37,13 @@ const LoginPage = () => {
     }
   };
 
-  const handleKakaoLogin = async () => {
-    const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
-
+  const handleKakaoLogin = () => {
+    const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL || '';
     if (!kakaoAuthUrl) {
-      console.error('Kakao Auth URL이 설정되지 않았습니다.');
-      alert('카카오 로그인 URL 설정이 잘못되었습니다. 관리자에게 문의하세요.');
+      console.error('Kakao Auth URL is not defined.');
+      alert('카카오 로그인 URL이 설정되지 않았습니다.');
       return;
     }
-
     window.location.href = kakaoAuthUrl;
   };
 

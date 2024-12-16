@@ -30,6 +30,7 @@ export const UploBtn = styled.button`
   padding: 1.4rem 2rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   border-radius: 5rem;
   background: rgba(255, 255, 255, 0.2);

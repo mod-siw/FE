@@ -9,7 +9,7 @@ import { clearCookies } from 'api/http';
 
 const KakaoSignupPage = () => {
   const navigate = useNavigate();
-  const { setUsername, setNickname } = useUser();
+  const { setNickname } = useUser();
   const [inputData, setInputData] = useState({
     nickname: '',
   });
@@ -21,7 +21,7 @@ const KakaoSignupPage = () => {
 
     try {
       clearCookies();
-      const username = localStorage.getItem('kakao_username');
+      const username = localStorage.getItem('kakaoUsername');
       if (!username) throw new Error('카카오 회원가입 중 username을 찾을 수 없습니다.');
 
       const response = await PostKakaoNickname(inputData.nickname, username);

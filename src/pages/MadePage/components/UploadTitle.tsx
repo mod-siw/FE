@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as S from './UploadTitle.style';
+import { useFormContext } from '../MadeFormContext';
 
 interface MadeProps {
   conditions: boolean;
@@ -7,14 +8,35 @@ interface MadeProps {
 }
 
 const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
+  const { formData, setFormData } = useFormContext();
   const [title, setTitle] = useState('');
   const [reason, setReason] = useState('');
 
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
-    const isTitleValid = title.trim().length > 0 && title.trim().length <= 16;
-    const isReasonValid = reason.trim().length > 0 && reason.trim().length <= 55;
-    setConditions(isTitleValid && isReasonValid);
-  }, [title, reason, setConditions]);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    timerRef.current = setTimeout(() => {
+      const isTitleValid = title.trim().length > 0 && title.trim().length <= 16;
+      const isReasonValid = reason.trim().length > 0 && reason.trim().length <= 55;
+      setConditions(isTitleValid && isReasonValid);
+      console.log(formData);
+      setFormData((prev) => ({
+        ...prev,
+        name: title,
+        description: reason,
+      }));
+    }, 300);
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [title, reason]);
 
   return (
     <>

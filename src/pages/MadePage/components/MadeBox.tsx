@@ -1,37 +1,40 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import * as S from './MadeBox.style';
 
-import {
-  SymbolSnow1,
-  SymbolTree1,
-  SymbolHat1,
-  SymbolYear1,
-  SymbolMan1,
-  SymbolStar1,
-} from '../../../assets';
+import { madeBoxFrames } from '../dataList';
+import { useFormContext } from '../MadeFormContext';
+import { useRenderFrame } from 'hooks/useRenderFrame';
+import { SymbolSnow1 } from '../../../assets';
+import SelectPopup from './SelectPopup';
 
 interface MadeProps {
-  color: string | null;
-  frame: number | null;
+  color: number;
+  frame: string | null;
+  conditions: boolean;
+  setConditions: (value: boolean) => void;
 }
 
-const MadeBox = ({ color = '#FF2C2C', frame = 1 }: MadeProps) => {
+const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeProps) => {
+  const { formData, setFormData } = useFormContext();
+  const { colorMap } = useRenderFrame();
+
+  const [file, setFile] = useState<File | null>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const [showSelectPopup, setShowSelectPopup] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const frameList = [
-    { id: 1, component: <SymbolSnow1 color={color || '#fff'} width={361} /> },
-    { id: 2, component: <SymbolTree1 color={color || '#fff'} width={361} /> },
-    { id: 3, component: <SymbolHat1 color={color || '#fff'} width={361} /> },
-    { id: 4, component: <SymbolYear1 color={color || '#fff'} width={361} /> },
-    { id: 5, component: <SymbolMan1 color={color || '#fff'} width={361} /> },
-    { id: 6, component: <SymbolStar1 color={color || '#fff'} width={361} /> },
-  ];
+  const selectedColorHex = colorMap[color] || '#FF2C2C';
+  const frameItem = madeBoxFrames.find((item) => item.name === frame);
 
-  const selectedFrame = frameList.find((item) => item.id === frame)?.component;
+  const selectedFrame = frameItem ? (
+    frameItem.component(selectedColorHex)
+  ) : (
+    <SymbolSnow1 color="#FF2C2C" width={361} />
+  );
 
-  const handleButtonClick = () => {
+  const handleAlbumClick = () => {
     inputRef.current?.click();
+    setShowSelectPopup(false);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,25 +42,38 @@ const MadeBox = ({ color = '#FF2C2C', frame = 1 }: MadeProps) => {
     if (file) {
       const url = URL.createObjectURL(file);
       setThumbnailUrl(url);
+      setFile(file);
     }
   };
 
+  // 폼 데이터 업데이트
+  useEffect(() => {
+    setConditions(Boolean(thumbnailUrl));
+    setFormData((prev) => ({ ...prev, img: file || null }));
+    console.log(formData); // 디버깅용
+  }, [thumbnailUrl, file]);
+
   return (
-    <S.Wrapper>
-      {thumbnailUrl && <S.ImgBox thumbnailUrl={thumbnailUrl} />}
-      {/* Symbol을 감싸는 래퍼에 z-index 부여 */}
-      <S.SymbolWrapper>
-        {selectedFrame || <SymbolSnow1 color="FF2C2C" width={361} />}
-      </S.SymbolWrapper>
-      <S.UploBtn onClick={handleButtonClick}>썸네일 가져오기</S.UploBtn>
-      <input
-        type="file"
-        ref={inputRef}
-        style={{ display: 'none' }}
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        {thumbnailUrl && <S.ImgBox thumbnailUrl={thumbnailUrl} />}
+        <S.SymbolWrapper>{selectedFrame}</S.SymbolWrapper>
+        <S.UploBtn onClick={() => setShowSelectPopup(true)}>썸네일 가져오기</S.UploBtn>
+        <input
+          type="file"
+          ref={inputRef}
+          style={{ display: 'none' }}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </S.Wrapper>
+      {showSelectPopup && (
+        <SelectPopup
+          onAlbumClick={handleAlbumClick}
+          onClose={() => setShowSelectPopup(false)}
+        />
+      )}
+    </>
   );
 };
 

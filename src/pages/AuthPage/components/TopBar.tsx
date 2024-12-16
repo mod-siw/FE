@@ -23,16 +23,34 @@ const TopBar: React.FC<TopBarProps> = ({ buttonText, onClick, isActive }) => {
         id="back-icon"
         style={{ cursor: 'pointer' }}
         onClick={() => navigate(-1)}
+        stroke={isDarkMode ? '#FFFFFF' : '#0E0C0C'}
       />
+
       <SubmitBtn isActive={isActive} isDarkMode={isDarkMode}>
         <Union
           width={12.75}
-          fill={isActive ? (isDarkMode ? '#FFFFFF' : '#0E0C0C') : '#E8E8E8'}
+          fill={
+            isActive
+              ? isDarkMode
+                ? '#FFFFFF'
+                : '#0E0C0C'
+              : isDarkMode
+                ? '#333333'
+                : '#E8E8E8'
+          }
         />
         <span onClick={onClick}>{buttonText}</span>
         <Union
           width={12.75}
-          fill={isActive ? (isDarkMode ? '#FFFFFF' : '#0E0C0C') : '#E8E8E8'}
+          fill={
+            isActive
+              ? isDarkMode
+                ? '#FFFFFF'
+                : '#0E0C0C'
+              : isDarkMode
+                ? '#333333'
+                : '#E8E8E8'
+          }
         />
       </SubmitBtn>
     </Wrapper>
@@ -59,11 +77,7 @@ const SubmitBtn = styled.div<{ isActive: boolean; isDarkMode: boolean }>`
 
   span {
     color: ${({ theme, isActive, isDarkMode }) =>
-      isActive
-        ? isDarkMode
-          ? theme.colors.white
-          : theme.colors.textColor
-        : theme.colors.gray02};
+      isActive ? theme.colors.textColor : theme.colors.gray02};
     ${({ theme }) => theme.fonts.body16_semibold}
   }
 `;
