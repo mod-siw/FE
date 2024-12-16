@@ -35,7 +35,7 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
 
   const handlePost = async () => {
     await PostMadeData(formData);
-    // resetFormData();
+    resetFormData();
   };
 
   const handleDelete = () => {

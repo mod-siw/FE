@@ -35,7 +35,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
         name: title,
         description: reason,
       }));
-    }, 300);
+    }, 500);
 
     return () => {
       if (timerRef.current) {
