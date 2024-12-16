@@ -86,7 +86,7 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 3rem;
-  margin-top: 45.4rem;
+  margin-top: 106%;
 `;
 
 export const Comment = styled.div<{ color: string }>`
