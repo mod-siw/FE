@@ -19,6 +19,7 @@ export const Container = styled.div`
 `;
 
 export const Slide = styled.img<{ maskId: string }>`
+  margin-left: -4rem;
   width: 35.2rem;
   height: 35.2rem;
   flex-shrink: 0;
@@ -38,7 +39,7 @@ export const Slide = styled.img<{ maskId: string }>`
 export const Gradient = styled.div<{ maskId: string }>`
   position: absolute;
   top: 0;
-  left: 0;
+  left: -4rem;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 25%, #000 100%);

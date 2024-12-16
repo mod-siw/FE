@@ -11,7 +11,6 @@ import { mainCategoryBlack, mainCategoryWhite } from 'constants/main/mainCategor
 
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [dragging, setDragging] = useState(false);
   const yOffsetRef = useRef(0);
 
   const { isDarkMode } = useTheme();
@@ -26,19 +25,12 @@ const MainPage = () => {
 
   const handleDrag = (event: MouseEvent | TouchEvent, info: PanInfo) => {
     yOffsetRef.current = info.offset.y;
-
-    if (info.offset.y < -100) {
-      setDragging(true);
-    }
   };
 
   const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
     if (info.offset.y < -100) {
       setCurrentPage((prev) => (prev + 1) % pages.length);
-      setDragging(true);
     }
-    yOffsetRef.current = 0;
-    setDragging(false);
   };
 
   return (
@@ -46,30 +38,16 @@ const MainPage = () => {
       <Header />
       <S.Page
         key={currentPage}
-        dragging={dragging}
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={1}
+        dragElastic={0}
         onDrag={handleDrag}
         onDragEnd={handleDragEnd}
         initial={{ y: 0 }}
-        animate={dragging ? { y: yOffsetRef.current } : { y: 0 }}
         transition={{ duration: 0.8 }}
       >
         {pages[currentPage]}
       </S.Page>
-
-      <S.NextPage
-        key={`next-${currentPage}`}
-        initial={{ y: '50%' }}
-        animate={
-          dragging ? { y: yOffsetRef.current > 0 ? yOffsetRef.current : 0 } : { y: '50%' }
-        }
-        transition={{ duration: 1 }}
-        style={{ opacity: dragging ? 0.5 : 1 }}
-      >
-        {pages[(currentPage + 1) % pages.length]}
-      </S.NextPage>
       <FAB />
     </S.Wrapper>
   );

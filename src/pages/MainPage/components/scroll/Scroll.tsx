@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import * as S from './Scroll.style';
 import Carousel from './Carousel';
-import Arrow from '../Arrow';
 import { pathToCategory } from 'constants/category';
+import Arrow from '../Arrow';
 
 interface ScrollProps {
   category: {

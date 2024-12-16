@@ -4,7 +4,6 @@ export const Container = styled.div`
   margin-top: 8.6rem;
   overflow-x: hidden;
   flex-shrink: 0;
-  z-index: 1;
   .swiper {
     height: 40rem;
   }
@@ -17,20 +16,26 @@ export const BoxContainer = styled.div`
 `;
 
 const createRollAnimation = (angle: string) => keyframes`
-  0% {
+  0%, 12.53% {
     transform: rotate(${angle});
   }
-  16.66% {
-    transform: rotate(${parseInt(angle) - 180}deg);
+  16.7%, 29.23% {
+    transform: rotate(${parseInt(angle) + 60}deg);
   }
-  50% {
-    transform: rotate(${parseInt(angle) - 180}deg);
+  33.4%, 45.93% {
+    transform: rotate(${parseInt(angle) + 120}deg);
   }
-  66.66% {
-    transform: rotate(${parseInt(angle) - 360}deg);
+  50.1%, 62.63% {
+    transform: rotate(${parseInt(angle) + 180}deg);
+  }
+  66.8%, 79.33% {
+    transform: rotate(${parseInt(angle) + 240}deg);
+  }
+  83.5%, 95.97% {
+    transform: rotate(${parseInt(angle) + 300}deg); 
   }
   100% {
-    transform: rotate(${parseInt(angle) - 360}deg);
+    transform: rotate(${parseInt(angle) + 360}deg); 
   }
 `;
 
@@ -50,7 +55,7 @@ export const Box = styled.div<BoxProps>`
   left: ${(props) => props.$left};
   transform: rotate(${(props) => props.$angle});
   &.animate-roll {
-    animation: ${(props) => createRollAnimation(props.$angle)} 6s infinite;
+    animation: ${(props) => createRollAnimation(props.$angle)} 24s infinite;
   }
 `;
 
@@ -67,6 +72,6 @@ export const Snow = styled.div<SnowProps>`
   top: ${(props) => props.$top};
   left: ${(props) => props.$left};
   &.animate-roll {
-    animation: ${() => createRollAnimation('0deg')} 6s infinite;
+    animation: ${() => createRollAnimation('0deg')} 24s infinite;
   }
 `;

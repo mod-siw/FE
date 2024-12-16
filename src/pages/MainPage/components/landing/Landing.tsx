@@ -30,12 +30,12 @@ const Landing = () => {
       {token ? (
         <S.Title>
           {isDarkMode ? '2024년 문화와 함께 한' : '2024년 일상 속'} <br />
-          {nickname}이이이님의 순간
+          {nickname}님의 순간
         </S.Title>
       ) : (
         <S.Title>
           MoY가 포착한 <br />
-          {nickname}오님의 {isDarkMode ? '문화생활' : '일상'}
+          {nickname}님의 {isDarkMode ? '문화생활' : '일상'}
         </S.Title>
       )}
       <Carousel posts={posts} />

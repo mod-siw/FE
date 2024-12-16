@@ -20,16 +20,16 @@ const Carousel = ({ data }: CarouselProps) => {
         ref={swiperRef}
         modules={[Autoplay, FreeMode]}
         autoplay={{
-          delay: 1,
+          delay: 3000,
           disableOnInteraction: false,
         }}
-        speed={3000}
+        speed={1000}
         loop={true}
         slidesPerView="auto"
         freeMode={true}
       >
         {data.map((item, i) => (
-          <SwiperSlide>
+          <SwiperSlide key={item.id}>
             <S.Slide
               maskId={i % 2 === 0 ? 'symbol01-mask' : 'symbol02-mask'}
               src={item.img}
