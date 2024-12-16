@@ -19,7 +19,6 @@ export const PostSignUp = async (
 
     setLocalStorageItem('id', id.toString());
     setLocalStorageItem('nickname', nickname);
-    console.log('회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
 
     // 토큰 저장
     const accessExpirationDate = new Date();
@@ -49,7 +48,6 @@ export const PostLogIn = async (username: string, password: string) => {
 
     setLocalStorageItem('id', id.toString());
     setLocalStorageItem('nickname', nickname);
-    console.log('로그인 시 로컬스토리지에 저장된 아이디:', id);
 
     // 토큰 저장
     const accessExpirationDate = new Date();
@@ -59,7 +57,6 @@ export const PostLogIn = async (username: string, password: string) => {
 
     document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
     document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
-    console.log('token: ', document.cookie);
 
     return Promise.resolve(response);
   } catch (error) {
@@ -156,7 +153,6 @@ export const PostLogout = async (): Promise<void> => {
     const refreshToken = getCookie('refresh_token');
 
     if (!accessToken || !refreshToken) {
-      console.error('토큰이 없습니다. 로그아웃 요청 불가');
       alert('로그아웃에 실패했습니다. 다시 로그인해 주세요.');
       return;
     }
@@ -170,10 +166,7 @@ export const PostLogout = async (): Promise<void> => {
         },
       },
     );
-    console.log('로그아웃 성공');
-  } catch (error) {
-    console.error('로그아웃 실패:', error);
-  }
+  } catch (error) {}
 };
 
 // POST: 액세스 토큰 재발급
@@ -205,7 +198,7 @@ export const PostToken = async (): Promise<string | null> => {
     } else {
       console.error('알 수 없는 오류:', error);
     }
-    window.location.replace('/login'); // 리다이렉트
+    window.location.replace('/login');
     return null;
   }
 };

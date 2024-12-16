@@ -29,7 +29,6 @@ const ShareMyPage: React.FC = () => {
         const response = isDarkMode ? await GetShareBlack() : await GetShareWhite();
 
         setItems(response.data.posts || []);
-        console.log('마이페이지 데이터:', response.data.content_list);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       }

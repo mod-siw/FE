@@ -24,6 +24,13 @@ export const Wrapper = styled.div<{ img: string }>`
   }
 `;
 
+export const UpperBtn = styled.div`
+  position: absolute;
+  top: 1.76rem;
+  right: 1.5rem;
+  cursor: pointer;
+`;
+
 export const Container = styled.div`
   z-index: 2;
 `;
@@ -31,23 +38,37 @@ export const Container = styled.div`
 export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
   color: ${({ color }) => color};
-  margin: 5.1rem 0 0 3.5rem;
+  margin: 4.16rem 0 0 2.9rem;
 `;
 
 export const Background = styled.div`
   position: absolute;
-  top: 12rem;
+  top: 41.5%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const CenterContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const InfoWrapper = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.1rem;
-  margin: 33.75rem 0 13.3rem 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const Information = styled.div`
@@ -65,6 +86,7 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 3rem;
+  margin-top: 45.4rem;
 `;
 
 export const Comment = styled.div<{ color: string }>`
