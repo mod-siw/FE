@@ -1,6 +1,7 @@
 import * as S from './SearchBar.style';
-import { Back } from 'assets';
+import { BackBtn } from 'assets';
 import { Search } from 'assets';
+import { useTheme } from 'contexts/ThemeContext';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +16,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
   const handleBack = () => {
     navigate(-1);
   };
-
+  const { isDarkMode } = useTheme();
+  console.log(isDarkMode, ': isDarkMode');
   const inputRef = useRef<HTMLInputElement>(null); // 입력창 ref
 
   useEffect(() => {
@@ -36,7 +38,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
   return (
     <S.Container>
       {isBack ? (
-        <Back width={24} height={24} style={{ cursor: 'pointer' }} onClick={handleBack} />
+        <BackBtn
+          width={24}
+          height={24}
+          stroke={isDarkMode ? '#ffffff' : '#000000'}
+          style={{ cursor: 'pointer' }}
+          onClick={handleBack}
+        />
       ) : (
         <></>
       )}
