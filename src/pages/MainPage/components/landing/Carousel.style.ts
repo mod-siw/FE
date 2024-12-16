@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 8.6rem;
+  margin-top: 6.6rem;
   overflow-x: hidden;
   flex-shrink: 0;
   .swiper {

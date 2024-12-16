@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import * as S from './ImgSearchPage.style';
 import { useFormContext } from 'contexts/MadeFormContext';
 import { GetSearchImg } from 'api/made';
+import { useTheme } from 'contexts/ThemeContext';
 
 import { debounce } from 'lodash';
 
@@ -19,6 +20,7 @@ interface ImgItemType {
 
 const ImgSearchPage = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   const { formData, setFormData } = useFormContext();
   const [query, setQuery] = useState('');
@@ -66,7 +68,12 @@ const ImgSearchPage = () => {
     <>
       <FixedDiv>
         <S.TopbarDiv>
-          <Back width={25} />
+          <BackDiv
+            width={25}
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate(-1)}
+            stroke={isDarkMode ? '#FFFFFF' : '#0E0C0C'}
+          />
           <S.TopbarTitle>이미지 검색</S.TopbarTitle>
           <span style={{ width: 25 }}></span>
         </S.TopbarDiv>
@@ -94,3 +101,5 @@ export default ImgSearchPage;
 const FixedDiv = styled(S.FixedDiv)`
   background-color: ${({ theme }) => theme.colors.bgColor};
 `;
+
+const BackDiv = styled(Back)``;

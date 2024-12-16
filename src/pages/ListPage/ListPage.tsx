@@ -1,5 +1,5 @@
 import * as S from './ListPage.style';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { pathToCategory } from 'constants/category';
 import { useTheme } from 'contexts/ThemeContext';
 
@@ -12,12 +12,22 @@ import ItemList from 'components/ItemList/ItemList';
 // data
 import { useItemContext } from 'contexts/ItemContext';
 import { useCategoryInfiniteQuery } from 'hooks/useInfiniteQuery';
+import { getLocalStorageItem } from 'contexts/UserContext';
 
 const ListPage = () => {
+  const navigate = useNavigate();
   const { category } = useParams<{ category: string }>();
   const { isItemClicked } = useItemContext();
   const { isDarkMode } = useTheme();
+  const nickname = getLocalStorageItem('nickname');
 
+  const handleGoMake = () => {
+    if (nickname) {
+      navigate('/made', { state: { prev: `/detail/${category}` } });
+    } else {
+      navigate('/login');
+    }
+  };
   const categoryName = pathToCategory[category || 'movie']?.name || '영화';
 
   const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
@@ -30,7 +40,7 @@ const ListPage = () => {
         <br />
         인생 {pathToCategory[category || 'movie'].name}들
       </S.Title>
-      <S.CreateBtn isDarkMode={isDarkMode}>
+      <S.CreateBtn isDarkMode={isDarkMode} onClick={handleGoMake}>
         <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
         <span>내 인생작 소개하기</span>
         <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />

@@ -34,7 +34,7 @@ const ItemList: React.FC<ItemListProps> = ({
   // 무한스크롤
   const [ref, inView] = useInView({
     threshold: 0.1,
-    rootMargin: '100px',
+    rootMargin: '10px',
   });
 
   useEffect(() => {
@@ -43,8 +43,6 @@ const ItemList: React.FC<ItemListProps> = ({
       console.log(inView, '다음페이지');
     }
   }, [inView]);
-
-  console.log(inView, ': inView');
 
   // 아이템 클릭 시 애니메이션
   const handleClick = (id: number) => {

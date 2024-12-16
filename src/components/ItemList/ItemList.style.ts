@@ -14,7 +14,7 @@ export const Container = styled.div`
   width: 33.6rem;
   grid-template-columns: 1fr 1fr;
   gap: 1.6rem;
-  margin-bottom: 9.8rem;
+  padding-bottom: 4.2rem;
   justify-self: center;
 `;
 
