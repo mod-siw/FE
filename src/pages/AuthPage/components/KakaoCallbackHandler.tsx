@@ -5,20 +5,20 @@ import { KakaoLogin } from 'api/auth';
 const KakaoCallbackHandler = () => {
   const navigate = useNavigate();
 
-  const getData = async () => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-
-    if (!code) {
-      alert('카카오 인증 코드가 없습니다.');
-      navigate('/login');
-      return;
-    }
-
-    const response = await KakaoLogin(code);
-  };
+  const params = new URL(window.location.toString()).searchParams;
+  const code = params.get('code');
 
   useEffect(() => {
+    const getData = async () => {
+      if (!code) {
+        alert('카카오 인증 코드가 없습니다.');
+        navigate('/login');
+        return;
+      }
+
+      const response = await KakaoLogin(code, navigate);
+    };
+
     getData();
   }, []);
 

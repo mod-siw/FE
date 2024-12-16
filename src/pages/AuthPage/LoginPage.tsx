@@ -26,26 +26,22 @@ const LoginPage = () => {
         clearCookies();
         const response = await PostLogIn(inputData.username, inputData.password);
         setUsername(inputData.username);
-        console.log('nickname returned from PostLogIn:', response.data.data.nickname);
         setNickname(response.data.data.nickname);
         alert('로그인 성공!');
         navigate('/');
       } catch (error) {
-        console.error('로그인 실패:', error);
         alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
       }
     }
   };
 
-  const handleKakaoLogin = async () => {
-    const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
-
+  const handleKakaoLogin = () => {
+    const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL || '';
     if (!kakaoAuthUrl) {
-      console.error('Kakao Auth URL이 설정되지 않았습니다.');
-      alert('카카오 로그인 URL 설정이 잘못되었습니다. 관리자에게 문의하세요.');
+      console.error('Kakao Auth URL is not defined.');
+      alert('카카오 로그인 URL이 설정되지 않았습니다.');
       return;
     }
-
     window.location.href = kakaoAuthUrl;
   };
 
