@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { S } from './MyPage.style';
 
 import GiftBox from './components/GiftBox';
@@ -20,6 +20,7 @@ interface MyPageProps {
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { nickname, clearUserData } = useUser();
   const { isDarkMode } = useTheme();
 
@@ -28,6 +29,8 @@ const MyPage = () => {
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const token = getCookie('access_token');
+
+  const prevState = location.state?.isOpened ?? true;
 
   useEffect(() => {
     if (!token) {
@@ -110,7 +113,7 @@ const MyPage = () => {
         </S.Title>
         {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
       </S.Top>
-      {!isGridVisible ? (
+      {prevState && !isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
         <MyGridBox data={items} animate={false} />

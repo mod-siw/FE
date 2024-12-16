@@ -26,17 +26,17 @@ http.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      try {
-        const refreshToken = getCookie('refresh_token');
-        if (!refreshToken) {
-          throw new Error('Refresh token not found');
-        }
+      const refreshToken = getCookie('refresh_token');
+      if (!refreshToken) {
+        // Refresh token 없음
+        console.warn('Refresh token이 없습니다.');
+        return Promise.reject(error);
+      }
 
+      try {
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/accounts/token/refresh/`,
-          {
-            refresh: refreshToken,
-          },
+          { refresh: refreshToken },
         );
 
         const newAccessToken = response.data.data.access_token;
@@ -44,14 +44,14 @@ http.interceptors.response.use(
         // Access Token 갱신
         setCookie('access_token', newAccessToken, 5 / 24);
 
-        // 갱신된 토큰으로 재요청
+        // 재요청
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return http(originalRequest);
       } catch (refreshError) {
         console.error('Access Token 갱신 실패:', refreshError);
         deleteCookie('access_token');
         deleteCookie('refresh_token');
-        window.location.replace('/login');
+        return Promise.reject(refreshError); // 강제 리다이렉션 제거
       }
     }
 

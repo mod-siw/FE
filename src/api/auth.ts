@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { http } from './http';
-import { getCookie } from './http';
+import { getCookie, setCookie, deleteCookie } from './http';
 import { setLocalStorageItem } from 'contexts/UserContext';
 
 // POST : 회원가입
@@ -168,8 +168,7 @@ export const PostLogout = async (): Promise<void> => {
 export const PostToken = async (): Promise<string | null> => {
   const refreshToken = getCookie('refresh_token');
   if (!refreshToken) {
-    alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-    window.location.replace('/login');
+    console.warn('세션이 만료되었습니다. Refresh token이 없습니다.');
     return null;
   }
 
@@ -177,21 +176,19 @@ export const PostToken = async (): Promise<string | null> => {
     const response = await http.post('/accounts/token/refresh/', {
       refresh: refreshToken,
     });
+
     const newAccessToken = response.data.data.access_token;
 
+    // Access Token 저장
     const accessExpirationDate = new Date();
     accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
-
-    document.cookie = `access_token=${newAccessToken}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
+    setCookie('access_token', newAccessToken, 5 / 24);
 
     return newAccessToken;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error('Access Token 갱신 실패:', error.response?.data || error.message);
-    } else {
-      console.error('알 수 없는 오류:', error);
-    }
-    window.location.replace('/login');
+  } catch (error) {
+    console.error('Access Token 갱신 실패:', error);
+    deleteCookie('access_token');
+    deleteCookie('refresh_token');
     return null;
   }
 };
