@@ -5,6 +5,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: 8.7rem;
   height: 100vh;
+  min-height: 100vh;
+  @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+    min-height: -webkit-fill-available;
+  }
 `;
 
 export const Title = styled.h1<{ color: keyof DefaultTheme['colors'] }>`
