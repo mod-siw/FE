@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   position: fixed;
-  top: 7.8rem;
+  top: 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +10,7 @@ export const Container = styled.header`
   padding: 0 2.1rem;
   z-index: 5;
 
-  @media (min-width: 576px) {
+  @media (min-width: 425px) {
     width: 390px;
   }
 

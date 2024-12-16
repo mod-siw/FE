@@ -35,7 +35,7 @@ const rotateArrow4 = createRotateArrow('67.5deg', '40deg', '8rem 0 0 5rem');
 
 export const Container = styled.div`
   margin-top: auto;
-  margin-bottom: 14rem;
+  margin-bottom: 20rem;
   position: relative;
   display: flex;
   justify-content: center;
