@@ -3,7 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Item from 'components/Item/Item';
 
-import { Mydefaultimg } from '../../../assets';
+import { Mydefaultimg } from 'assets/index';
 
 interface GridProps {
   data: { id: number; img: string; frame: string; color: number }[];

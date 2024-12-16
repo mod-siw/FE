@@ -63,11 +63,10 @@ export const DeleteMyPost = async (isDarkMode: boolean, post_id: number) => {
 };
 
 // GET : 화이트 공유페이지
-export const GetShareWhite = async () => {
+export const GetShareWhite = async (user_id: number) => {
   try {
-    const user_id = parseInt(localStorage.getItem('id') || '', 10);
-
     const response = await http.get(`/main/whiteshare/${user_id}`);
+    console.log('화이트모드 공유페이지 로드 성공:', response);
     return response.data;
   } catch (error) {
     console.error('화이트모드 공유페이지 로드 실패:', error);
@@ -76,11 +75,10 @@ export const GetShareWhite = async () => {
 };
 
 // GET : 블랙 공유페이지
-export const GetShareBlack = async () => {
+export const GetShareBlack = async (user_id: number) => {
   try {
-    const user_id = parseInt(localStorage.getItem('id') || '', 10);
-
-    const response = await http.get(`/main/blackshare/${user_id}`);
+    const response = await http.get(`/main/whiteshare/${user_id}`);
+    console.log('다트모드 공유페이지 로드 성공:', response);
     return response.data;
   } catch (error) {
     console.error('다크모드 공유페이지 로드 실패:', error);
