@@ -3,13 +3,13 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 
   &::before {
     content: '';
@@ -42,10 +42,8 @@ export const Title = styled.div<{ color: string }>`
 `;
 
 export const Background = styled.div`
-  position: absolute;
+  /* position: absolute; */
   top: 41.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +84,8 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 3rem;
-  margin-top: 106%;
+  margin-top: -10rem;
+  /* margin-top: 106%; */
 `;
 
 export const Comment = styled.div<{ color: string }>`
