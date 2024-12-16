@@ -25,7 +25,7 @@ const ItemEffect = ({ top, left, angle, data }: ItemEffectProps) => {
         img={data.img}
         frame={data.frame}
         color={data.color}
-        size={12}
+        size={10.2}
         onClick={handleClick}
       />
     </S.Box>

@@ -25,8 +25,9 @@ const Carousel = ({ data }: CarouselProps) => {
         }}
         speed={1000}
         loop={true}
-        slidesPerView="auto"
         freeMode={true}
+        slidesPerView={1.1}
+        spaceBetween={60}
       >
         {data.map((item, i) => (
           <SwiperSlide key={item.id}>

@@ -23,8 +23,8 @@ interface BoxProps {
 
 export const Box = styled.div<BoxProps>`
   position: absolute;
-  width: 12rem;
-  height: 12rem;
+  width: 10.2rem;
+  height: 10.2rem;
   transform-origin: center;
   top: ${(props) => props.$top};
   left: ${(props) => props.$left};
@@ -40,8 +40,8 @@ interface SnowProps {
 
 export const Snow = styled.div<SnowProps>`
   position: absolute;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   top: ${(props) => props.$top};
   left: ${(props) => props.$left};
   transform: rotate(${(props) => props.$angle});
