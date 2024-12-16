@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 6.6rem;
+  margin-top: auto;
+  margin-bottom: 35%;
   overflow-x: hidden;
   flex-shrink: 0;
   .swiper {
-    height: 40rem;
+    height: 29rem;
   }
 `;
 
