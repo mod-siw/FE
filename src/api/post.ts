@@ -15,7 +15,7 @@ export const GetMain = async (isDarkMode: boolean) => {
 export const GetCategoryList = async (
   isDarkMode: boolean,
   category: string,
-  page: number,
+  page: string,
 ) => {
   const theme = isDarkMode ? 'black' : 'white';
   try {
