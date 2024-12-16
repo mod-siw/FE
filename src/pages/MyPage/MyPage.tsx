@@ -86,10 +86,6 @@ const MyPage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('nickname in MyPage:', nickname);
-  }, [nickname]);
-
   return (
     <S.Wrapper>
       <S.Top>

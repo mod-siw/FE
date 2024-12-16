@@ -15,11 +15,15 @@ export const GetMain = async (isDarkMode: boolean) => {
 export const GetCategoryList = async (
   isDarkMode: boolean,
   category: string,
-  page: number,
+  pageParam: string,
 ) => {
   const theme = isDarkMode ? 'black' : 'white';
+
+  // pageParam이 URL 형태인지 확인
+  const url = pageParam || `/main/${theme}/list/${category}/`;
+
   try {
-    const response = await http.get(`/main/${theme}/list/${category}/?page=${page}`);
+    const response = await http.get(url);
     console.log('카테고리 목록 조회 성공');
     console.log(response);
     return Promise.resolve(response.data);

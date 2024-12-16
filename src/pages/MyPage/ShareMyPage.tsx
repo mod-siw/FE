@@ -31,7 +31,11 @@ const ShareMyPage: React.FC = () => {
   useEffect(() => {
     const GetMyList = async () => {
       try {
-        const response = isDarkMode ? await GetShareBlack() : await GetShareWhite();
+        if (!id) throw new Error('유저 ID가 없습니다.');
+        const user_id = parseInt(id, 10);
+        const response = isDarkMode
+          ? await GetShareBlack(user_id)
+          : await GetShareWhite(user_id);
         setItems(response.data.posts || []);
       } catch (error) {
         console.error('데이터 로드 실패:', error);

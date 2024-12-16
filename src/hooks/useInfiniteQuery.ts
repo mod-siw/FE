@@ -9,21 +9,19 @@ export const useCategoryInfiniteQuery = (category: string) => {
 
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getCategoryList', category],
-    queryFn: ({ pageParam = 1 }) => {
+    queryFn: ({ pageParam = '' }) => {
       return GetCategoryList(isDarkMode, category, pageParam);
     },
-    getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.data?.next || undefined;
+    },
+    initialPageParam: '',
   });
 
   const items = useMemo(() => {
     if (data?.pages) {
       return data.pages.flatMap((page) => {
-        if (page.data.results) {
-          return page.data.results;
-        }
-        return page.data;
+        return page.data?.results || [];
       });
     }
     return [];
@@ -42,21 +40,22 @@ export const useSearchInfiniteQuery = (keyword: string) => {
 
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getSearchList', keyword],
-    queryFn: ({ pageParam = 1 }) => {
+    queryFn: ({ pageParam = '' }) => {
+      // pageParam이 비어 있으면 기본 엔드포인트 호출
       return GetSearchList(isDarkMode, keyword, pageParam);
     },
-    getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      // lastPage.data?.next 필드를 사용하여 다음 요청 URL 반환
+      return lastPage.data?.next || undefined;
+    },
+    initialPageParam: '', // 첫 요청 시 기본값 설정
   });
 
   const items = useMemo(() => {
     if (data?.pages) {
       return data.pages.flatMap((page) => {
-        if (page.data.results) {
-          return page.data.results;
-        }
-        return page.data;
+        // 각 페이지의 results 필드에서 데이터를 추출
+        return page.data?.results || [];
       });
     }
     return [];

@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
 
-  @media (min-width: 576px) {
+  @media (min-width: 425px) {
     body {
       width: 390px;
       margin: 0 auto;
