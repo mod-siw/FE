@@ -29,6 +29,16 @@ const Input = styled.input<MarginProps>`
   color: ${({ theme }) => theme.colors.gray03};
 
   ${({ theme }) => theme.fonts.body16_medium}
+
+  &:focus {
+    outline: none;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px ${({ theme }) => theme.colors.bgColor} inset;
+    -webkit-text-fill-color: ${({ theme }) => theme.colors.gray03};
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 // 로그인 페이지
@@ -37,7 +47,7 @@ const KakaoBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2.1rem;
+  gap: 1.3rem;
   width: 33.6rem;
   height: 4.7rem;
   flex-shrink: 0;
@@ -47,7 +57,7 @@ const KakaoBtn = styled.div`
 
   span {
     width: 8.2rem;
-    color: ${({ theme }) => theme.colors.textColor};
+    color: ${({ theme }) => theme.colors.black};
     text-align: center;
 
     font-family: Pretendard;
