@@ -98,8 +98,6 @@ const DetailPage = () => {
     loadImage();
   }, [itemData?.img]);
 
-  // 배경 프레임 이미지화
-
   return (
     <>
       {itemData && (

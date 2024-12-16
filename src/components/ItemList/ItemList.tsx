@@ -61,7 +61,7 @@ const ItemList: React.FC<ItemListProps> = ({
         setIsItemClicked(false);
         navigate(`/detail/${itemId}`);
         setItemId(0);
-      }, 6500); // 6.5초 뒤에 onboarding 끝난 후 상세 페이지로 이동
+      }, 2800); // 3초 뒤에 onboarding 끝난 후 상세 페이지로 이동
 
       return () => clearTimeout(timer);
     }

@@ -28,6 +28,7 @@ export const UpperBtn = styled.div`
   top: 1.76rem;
   right: 1.5rem;
   cursor: pointer;
+  z-index: 900;
 `;
 
 export const Container = styled.div`
@@ -56,7 +57,6 @@ export const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 `;
 
 export const InfoWrapper = styled.div`
