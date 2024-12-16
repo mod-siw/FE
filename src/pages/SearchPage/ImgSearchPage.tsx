@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import * as S from './ImgSearchPage.style';
 import { useFormContext } from 'contexts/MadeFormContext';
 import { GetSearchImg } from 'api/made';
@@ -63,14 +64,14 @@ const ImgSearchPage = () => {
 
   return (
     <>
-      <S.FixedDiv>
+      <FixedDiv>
         <S.TopbarDiv>
           <Back width={25} />
           <S.TopbarTitle>이미지 검색</S.TopbarTitle>
           <span style={{ width: 25 }}></span>
         </S.TopbarDiv>
         <SearchImgBar isBack={false} query={query} setQuery={setQuery} />
-      </S.FixedDiv>
+      </FixedDiv>
       <S.Wrapper>
         {isNone ? (
           <S.Msg>검색된 이미지가 없어요.</S.Msg>
@@ -89,3 +90,7 @@ const ImgSearchPage = () => {
 };
 
 export default ImgSearchPage;
+
+const FixedDiv = styled(S.FixedDiv)`
+  background-color: ${({ theme }) => theme.colors.bgColor};
+`;
