@@ -12,6 +12,7 @@ import { useTheme } from 'contexts/ThemeContext';
 import { useUser } from 'contexts/UserContext';
 import { GetMyBlack, GetMyWhite } from 'api/my';
 import { PostLogout } from 'api/auth';
+import { getCookie } from 'api/http';
 
 interface MyPageProps {
   nickname: string;
@@ -26,6 +27,13 @@ const MyPage = () => {
   const [isGridVisible, setIsGridVisible] = useState(false);
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
+  const token = getCookie('access_token');
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [token, navigate]);
 
   useEffect(() => {
     const GetMyList = async () => {
@@ -90,7 +98,7 @@ const MyPage = () => {
             <>
               2024년
               <br />
-              {nickname} 님의 가슴을
+              {nickname}님의 가슴을
               <br />
               뛰게 만든
             </>
@@ -98,7 +106,7 @@ const MyPage = () => {
             <>
               2024년
               <br />
-              {nickname} 님의 순간들을
+              {nickname}님의 순간을
               <br />
               함께한
             </>

@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import { S } from './MyPage.style';
 import MyGridBox from './components/MyGridBox';
 import Popup from './components/Popup';
+
 import { GetShareBlack, GetShareWhite } from 'api/my';
+import { getCookie } from 'api/http';
 
 const ShareMyPage: React.FC = () => {
   const { nickname, id, mode } = useParams<{
@@ -14,13 +16,16 @@ const ShareMyPage: React.FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const isDarkMode = mode === 'black';
+  const token = getCookie('access_token');
 
   useEffect(() => {
-    // URL 복사 후 팝업 표시
-    const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setIsPopupVisible(true);
-    });
+    if (token) {
+      // URL 복사 후 팝업 표시
+      const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
+      navigator.clipboard.writeText(url).then(() => {
+        setIsPopupVisible(true);
+      });
+    }
   }, [nickname, id, mode]);
 
   useEffect(() => {

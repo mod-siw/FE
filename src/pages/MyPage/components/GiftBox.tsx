@@ -35,7 +35,7 @@ const GiftBox: React.FC<boxProps> = ({ isOpened, onOpen }) => {
 export default GiftBox;
 
 const Wrapper = styled.div`
-  margin: 4.3rem 0rem 60.6rem 0rem;
+  margin: 4.3rem 0rem 8.8rem 0rem;
   display: flex;
   justify-content: center;
   align-items: center;
