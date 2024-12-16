@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Item from 'components/Item/Item';
 
 import { Mydefaultimg } from 'assets/index';
+import { ClickedSnow } from 'assets/index';
+import { ClickedSnowWhite } from 'assets/index';
+
+import { useItemContext } from 'contexts/ItemContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 interface GridProps {
   data: { id: number; img: string; frame: string; color: number }[];
@@ -15,23 +20,33 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   num,
   animate = true,
 }) => {
-  const [fadeOut, setFadeOut] = useState<number | null>(null); // 애니메이션 상태
-  const [clickedId, setClickedId] = useState<number | null>(null); // 클릭된 아이템 ID
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
+
+  const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
+  const [fadeOut, setFadeOut] = useState<number | null>(null);
 
   const handleClick = (id: number) => {
-    if (animate) {
-      setFadeOut(id);
-      setTimeout(() => {
-        setClickedId(id);
-      }, 600);
-      setTimeout(() => {
-        navigate(`/detail/${id}`, { state: { from: 'my' } });
-      }, 1500);
-    } else {
-      navigate(`/detail/${id}`, { state: { from: 'my' } }); // 바로 이동
-    }
+    setFadeOut(id);
+    setTimeout(() => {
+      setItemId(id);
+    }, 600);
+    setTimeout(() => {
+      setIsItemClicked(true);
+    }, 1500);
   };
+
+  useEffect(() => {
+    if (isItemClicked) {
+      const timer = setTimeout(() => {
+        setIsItemClicked(false);
+        navigate(`/detail/${itemId}`);
+        setItemId(0);
+      }, 2800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isItemClicked, navigate]);
 
   const handleDefaultClick = () => {
     navigate('/made', { state: { prev: '/my' } });
@@ -52,8 +67,12 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
       <GridContainer>
         {filledData.map((item) => (
           <Block key={item.id}>
-            {clickedId === item.id && animate ? (
-              <ClickedSnow />
+            {itemId === item.id && animate ? (
+              isDarkMode ? (
+                <ClickedSnow />
+              ) : (
+                <ClickedSnowWhite />
+              )
             ) : (
               <FadeWrapper isFading={animate && fadeOut === item.id}>
                 {item.id > 0 ? (
@@ -107,8 +126,6 @@ const Block = styled.div<{ isDefault?: boolean }>`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
-  cursor: ${({ isDefault }) => (isDefault ? 'default' : 'pointer')};
 `;
 
 const fadeOut = keyframes`
@@ -126,10 +143,4 @@ const FadeWrapper = styled.div<{ isFading: boolean }>`
     css`
       animation: ${fadeOut} 0.5s forwards;
     `}
-`;
-
-const ClickedSnow = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.mint01}; // 클릭 시 표시되는 스타일
 `;
