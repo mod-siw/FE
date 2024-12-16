@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import * as S from './UploadTitle.style';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
 import { useTheme } from 'contexts/ThemeContext';
 
 interface MadeProps {
@@ -31,6 +31,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
       console.log(formData);
       setFormData((prev) => ({
         ...prev,
+        img: prev.img,
         name: title,
         description: reason,
       }));

@@ -4,13 +4,16 @@ import GlobalStyle from './styles/global';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ItemProvider } from 'contexts/ItemContext';
 import { UserProvider } from 'contexts/UserContext';
+import { FormProvider } from 'contexts/MadeFormContext';
 
 const App = () => (
   <ThemeProvider>
     <UserProvider>
       <ItemProvider>
-        <GlobalStyle />
-        <RouterProvider router={router} />
+        <FormProvider>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+        </FormProvider>
       </ItemProvider>
     </UserProvider>
   </ThemeProvider>

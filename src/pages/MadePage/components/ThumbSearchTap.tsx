@@ -3,7 +3,7 @@ import * as S from './ThumbSearchTap.style';
 
 import MadeBox from './MadeBox';
 import { useTheme } from 'contexts/ThemeContext';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
 import { useRenderFrame } from 'hooks/useRenderFrame';
 
 import { thumbFrames } from '../dataList';

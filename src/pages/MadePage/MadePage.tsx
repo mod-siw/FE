@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
 import MadeTopbar from './components/MadeTopbar';
 import PickTheme from './components/PickTheme';
 import ThumbSearchTap from './components/ThumbSearchTap';
 import UploadTitle from './components/UploadTitle';
 
-import { FormProvider } from './MadeFormContext';
+import { FormProvider } from '../../contexts/MadeFormContext';
 
 type ConditionState = {
   pickTheme: boolean;
@@ -15,7 +16,10 @@ type ConditionState = {
 };
 
 const MadePage = () => {
-  const [step, setStep] = useState<number>(0);
+  const location = useLocation();
+  const initialStep = location.state?.step || 0;
+
+  const [step, setStep] = useState<number>(initialStep);
   const [conditions, setConditions] = useState<ConditionState>({
     pickTheme: false,
     thumbSearch: false,
@@ -56,14 +60,14 @@ const MadePage = () => {
   };
 
   return (
-    <FormProvider>
+    <>
       <MadeTopbar
         step={step}
         onNext={handleNext}
         isNextEnabled={Object.values(conditions)[step]}
       />
       <Wrapper>{components[step]}</Wrapper>
-    </FormProvider>
+    </>
   );
 };
 

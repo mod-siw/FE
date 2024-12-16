@@ -1,17 +1,64 @@
-import React, { useState } from 'react';
-import SearchBar from './components/SearchBar';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './ImgSearchPage.style';
+import { useFormContext } from 'contexts/MadeFormContext';
+import { GetSearchImg } from 'api/made';
+
+import { debounce } from 'lodash';
+
 import { Back } from 'assets/index';
-import { ImgMock } from './components/ImgMock';
+import SearchImgBar from './components/SearchImgBar';
 import ImgItem from './components/ImgItem';
 
-const ImgSearchPage = () => {
-  const [query, setQuery] = useState(''); // 검색어
-  const data = ImgMock.data;
-  const isNone = true; // 임시
+interface ImgItemType {
+  id: number;
+  img: string;
+  information: string;
+}
 
-  const handleClick = (id: number) => {
-    console.log(id);
+const ImgSearchPage = () => {
+  const navigate = useNavigate();
+
+  const { formData, setFormData } = useFormContext();
+  const [query, setQuery] = useState('');
+  const [data, setData] = useState<ImgItemType[]>([]);
+  const [isNone, setIsNone] = useState(false);
+
+  const throttledSearch = useCallback(
+    debounce(async (category: string, keyword: string) => {
+      if (!keyword.trim()) return;
+
+      try {
+        const result = await GetSearchImg(category, keyword);
+        setData(result.data);
+        setIsNone(result.data.length === 0);
+      } catch (error) {
+        console.error('검색 실패', error);
+        setData([]);
+        setIsNone(true);
+      }
+    }, 300),
+    [],
+  );
+
+  useEffect(() => {
+    if (query) {
+      console.log(formData.category, query);
+      throttledSearch(formData.category, query);
+    } else {
+      setData([]);
+      setIsNone(true);
+    }
+  }, [query, formData.category]);
+
+  const handleClick = (item: ImgItemType) => {
+    console.log(item);
+    setFormData((prev) => ({
+      ...prev,
+      img: item.img,
+      information: item.information,
+    }));
+    navigate('/made', { state: { step: 1 } });
   };
 
   return (
@@ -22,7 +69,7 @@ const ImgSearchPage = () => {
           <S.TopbarTitle>이미지 검색</S.TopbarTitle>
           <span style={{ width: 25 }}></span>
         </S.TopbarDiv>
-        <SearchBar isBack={false} query={query} setQuery={setQuery} />
+        <SearchImgBar isBack={false} query={query} setQuery={setQuery} />
       </S.FixedDiv>
       <S.Wrapper>
         {isNone ? (
@@ -31,11 +78,7 @@ const ImgSearchPage = () => {
           <S.Container>
             {data.map((item) => (
               <React.Fragment key={item.id}>
-                <ImgItem
-                  id={item.id}
-                  img={item.img}
-                  onClick={() => handleClick(item.id)}
-                />
+                <ImgItem id={item.id} img={item.img} onClick={() => handleClick(item)} />
               </React.Fragment>
             ))}
           </S.Container>

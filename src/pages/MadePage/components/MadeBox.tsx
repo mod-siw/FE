@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './MadeBox.style';
 
 import { madeBoxFrames } from '../dataList';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from 'contexts/MadeFormContext';
 import { useTheme } from 'contexts/ThemeContext';
 import { useRenderFrame } from 'hooks/useRenderFrame';
 
@@ -23,7 +23,9 @@ const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeP
   const { colorMap } = useRenderFrame();
 
   const [file, setFile] = useState<File | null>(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(
+    typeof formData.img === 'string' ? formData.img : null,
+  );
   const [showSelectPopup, setShowSelectPopup] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -58,11 +60,14 @@ const MadeBox = ({ color = 1, frame = 'SNOW', conditions, setConditions }: MadeP
     }
   };
 
-  // 폼 데이터 업데이트
   useEffect(() => {
-    setConditions(Boolean(thumbnailUrl));
-    setFormData((prev) => ({ ...prev, img: file || null }));
-    console.log(formData);
+    // file이 있으면 file을 img로, 없으면 thumbnailUrl 사용
+    setFormData((prev) => ({
+      ...prev,
+      img: file || thumbnailUrl || null,
+    }));
+
+    setConditions(Boolean(thumbnailUrl || file));
   }, [thumbnailUrl, file]);
 
   return (

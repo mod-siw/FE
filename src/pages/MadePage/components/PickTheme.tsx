@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
 import { useTheme } from 'contexts/ThemeContext';
 
 interface MadeProps {
