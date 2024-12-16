@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Delete, MiniSymbol } from 'assets';
 import { darkTheme, lightTheme } from 'styles/theme';
@@ -26,6 +26,7 @@ const initialFormData: FormDataType = {
 
 const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { formData, setFormData } = useFormContext();
   const { isDarkMode } = useTheme();
 
@@ -39,14 +40,15 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
 
   const handleDelete = () => {
     resetFormData();
-    navigate('/my');
+    const prevPath = location.state?.prev || '/my';
+    navigate(prevPath);
   };
 
   const handleClick = () => {
     if (isNextEnabled) {
       if (step === 2) {
         handlePost();
-        navigate('/my');
+        navigate('/my', { state: { isOpened: false } });
       } else {
         onNext();
       }
