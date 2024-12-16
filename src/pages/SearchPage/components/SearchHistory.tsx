@@ -20,7 +20,12 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ setQuery }) => {
   const [historyData, setHistoryData] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
-    GetSearchHistory(isDarkMode).then((res) => setHistoryData(res.data));
+    GetSearchHistory(isDarkMode).then((res) => {
+      const filteredData = res.data.filter(
+        (item: HistoryData) => item.keyword.trim() !== '',
+      );
+      setHistoryData(filteredData);
+    });
   }, []);
 
   return (
