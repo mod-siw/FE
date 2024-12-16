@@ -12,15 +12,21 @@ import ItemList from 'components/ItemList/ItemList';
 // data
 import { useItemContext } from 'contexts/ItemContext';
 import { useCategoryInfiniteQuery } from 'hooks/useInfiniteQuery';
+import { getLocalStorageItem } from 'contexts/UserContext';
 
 const ListPage = () => {
   const navigate = useNavigate();
   const { category } = useParams<{ category: string }>();
   const { isItemClicked } = useItemContext();
   const { isDarkMode } = useTheme();
+  const nickname = getLocalStorageItem('nickname');
 
   const handleGoMake = () => {
-    navigate('/made');
+    if (nickname) {
+      navigate('/made', { state: { prev: `/detail/${category}` } });
+    } else {
+      navigate('/login');
+    }
   };
   const categoryName = pathToCategory[category || 'movie']?.name || '영화';
 
