@@ -29,6 +29,16 @@ const Input = styled.input<MarginProps>`
   color: ${({ theme }) => theme.colors.gray03};
 
   ${({ theme }) => theme.fonts.body16_medium}
+
+  &:focus {
+    outline: none;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px ${({ theme }) => theme.colors.bgColor} inset;
+    -webkit-text-fill-color: ${({ theme }) => theme.colors.gray03};
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 // 로그인 페이지
