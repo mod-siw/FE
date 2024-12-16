@@ -182,12 +182,10 @@ export const PostToken = async (): Promise<string | null> => {
     });
     const newAccessToken = response.data.data.access_token;
 
-    // Access Token 갱신
     const accessExpirationDate = new Date();
     accessExpirationDate.setHours(accessExpirationDate.getHours() + 5);
 
     document.cookie = `access_token=${newAccessToken}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
-    console.log('Access Token 갱신 후 쿠키 상태:', document.cookie);
 
     return newAccessToken;
   } catch (error: unknown) {

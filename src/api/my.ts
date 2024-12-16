@@ -15,7 +15,6 @@ export const GetMyWhite = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log('화이트모드 마이페이지 로드 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('화이트모드 마이페이지 로드 실패:', error);
@@ -36,7 +35,6 @@ export const GetMyBlack = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log('다크모드 마이페이지 로드 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('다크모드 마이페이지 로드 실패:', error);
@@ -68,13 +66,11 @@ export const DeleteMyPost = async (isDarkMode: boolean, post_id: number) => {
 export const GetShareWhite = async () => {
   try {
     const user_id = parseInt(localStorage.getItem('id') || '', 10);
-    console.log('로컬스토리지에서 받아온 아이디:', user_id);
     if (!user_id) {
       throw new Error('User ID가 없습니다. 다시 로그인해주세요.');
     }
 
     const response = await http.get(`/main/whiteshare/${user_id}`);
-    console.log('화이트모드 공유페이지 로드 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('화이트모드 공유페이지 로드 실패:', error);
@@ -91,7 +87,6 @@ export const GetShareBlack = async () => {
     }
 
     const response = await http.get(`/main/blackshare/${user_id}`);
-    console.log('다크모드 공유페이지 로드 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('다크모드 공유페이지 로드 실패:', error);
