@@ -52,6 +52,7 @@ const DetailPage = () => {
     try {
       const div = divRef.current;
       const canvas = await html2canvas(div, {
+        allowTaint: true,
         useCORS: true,
         backgroundColor: null,
         scale: 2,
@@ -59,7 +60,7 @@ const DetailPage = () => {
 
       canvas.toBlob((blob) => {
         if (blob !== null) {
-          saveAs(blob, 'result.png');
+          saveAs(blob, 'moy.png');
         }
       });
     } catch (error) {
@@ -67,31 +68,45 @@ const DetailPage = () => {
     }
   };
 
-  //내보내기
-  // const handleCapture = () => {
-  //   const target = document.getElementById('download');
-  //   if (!target) {
-  //     return alert('내보내기에 실패했습니다.');
-  //   }
-  //   html2canvas(target, {
-  //     useCORS: true,
-  //     backgroundColor: null,
-  //     scale: 2,
-  //   }).then((canvas) => {
-  //     const link = document.createElement('a');
-  //     document.body.appendChild(link);
-  //     link.href = canvas.toDataURL('image/png');
-  //     link.download = 'moy.png';
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   });
-  // };
+  // 배경 이미지 추출 관련
+  const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadImage = async () => {
+      if (!itemData?.img) return;
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // CORS 설정
+      img.src = `${itemData.img}?timestamp=${Date.now()}`;
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        if (ctx) {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          setImageDataUrl(canvas.toDataURL());
+        }
+      };
+
+      img.onerror = (error) => console.error('이미지 로드 실패:', error);
+    };
+
+    loadImage();
+  }, [itemData?.img]);
+
+  // 배경 프레임 이미지화
 
   return (
     <>
       {itemData && (
         <div ref={divRef}>
-          <S.Wrapper img={itemData.img}>
+          <S.Wrapper
+            style={{ backgroundImage: imageDataUrl ? `url(${imageDataUrl})` : 'none' }}
+          >
             <S.Container>
               <S.UpperBtn>
                 {isMine ? (

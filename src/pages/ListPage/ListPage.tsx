@@ -23,7 +23,7 @@ const ListPage = () => {
 
   const handleGoMake = () => {
     if (nickname) {
-      navigate('/made', { state: { prev: `/detail/${category}` } });
+      navigate('/made', { state: { prev: `/list/${category}` } });
     } else {
       navigate('/login');
     }

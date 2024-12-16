@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div<{ img: string }>`
+export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background-image: url(${(props) => props.img});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -57,6 +56,7 @@ export const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 `;
 
 export const InfoWrapper = styled.div`
