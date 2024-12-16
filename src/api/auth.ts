@@ -99,9 +99,6 @@ export const KakaoLogin = async (code: string, navigate: (path: string) => void)
       document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
 
-      setLocalStorageItem('nickname', nickname);
-      console.log('카카오 로그인 성공:', response.data);
-
       navigate('/');
     } else {
       // 처음 접속한 경우

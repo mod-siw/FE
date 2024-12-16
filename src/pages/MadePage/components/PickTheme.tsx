@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 interface MadeProps {
   conditions: boolean;
@@ -9,8 +10,11 @@ interface MadeProps {
 
 const PickTheme = ({ conditions, setConditions }: MadeProps) => {
   const { formData, setFormData } = useFormContext();
+  const { isDarkMode } = useTheme();
 
-  const categoryList = ['영화', '음악', '책', '유튜브', 'OTT', '공연'];
+  const categoryList = isDarkMode
+    ? ['영화', '음악', '책', '유튜브', 'OTT', '공연']
+    : ['여행지', '음식', '밈', '사진', '아이템', '룩', '스포츠', '앱'];
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const handleCategoryClick = (category: string) => {
@@ -18,7 +22,7 @@ const PickTheme = ({ conditions, setConditions }: MadeProps) => {
     setSelectedCategory(newSelectedCategory);
 
     setFormData((prev) => ({ ...prev, category: newSelectedCategory }));
-    setConditions(newSelectedCategory !== null);
+    setConditions(newSelectedCategory !== 'X');
   };
 
   return (

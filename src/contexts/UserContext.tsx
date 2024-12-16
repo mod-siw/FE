@@ -26,13 +26,11 @@ export const setLocalStorageItem = (key: string, value: string | null) => {
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [username, setUsername] = useState<string | null>(() => {
     const storedUsername = getLocalStorageItem('username');
-    console.log('Restored username from localStorage:', storedUsername);
     return storedUsername;
   });
 
   const [nickname, setNickname] = useState<string | null>(() => {
     const storedNickname = getLocalStorageItem('nickname');
-    console.log('Restored nickname from localStorage:', storedNickname);
     return storedNickname;
   });
 
@@ -43,10 +41,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setLocalStorageItem('nickname', nickname);
   }, [nickname]);
-
-  useEffect(() => {
-    console.log('Restored nickname from localStorage:', getLocalStorageItem('nickname'));
-  }, []);
 
   const clearUserData = () => {
     setUsername(null);

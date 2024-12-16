@@ -1,5 +1,20 @@
 import styled from 'styled-components';
 
+export const ControlBox = styled.div<{ isDarkMode: boolean }>`
+  ${({ isDarkMode, theme }) =>
+    !isDarkMode &&
+    `
+    border: 1px solid ${theme.colors.gray02};
+    background: ${theme.colors.gray01};
+  `}
+
+  @media (max-width: 425px) {
+    width: 100vw;
+    margin-left: -2rem;
+    padding: 0 2rem;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-wrap: nowrap;
@@ -13,7 +28,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Circle = styled.div<{ isSelected: boolean }>`
+export const Circle = styled.div<{ isSelected: boolean; isDarkMode: boolean }>`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -21,10 +36,17 @@ export const Circle = styled.div<{ isSelected: boolean }>`
   cursor: pointer;
   transition: 0.3s ease;
 
-  ${({ isSelected }) =>
+  ${({ isSelected, isDarkMode }) =>
     isSelected &&
-    `box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); 
-     border: 2px solid rgba(255, 255, 255, 0.3);`}
+    (isDarkMode
+      ? `
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); 
+        border: 2px solid rgba(255, 255, 255, 0.3); 
+      `
+      : `
+        box-shadow: 0 0 0 4px rgba(166, 166, 166, 0.3); 
+        border: 2px solid rgba(166, 166, 166, 0.3); 
+      `)}
 `;
 
 export const FrameBox = styled.div`

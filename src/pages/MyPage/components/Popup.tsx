@@ -12,35 +12,48 @@ const Popup: React.FC<PopupProps> = ({ type, onClose, onConfirm }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <Wrapper>
-      {type === 'clipboard' && (
-        <Text>
-          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
-          <span>클립보드에 링크 복사 완료</span>
-          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
-        </Text>
-      )}
-      {type === 'logout' && (
-        <Text>
-          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
-          <span>로그아웃 하시겠어요?</span>
-          <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
-        </Text>
-      )}
-      <Line />
-      {type === 'clipboard' ? (
-        <CloseBtn onClick={onClose}>닫기</CloseBtn>
-      ) : (
-        <Container>
-          <ActionBtn onClick={onConfirm}>예</ActionBtn>
-          <ActionBtn onClick={onClose}>아니오</ActionBtn>
-        </Container>
-      )}
-    </Wrapper>
+    <>
+      <Overlay onClick={onClose} />
+      <Wrapper>
+        {type === 'clipboard' && (
+          <Text>
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
+            <span>클립보드에 링크 복사 완료</span>
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
+          </Text>
+        )}
+        {type === 'logout' && (
+          <Text>
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
+            <span>로그아웃 하시겠어요?</span>
+            <Union width={12.75} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
+          </Text>
+        )}
+        <Line />
+        {type === 'clipboard' ? (
+          <CloseBtn onClick={onClose}>닫기</CloseBtn>
+        ) : (
+          <Container>
+            <ActionBtn onClick={onConfirm}>예</ActionBtn>
+            <ActionBtn onClick={onClose}>아니오</ActionBtn>
+          </Container>
+        )}
+      </Wrapper>
+    </>
   );
 };
 
 export default Popup;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 98;
+`;
 
 const Wrapper = styled.div`
   padding-top: 3.7rem;
@@ -57,7 +70,7 @@ const Wrapper = styled.div`
   width: 29.1rem;
   height: 16.2rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.bgColor};
+  border: 1px solid ${({ theme }) => theme.colors.textColor};
   background: ${({ theme }) => theme.colors.bgColor};
 
   z-index: 99;
@@ -82,7 +95,7 @@ const Text = styled.div`
 const Line = styled.div`
   margin-bottom: 1rem;
   width: 25.865rem;
-  height: 0.01rem;
+  height: 0.1rem;
   flex-shrink: 0;
   stroke-width: 0.1rem;
   background: ${({ theme }) => theme.colors.gray03};

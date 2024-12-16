@@ -66,9 +66,6 @@ export const DeleteMyPost = async (isDarkMode: boolean, post_id: number) => {
 export const GetShareWhite = async () => {
   try {
     const user_id = parseInt(localStorage.getItem('id') || '', 10);
-    if (!user_id) {
-      throw new Error('User ID가 없습니다. 다시 로그인해주세요.');
-    }
 
     const response = await http.get(`/main/whiteshare/${user_id}`);
     return response.data;
@@ -82,9 +79,6 @@ export const GetShareWhite = async () => {
 export const GetShareBlack = async () => {
   try {
     const user_id = parseInt(localStorage.getItem('id') || '', 10);
-    if (!user_id) {
-      throw new Error('User ID가 없습니다. 다시 로그인해주세요.');
-    }
 
     const response = await http.get(`/main/blackshare/${user_id}`);
     return response.data;

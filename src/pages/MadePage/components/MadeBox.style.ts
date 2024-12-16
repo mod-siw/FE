@@ -23,7 +23,7 @@ export const SymbolWrapper = styled.div`
   z-index: 10;
 `;
 
-export const UploBtn = styled.button`
+export const UploBtn = styled.button<{ isDarkMode: boolean }>`
   position: absolute;
   z-index: 15;
   display: inline-flex;
@@ -33,8 +33,9 @@ export const UploBtn = styled.button`
   cursor: pointer;
 
   border-radius: 5rem;
-  background: rgba(255, 255, 255, 0.2);
+  background: ${({ isDarkMode }) =>
+    isDarkMode ? 'rgba(255, 255, 255, 0.20)' : 'rgba(128, 128, 128, 0.1)'};
 
-  color: ${({ theme }) => theme.colors.textColor};
+  color: ${({ isDarkMode, theme }) => (isDarkMode ? '#fff' : theme.colors.gray03)};
   font: ${({ theme }) => theme.fonts.button_semibold};
 `;

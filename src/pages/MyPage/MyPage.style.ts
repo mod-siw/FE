@@ -63,7 +63,7 @@ const ShareBtn = styled.div`
 `;
 
 const LogoutBtn = styled.div`
-  margin-bottom: 28.6rem;
+  margin-bottom: 4.1rem;
 
   color: ${({ theme }) => theme.colors.gray03};
   text-align: center;

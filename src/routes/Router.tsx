@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 import MainPage from '../pages/MainPage/MainPage';
 import MadePage from '../pages/MadePage/MadePage';
 import LoginPage from '../pages/AuthPage/LoginPage';
@@ -15,6 +16,7 @@ import ImgSearchPage from 'pages/SearchPage/ImgSearchPage';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <ScrollToTop />,
     children: [
       { path: '', element: <MainPage /> },
       { path: 'login', element: <LoginPage /> },

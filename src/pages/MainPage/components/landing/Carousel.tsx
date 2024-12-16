@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import * as S from './Carousel.style';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';
@@ -17,7 +17,7 @@ interface CarouselProps {
 const Carousel = ({ posts }: CarouselProps) => {
   const [reverseDirection, setReverseDirection] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationClass, setAnimationClass] = useState('');
+  const [animationClass, setAnimationClass] = useState('animate-roll');
 
   const handleSlideChange = useCallback(
     (swiper: any) => {
@@ -29,21 +29,18 @@ const Carousel = ({ posts }: CarouselProps) => {
 
       if (!isAnimating) {
         setIsAnimating(true);
-        setAnimationClass('animate-roll');
+        setTimeout(() => {
+          setAnimationClass('animate-roll');
+        }, 1000);
       }
     },
     [isAnimating],
   );
 
-  useEffect(() => {
-    if (isAnimating) {
-      const timer = setTimeout(() => {
-        setAnimationClass('');
-        setIsAnimating(false);
-      }, 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [isAnimating]);
+  const handleTouchStart = useCallback(() => {
+    setIsAnimating(false);
+    setAnimationClass('');
+  }, []);
 
   const repeatedPosts = useMemo(() => {
     return [...Array(17)].map((_, index) => posts[index % posts.length]);
@@ -54,14 +51,15 @@ const Carousel = ({ posts }: CarouselProps) => {
       <Swiper
         modules={[Autoplay, FreeMode]}
         autoplay={{
-          delay: 1000,
+          delay: 3000,
           disableOnInteraction: false,
           reverseDirection: reverseDirection,
         }}
-        speed={2000}
+        speed={1000}
         slidesPerView="auto"
         freeMode={true}
         onSlideChange={handleSlideChange}
+        onTouchStart={handleTouchStart}
       >
         {slidesData.map((boxes, slideIndex) => (
           <SwiperSlide key={slideIndex}>

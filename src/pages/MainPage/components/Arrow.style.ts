@@ -6,7 +6,7 @@ const createRotateArrow = (start: string, end: string, margin = '0') => keyframe
     transform: rotate(${start});
     margin: 0;
   }
-  40% {
+  30% {
     height: 13.8rem;
     transform: rotate(${start});
     margin: 0;
@@ -16,15 +16,10 @@ const createRotateArrow = (start: string, end: string, margin = '0') => keyframe
     transform: rotate(${end});
     margin: ${margin};
   }
-  70% {
+  80% {
     height: ${margin !== '0' ? '8.2rem' : '13.8rem'};
     transform: rotate(${end});
     margin: ${margin};
-  }
-  80% {
-    height: 13.8rem;
-    transform: rotate(${start});
-    margin: 0;
   }
   100% {
     height: 13.8rem;
@@ -52,18 +47,18 @@ export const Container = styled.div`
   }
 
   .left-bottom {
-    animation: ${rotateArrow1} 6s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    animation: ${rotateArrow1} 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
   }
 
   .left-top {
-    animation: ${rotateArrow2} 6s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    animation: ${rotateArrow2} 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
   }
 
   .right-top {
-    animation: ${rotateArrow3} 6s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    animation: ${rotateArrow3} 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
   }
 
   .right-bottom {
-    animation: ${rotateArrow4} 6s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    animation: ${rotateArrow4} 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
   }
 `;

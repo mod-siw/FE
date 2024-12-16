@@ -37,6 +37,7 @@ const KakaoSignupPage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setInputData((prev) => ({
       ...prev,
       [name]: value,
@@ -55,6 +56,7 @@ const KakaoSignupPage = () => {
             num2="44.4rem"
             value={inputData.nickname}
             onChange={handleInputChange}
+            maxLength={5}
           />
         </S.Container>
       </S.Wrapper>

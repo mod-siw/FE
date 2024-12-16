@@ -19,19 +19,22 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   const [clickedId, setClickedId] = useState<number | null>(null); // 클릭된 아이템 ID
   const navigate = useNavigate();
 
-  // 클릭 시 애니메이션과 navigate 적용
   const handleClick = (id: number) => {
     if (animate) {
       setFadeOut(id);
       setTimeout(() => {
         setClickedId(id);
-      }, 600); // 애니메이션 지속 시간과 동일
+      }, 600);
       setTimeout(() => {
         navigate(`/detail/${id}`, { state: { from: 'my' } });
-      }, 1500); // 애니메이션 후 이동
+      }, 1500);
     } else {
       navigate(`/detail/${id}`, { state: { from: 'my' } }); // 바로 이동
     }
+  };
+
+  const handleDefaultClick = () => {
+    navigate('/made', { state: { prev: '/my' } });
   };
 
   const filledData = [...data];
@@ -63,7 +66,10 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
                     onClick={() => handleClick(item.id)}
                   />
                 ) : (
-                  <Mydefaultimg style={{ width: '100%', height: '100%' }} />
+                  <Mydefaultimg
+                    style={{ width: '100%', height: '100%' }}
+                    onClick={handleDefaultClick}
+                  />
                 )}
               </FadeWrapper>
             )}

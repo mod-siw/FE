@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { Delete, MiniSymbol } from 'assets';
-import { darkTheme } from 'styles/theme';
+import { darkTheme, lightTheme } from 'styles/theme';
+import { useTheme } from 'contexts/ThemeContext';
 
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext, FormDataType } from '../../../contexts/MadeFormContext';
 import { PostMadeData } from 'api/made';
 
 interface MadeTopbarProps {
@@ -13,12 +14,32 @@ interface MadeTopbarProps {
   isNextEnabled: boolean;
 }
 
+const initialFormData: FormDataType = {
+  category: '',
+  name: '',
+  description: '',
+  information: '',
+  color: 1,
+  frame: 'SNOW',
+  img: null,
+};
+
 const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const navigate = useNavigate();
-  const { formData } = useFormContext();
+  const { formData, setFormData } = useFormContext();
+  const { isDarkMode } = useTheme();
+
+  const resetFormData = () => setFormData(initialFormData);
+  const theme = isDarkMode ? darkTheme : lightTheme;
 
   const handlePost = async () => {
     await PostMadeData(formData);
+    // resetFormData();
+  };
+
+  const handleDelete = () => {
+    resetFormData();
+    navigate('/my');
   };
 
   const handleClick = () => {
@@ -34,16 +55,16 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
 
   return (
     <Wrapper>
-      <Delete width={25} onClick={() => navigate('/my')} />
+      <Delete width={25} onClick={handleDelete} />
       <NextDiv onClick={handleClick} isDisabled={!isNextEnabled}>
         <MiniSymbol
           width={12.75}
-          color={!isNextEnabled ? darkTheme.colors.gray02 : darkTheme.colors.textColor}
+          color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
         />
         <p>{step === 2 ? '저장' : '다음'}</p>
         <MiniSymbol
           width={12.75}
-          color={!isNextEnabled ? darkTheme.colors.gray02 : darkTheme.colors.textColor}
+          color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
         />
       </NextDiv>
     </Wrapper>
@@ -61,7 +82,7 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 3.8rem 2rem 2.2rem;
 
-  @media (min-width: 576px) {
+  @media (min-width: 425px) {
     width: 390px;
   }
 `;

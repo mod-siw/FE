@@ -50,6 +50,7 @@ const SignupPage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setInputData((prev) => ({ ...prev, [name]: value }));
 
     // 아이디 입력 중 초기화
@@ -124,6 +125,7 @@ const SignupPage = () => {
             placeholder="닉네임을 입력해주세요"
             num2="7.1rem"
             onChange={handleInputChange}
+            maxLength={5}
           />
         </S.Container>
       </S.Wrapper>
