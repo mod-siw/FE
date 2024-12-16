@@ -1,28 +1,37 @@
 import * as React from 'react';
 import type { SVGProps } from 'react';
-const SvgSymbolSnow2 = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100" {...props}>
-    <g clipPath="url(#symbolSnow2_svg__a)">
-      {/* <path fill="#000" d="M0 0h100v100H0z" /> */}
-      <mask id="symbolSnow2_svg__b" fill="#fff">
-        <path
-          fillRule="evenodd"
-          d="M89 24 76 11 59.192 27.806V4.04H40.808v23.769L24 11 11 24l16.808 16.808H4.038v18.384h23.769L11 76l13 13 16.808-16.808v23.772h18.385v-23.77L76 89l13-13-16.808-16.808h23.77V40.808h-23.77z"
-          clipRule="evenodd"
-        />
-      </mask>
-      <path
-        fill="#fff"
-        d="m76 11 .353-.354-.353-.354-.354.354zm13 13 .353.353.354-.354-.354-.353zm-29.807 3.806h-.5v1.207l.853-.853zm0-23.767h.5v-.5h-.5zm-18.385 0v-.5h-.5v.5zm0 23.769-.353.354.853.853v-1.207zM24 11l.354-.354-.354-.353-.354.353zM11 24l-.354-.354-.353.354.354.354zm16.808 16.808v.5h1.207l-.854-.854zm-23.77 0v-.5h-.5v.5zm0 18.384h-.5v.5h.5zm23.769 0 .353.354.854-.854h-1.207zM11 76l-.354-.353-.354.353.354.354zm13 13-.354.354.354.354.353-.354zm16.808-16.808h.5v-1.207l-.853.853zm0 23.772h-.5v.5h.5zm18.385 0v.5h.5v-.5zm0-23.77.353-.354-.853-.853v1.207zM76 89l-.354.353.354.354.353-.353zm13-13 .353.353.354-.353-.353-.354zM72.192 59.192v-.5h-1.207l.854.854zm23.77 0v.5h.5v-.5zm0-18.384h.5v-.5h-.5zm-23.77 0-.354-.354-.854.854h1.207zm3.454-29.455 13 13 .707-.707-13-13zm-16.1 16.807 16.807-16.807-.707-.707-16.807 16.807zm-.853-24.121v23.767h1V4.04zm-17.885.5h18.385v-1H40.808zm.5 23.269V4.038h-1v23.77zM23.647 11.354l16.808 16.808.707-.707-16.808-16.809zm-12.293 13 13-13-.707-.708-13 13zm16.807 16.1L11.354 23.646l-.707.707 16.807 16.808zm-24.123.854h23.77v-1H4.038zm.5 17.884V40.808h-1v18.384zm23.269-.5H4.038v1h23.769zM11.353 76.353 28.16 59.546l-.707-.707-16.807 16.807zm13 12.293-13-13-.707.707 13 13zm16.102-16.809L23.646 88.646l.707.707 16.809-16.809zm.853 24.126V72.19h-1v23.772zm17.885-.5H40.808v1h18.385zm-.5-23.27v23.77h1v-23.77zm17.66 16.453L59.546 71.84l-.707.707 16.807 16.807zm12.293-13-13 13 .707.707 13-13zm-16.807-16.1 16.807 16.807.707-.707L72.547 58.84zm24.123-.854h-23.77v1h23.77zm-.5-17.884v18.384h1V40.808zm-23.27.5h23.77v-1h-23.77zm16.454-17.662L71.838 40.454l.707.707 16.808-16.808z"
-        mask="url(#symbolSnow2_svg__b)"
+import { useTheme } from 'contexts/ThemeContext';
+import { darkTheme, lightTheme } from 'styles/theme';
+
+const SvgSymbolSnow2 = (props: SVGProps<SVGSVGElement>) => {
+  const { isDarkMode } = useTheme();
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
+  const borderColor = theme.colors.textColor; // 도형 테두리 색상
+  const backgroundColor = theme.colors.bgColor; // 도형 바깥 배경
+  const outerBorder = isDarkMode ? '#333' : '#E8E8E8'; // 네모 테두리 색상
+
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" {...props}>
+      {/* 전체 네모 테두리 */}
+      <rect
+        x="0.5"
+        y="0.5"
+        width="99"
+        height="99"
+        stroke={outerBorder}
+        fill={backgroundColor}
       />
-    </g>
-    <path stroke="#333333" d="M.5.5h99v99H.5z" />
-    <defs>
-      <clipPath id="symbolSnow2_svg__a">
-        <path fill="#fff" d="M0 0h100v100H0z" />
-      </clipPath>
-    </defs>
-  </svg>
-);
+
+      {/* 도형 */}
+      <path
+        d="M89 24 76 11 59.192 27.806V4.04H40.808v23.769L24 11 11 24l16.808 16.808H4.038v18.384h23.769L11 76l13 13 16.808-16.808v23.772h18.385v-23.77L76 89l13-13-16.808-16.808h23.77V40.808h-23.77z"
+        stroke={borderColor}
+        strokeWidth={0.38}
+        fill="transparent"
+      />
+    </svg>
+  );
+};
+
 export default SvgSymbolSnow2;

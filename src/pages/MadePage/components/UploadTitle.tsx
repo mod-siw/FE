@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as S from './UploadTitle.style';
-import { useFormContext } from '../MadeFormContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 interface MadeProps {
   conditions: boolean;
@@ -9,6 +10,8 @@ interface MadeProps {
 
 const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
   const { formData, setFormData } = useFormContext();
+  const { isDarkMode } = useTheme();
+
   const [title, setTitle] = useState('');
   const [reason, setReason] = useState('');
 
@@ -22,10 +25,13 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
     timerRef.current = setTimeout(() => {
       const isTitleValid = title.trim().length > 0 && title.trim().length <= 16;
       const isReasonValid = reason.trim().length > 0 && reason.trim().length <= 55;
-      setConditions(isTitleValid && isReasonValid);
+
+      const isOK = isDarkMode ? isTitleValid && isReasonValid : isReasonValid;
+      setConditions(isOK);
       console.log(formData);
       setFormData((prev) => ({
         ...prev,
+        img: prev.img,
         name: title,
         description: reason,
       }));

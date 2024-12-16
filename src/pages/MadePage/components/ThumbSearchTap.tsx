@@ -2,7 +2,8 @@ import { useState } from 'react';
 import * as S from './ThumbSearchTap.style';
 
 import MadeBox from './MadeBox';
-import { useFormContext } from '../MadeFormContext';
+import { useTheme } from 'contexts/ThemeContext';
+import { useFormContext } from '../../../contexts/MadeFormContext';
 import { useRenderFrame } from 'hooks/useRenderFrame';
 
 import { thumbFrames } from '../dataList';
@@ -13,6 +14,7 @@ interface MadeProps {
 }
 
 const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
+  const { isDarkMode } = useTheme();
   const { setFormData } = useFormContext();
   const { colorMap } = useRenderFrame();
 
@@ -39,24 +41,27 @@ const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
         conditions={conditions}
         setConditions={setConditions}
       />
-      <S.Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-        {Object.entries(colorMap).map(([id, color]) => (
-          <S.Circle
-            key={id}
-            style={{ backgroundColor: color }}
-            title={`color-${id}`}
-            isSelected={selectedColorId === Number(id)}
-            onClick={() => handleCircleClick(Number(id))}
-          />
-        ))}
-      </S.Container>
-      <S.Container>
-        {thumbFrames.map((frame) => (
-          <S.FrameBox key={frame.name} onClick={() => handleFrameClick(frame.name)}>
-            {selectedFrame === frame.name ? frame.selected : frame.unselected}
-          </S.FrameBox>
-        ))}
-      </S.Container>
+      <S.ControlBox isDarkMode={isDarkMode}>
+        <S.Container style={{ paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+          {Object.entries(colorMap).map(([id, color]) => (
+            <S.Circle
+              key={id}
+              style={{ backgroundColor: color }}
+              title={`color-${id}`}
+              isSelected={selectedColorId === Number(id)}
+              isDarkMode={isDarkMode}
+              onClick={() => handleCircleClick(Number(id))}
+            />
+          ))}
+        </S.Container>
+        <S.Container>
+          {thumbFrames.map((frame) => (
+            <S.FrameBox key={frame.name} onClick={() => handleFrameClick(frame.name)}>
+              {selectedFrame === frame.name ? frame.selected : frame.unselected}
+            </S.FrameBox>
+          ))}
+        </S.Container>
+      </S.ControlBox>
     </>
   );
 };
