@@ -6,17 +6,15 @@ type UserContextType = {
   nickname: string | null;
   setUsername: (username: string | null) => void;
   setNickname: (nickname: string | null) => void;
-  clearUserData: () => void; // 로그아웃 시 초기화
+  clearUserData: () => void;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
 
-// localStorage에서 데이터 가져오기
 export const getLocalStorageItem = (key: string): string | null => {
   return localStorage.getItem(key);
 };
 
-// localStorage에 데이터 저장
 export const setLocalStorageItem = (key: string, value: string | null) => {
   if (value) {
     localStorage.setItem(key, value);
@@ -26,7 +24,6 @@ export const setLocalStorageItem = (key: string, value: string | null) => {
 };
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  // 초기 상태 복원
   const [username, setUsername] = useState<string | null>(() => {
     const storedUsername = getLocalStorageItem('username');
     console.log('Restored username from localStorage:', storedUsername);
@@ -39,7 +36,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return storedNickname;
   });
 
-  // username & nickname 변경 시 localStorage 업데이트
   useEffect(() => {
     setLocalStorageItem('username', username);
   }, [username]);
