@@ -123,7 +123,7 @@ export const PostKakaoNickname = async (nickname: string, username: string) => {
       username,
     });
 
-    const { access_token, refresh_token } = response.data.data;
+    const { id, access_token, refresh_token } = response.data.data;
 
     // 토큰 저장
     const accessExpirationDate = new Date();
@@ -132,12 +132,10 @@ export const PostKakaoNickname = async (nickname: string, username: string) => {
     const refreshExpirationDate = new Date();
     refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 3);
 
+    setLocalStorageItem('id', id.toString());
     document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
     document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
-
     setLocalStorageItem('nickname', nickname);
-    console.log('카카오 회원가입 시 로컬스토리지에 저장된 닉네임:', nickname);
-    console.log('카카오 회원가입 완료:', response.data);
 
     return Promise.resolve(response.data);
   } catch (error) {
