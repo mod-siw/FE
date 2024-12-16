@@ -33,6 +33,11 @@ export const Wrapper = styled.div`
   /* height: 100vh; */
   justify-content: center;
   align-items: center;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Msg = styled.div`
