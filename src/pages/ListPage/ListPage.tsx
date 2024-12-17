@@ -50,7 +50,7 @@ const ListPage = () => {
       </S.Title>
       <S.CreateBtn isDarkMode={isDarkMode} onClick={handleGoMake}>
         <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
-        <span>내 인생작 소개하기</span>
+        <span>{isDarkMode ? '내 인생작 소개하기' : '나의 순간 소개하기'}</span>
         <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
       </S.CreateBtn>
       <S.ListDiv>
