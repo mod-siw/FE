@@ -111,7 +111,6 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
         ))}
       </GridContainer>
       {isItemClicked && <Onboarding />}
-      <FAB />
     </Wrapper>
   );
 };
