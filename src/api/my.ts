@@ -76,7 +76,7 @@ export const GetShareWhite = async (user_id: number) => {
 // GET : 블랙 공유페이지
 export const GetShareBlack = async (user_id: number) => {
   try {
-    const response = await http.get(`/main/whiteshare/${user_id}`);
+    const response = await http.get(`/main/blackshare/${user_id}`);
     return response.data;
   } catch (error) {
     console.error('다크모드 공유페이지 로드 실패:', error);
