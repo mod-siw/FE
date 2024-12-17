@@ -35,13 +35,13 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
 
   const handlePost = async () => {
     await PostMadeData(formData);
-    // resetFormData();
+    resetFormData();
   };
 
   const handleDelete = () => {
     resetFormData();
     const prevPath = location.state?.prev || '/my';
-    navigate(prevPath);
+    navigate(prevPath, { state: { isOpened: false } });
   };
 
   const handleClick = () => {
