@@ -15,10 +15,6 @@ import { GetMyBlack, GetMyWhite } from 'api/my';
 import { PostLogout } from 'api/auth';
 import { getCookie } from 'api/http';
 
-interface MyPageProps {
-  nickname: string;
-}
-
 const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,13 +24,13 @@ const MyPage = () => {
 
   const [isOpened, setIsOpened] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(
-    location.state?.isGridVisible || false,
+    sessionStorage.getItem('isGiftBoxShown') === 'true' ||
+      location.state?.isGridVisible ||
+      false,
   );
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const token = getCookie('access_token');
-
-  const prevState = location.state?.isOpened ?? true;
 
   // 로그인 정보 없을 때
   useEffect(() => {
@@ -43,6 +39,7 @@ const MyPage = () => {
     }
   }, [token, navigate]);
 
+  // 데이터 불러오기
   useEffect(() => {
     const GetMyList = async () => {
       try {
@@ -56,46 +53,27 @@ const MyPage = () => {
     GetMyList();
   }, [isDarkMode]);
 
-  // 상세페이지 갔다가 다시 돌아올 경우 대비 상태 저장
-  useEffect(() => {
-    const gridState = sessionStorage.getItem('isGridVisible');
-    if (gridState === 'true') {
-      setIsGridVisible(true);
-    }
-  }, []);
-
   // 상세페이지 갔다가 다시 돌아올 경우 대비 클릭 상태 초기화
   useEffect(() => {
     setIsItemClicked(false);
     setItemId(0);
   }, [setIsItemClicked, setItemId]);
 
+  // GiftBox 열기 핸들러
   const handleOpen = () => {
     setIsOpened(true);
 
     // 리본 애니메이션 후 블록 API 호출
     setTimeout(() => {
       setIsGridVisible(true);
-      sessionStorage.setItem('isGridVisible', 'true');
+      sessionStorage.setItem('isGiftBoxShown', 'true'); // GiftBox가 보여졌음을 저장
     }, 1000);
   };
 
-  // 홈
+  // 홈 버튼 핸들러
   const handleMain = () => {
-    sessionStorage.removeItem('isGridVisible'); // 상태 초기화
+    sessionStorage.removeItem('isGiftBoxShown'); // 상태 초기화
     navigate('/');
-  };
-
-  // 공유하기
-  const handleShare = () => {
-    const id = localStorage.getItem('id');
-    const mode = isDarkMode ? 'black' : 'white';
-    if (id) {
-      navigate(`/${nickname}/${id}/${mode}`);
-    } else {
-      console.error('유저 ID를 찾을 수 없습니다.');
-      alert('유저 ID를 확인할 수 없습니다.');
-    }
   };
 
   // 로그아웃
@@ -103,7 +81,7 @@ const MyPage = () => {
     try {
       await PostLogout();
       clearUserData();
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('로그아웃 실패:', error);
       alert('로그아웃에 실패했습니다. 다시 시도해 주세요.');
@@ -134,14 +112,14 @@ const MyPage = () => {
           )}
         </S.Title>
       </S.Top>
-      {prevState && !isGridVisible ? (
+      {!isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
       ) : (
         <MyGridBox data={items} animate={false} />
       )}
       {isGridVisible && (
         <>
-          <S.ShareBtn onClick={handleShare}>
+          <S.ShareBtn onClick={() => alert('공유 기능!')}>
             <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
             <span>공유하기</span>
             <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
