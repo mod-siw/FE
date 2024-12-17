@@ -5,7 +5,6 @@ export const Entire = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* overflow: hidden; */
   position: relative;
 `;
 
@@ -19,17 +18,22 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: fixed;
+  position: absolute;
+  will-change: transform;
+  transform: none;
 `;
 
 export const ShadowLayer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
+
+  will-change: transform;
+  transform: none;
 `;
 
 /* 컨텐츠 관련 */
