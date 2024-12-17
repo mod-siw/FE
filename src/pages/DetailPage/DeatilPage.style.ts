@@ -86,6 +86,10 @@ export const InfoWrapper = styled.div`
 export const Information = styled.div`
   ${({ theme }) => theme.fonts.body14_medium}
   color: ${({ theme }) => theme.colors.white};
+  width: 27.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Name = styled.div`
