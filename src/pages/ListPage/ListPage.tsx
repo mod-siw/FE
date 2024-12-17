@@ -50,12 +50,14 @@ const ListPage = () => {
         <span>내 인생작 소개하기</span>
         <Union width={12.75} height={12.75} fill={isDarkMode ? '#FFFFFF' : '#000000'} />
       </S.CreateBtn>
-      <ItemList
-        data={items}
-        isFetchingNextPage={isFetchingNextPage}
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
+      <S.ListDiv>
+        <ItemList
+          data={items}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      </S.ListDiv>
       {isItemClicked && <Onboarding />}
       <FAB />
     </S.Wrapper>

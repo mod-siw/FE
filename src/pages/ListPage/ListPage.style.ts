@@ -34,3 +34,11 @@ export const Title = styled.div<{
 
   margin-top: 4.2rem;
 `;
+
+export const ListDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
