@@ -113,6 +113,7 @@ const MyPage = () => {
   return (
     <S.Wrapper>
       <S.Top>
+        {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
         <S.Title>
           {isDarkMode ? (
             <>
@@ -132,7 +133,6 @@ const MyPage = () => {
             </>
           )}
         </S.Title>
-        {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
       </S.Top>
       {prevState && !isGridVisible ? (
         <GiftBox isOpened={isOpened} onOpen={handleOpen} />
