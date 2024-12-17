@@ -36,3 +36,14 @@ export const BottomDiv = styled.div`
   height: 10rem;
   background-color: transparent;
 `;
+
+export const SnowDiv = styled.div`
+  width: 16rem;
+  height: 16rem;
+
+  @media (max-width: 400px) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+  }
+`;
