@@ -12,7 +12,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
   const { formData, setFormData } = useFormContext();
   const { isDarkMode } = useTheme();
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState((formData.name ?? '').slice(0, 16));
   const [reason, setReason] = useState('');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -28,7 +28,6 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
 
       const isOK = isDarkMode ? isTitleValid && isReasonValid : isReasonValid;
       setConditions(isOK);
-      console.log(formData);
       setFormData((prev) => ({
         ...prev,
         img: prev.img,

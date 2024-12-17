@@ -41,7 +41,7 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const handleDelete = () => {
     resetFormData();
     const prevPath = location.state?.prev || '/my';
-    navigate(prevPath);
+    navigate(prevPath, { state: { isOpened: false } });
   };
 
   const handleClick = () => {

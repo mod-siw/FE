@@ -14,6 +14,7 @@ import ImgItem from './components/ImgItem';
 
 interface ImgItemType {
   id: number;
+  name: string;
   img: string;
   information: string;
 }
@@ -57,6 +58,7 @@ const ImgSearchPage = () => {
     console.log(item);
     setFormData((prev) => ({
       ...prev,
+      name: item.name,
       img: item.img,
       information: item.information,
     }));
