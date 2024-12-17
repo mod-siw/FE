@@ -96,6 +96,7 @@ export const KakaoLogin = async (code: string, navigate: (path: string) => void)
       // 이미 접속한 적 있는 경우
       setLocalStorageItem('id', id.toString());
       setLocalStorageItem('nickname', nickname);
+
       document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
 
