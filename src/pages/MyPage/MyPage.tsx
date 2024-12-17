@@ -10,6 +10,7 @@ import { Union } from '../../assets';
 import { useTheme } from 'contexts/ThemeContext';
 
 import { useUser } from 'contexts/UserContext';
+import { useItemContext } from 'contexts/ItemContext';
 import { GetMyBlack, GetMyWhite } from 'api/my';
 import { PostLogout } from 'api/auth';
 import { getCookie } from 'api/http';
@@ -22,6 +23,7 @@ const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { nickname, clearUserData } = useUser();
+  const { setIsItemClicked, setItemId } = useItemContext();
   const { isDarkMode } = useTheme();
 
   const [isOpened, setIsOpened] = useState(false);
@@ -34,6 +36,7 @@ const MyPage = () => {
 
   const prevState = location.state?.isOpened ?? true;
 
+  // 로그인 정보 없을 때
   useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -53,17 +56,33 @@ const MyPage = () => {
     GetMyList();
   }, [isDarkMode]);
 
+  // 상세페이지 갔다가 다시 돌아올 경우 대비 상태 저장
+  useEffect(() => {
+    const gridState = sessionStorage.getItem('isGridVisible');
+    if (gridState === 'true') {
+      setIsGridVisible(true);
+    }
+  }, []);
+
+  // 상세페이지 갔다가 다시 돌아올 경우 대비 클릭 상태 초기화
+  useEffect(() => {
+    setIsItemClicked(false);
+    setItemId(0);
+  }, [setIsItemClicked, setItemId]);
+
   const handleOpen = () => {
     setIsOpened(true);
 
     // 리본 애니메이션 후 블록 API 호출
     setTimeout(() => {
       setIsGridVisible(true);
+      sessionStorage.setItem('isGridVisible', 'true');
     }, 1000);
   };
 
   // 홈
   const handleMain = () => {
+    sessionStorage.removeItem('isGridVisible'); // 상태 초기화
     navigate('/');
   };
 
