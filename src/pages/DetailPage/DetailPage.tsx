@@ -17,6 +17,7 @@ import { GetPostDetail } from 'api/post';
 import { useTheme } from 'contexts/ThemeContext';
 import { getLocalStorageItem } from 'contexts/UserContext';
 import { saveAs } from 'file-saver';
+import { getCookie } from 'api/http';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +36,8 @@ const DetailPage = () => {
 
   const { colorMap } = useRenderFrame();
   const color = itemData?.color ? colorMap[itemData.color] : 'transparent';
-  const isMine = itemData?.nickname === localNickname && fromMy;
+  //const isMine = itemData?.nickname === localNickname && fromMy;
+  const isMine = getCookie('access_token') && fromMy;
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleBack = () => {
