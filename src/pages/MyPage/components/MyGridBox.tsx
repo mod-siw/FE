@@ -6,6 +6,8 @@ import Item from 'components/Item/Item';
 import { Mydefaultimg } from 'assets/index';
 import { ClickedSnow } from 'assets/index';
 import { ClickedSnowWhite } from 'assets/index';
+import FAB from 'components/FAB/FAB';
+import Onboarding from 'pages/ListPage/components/Onboarding';
 
 import { useItemContext } from 'contexts/ItemContext';
 import { useTheme } from 'contexts/ThemeContext';
@@ -95,6 +97,8 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
           </Block>
         ))}
       </GridContainer>
+      {isItemClicked && <Onboarding />}
+      <FAB />
     </Wrapper>
   );
 };
