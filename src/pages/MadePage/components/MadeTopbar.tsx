@@ -41,14 +41,14 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const handleDelete = () => {
     resetFormData();
     const prevPath = location.state?.prev || '/my';
-    navigate(prevPath, { state: { isOpened: false } });
+    navigate(prevPath, { state: { isGridVisible: true } });
   };
 
   const handleClick = () => {
     if (isNextEnabled) {
       if (step === 2) {
         handlePost();
-        navigate('/my', { state: { isOpened: false } });
+        navigate('/my', { state: { isGridVisible: true } });
       } else {
         onNext();
       }
