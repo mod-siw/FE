@@ -41,7 +41,7 @@ export const Container = styled.div`
 
 export const UpperBtn = styled.div`
   position: absolute;
-  top: 1.76rem;
+  top: 3.26rem;
   right: 1.5rem;
   cursor: pointer;
   z-index: 900;
@@ -50,7 +50,7 @@ export const UpperBtn = styled.div`
 export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
   color: ${({ color }) => color};
-  margin: 4.16rem 0 0 2.9rem;
+  margin: 5.66rem 0 0 2.9rem;
 `;
 
 export const Background = styled.div`
@@ -65,7 +65,7 @@ export const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -1rem;
+  margin-top: -2.5rem;
 `;
 
 export const InfoWrapper = styled.div`
