@@ -3,7 +3,6 @@ import styled, { keyframes, css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Item from 'components/Item/Item';
 
-import { Mydefaultimg } from 'assets/index';
 import { ClickedSnow } from 'assets/index';
 import { ClickedSnowWhite } from 'assets/index';
 import FAB from 'components/FAB/FAB';
@@ -86,8 +85,13 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
                     size={10}
                     onClick={() => handleClick(item.id)}
                   />
+                ) : isDarkMode ? (
+                  <ClickedSnow
+                    style={{ width: '100%', height: '100%' }}
+                    onClick={handleDefaultClick}
+                  />
                 ) : (
-                  <Mydefaultimg
+                  <ClickedSnowWhite
                     style={{ width: '100%', height: '100%' }}
                     onClick={handleDefaultClick}
                   />
@@ -108,8 +112,13 @@ export default MyGridBox;
 const Wrapper = styled.div<{ marginBottom?: string }>`
   padding: 3.7rem;
   margin: 4.3rem 0rem ${({ marginBottom }) => marginBottom || '4.3rem'} 0rem;
-  width: 40.2rem;
-  height: 40.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 40.2rem;
+  max-height: 40.2rem;
   flex-shrink: 0;
 
   border: ${({ theme }) => theme.colors.gray02};
