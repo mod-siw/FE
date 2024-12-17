@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KakaoLogin } from 'api/auth';
+import { useUser } from 'contexts/UserContext';
 
 const KakaoCallbackHandler = () => {
   const navigate = useNavigate();
+  const { setNickname } = useUser();
 
   const params = new URL(window.location.toString()).searchParams;
   const code = params.get('code');
@@ -16,7 +18,7 @@ const KakaoCallbackHandler = () => {
         return;
       }
 
-      const response = await KakaoLogin(code, navigate);
+      const response = await KakaoLogin(code, navigate, setNickname);
     };
 
     getData();

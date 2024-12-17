@@ -14,6 +14,7 @@ import ImgItem from './components/ImgItem';
 
 interface ImgItemType {
   id: number;
+  name: string;
   img: string;
   information: string;
 }
@@ -34,19 +35,18 @@ const ImgSearchPage = () => {
       try {
         const result = await GetSearchImg(category, keyword);
         setData(result.data);
-        setIsNone(result.data.length === 0);
+        setIsNone(result.data?.length === 0);
       } catch (error) {
         console.error('검색 실패', error);
         setData([]);
         setIsNone(true);
       }
-    }, 300),
+    }, 500),
     [],
   );
 
   useEffect(() => {
     if (query) {
-      console.log(formData.category, query);
       throttledSearch(formData.category, query);
     } else {
       setData([]);
@@ -58,6 +58,7 @@ const ImgSearchPage = () => {
     console.log(item);
     setFormData((prev) => ({
       ...prev,
+      name: item.name,
       img: item.img,
       information: item.information,
     }));
@@ -84,7 +85,7 @@ const ImgSearchPage = () => {
           <S.Msg>검색된 이미지가 없어요.</S.Msg>
         ) : (
           <S.Container>
-            {data.map((item) => (
+            {data?.map((item) => (
               <React.Fragment key={item.id}>
                 <ImgItem id={item.id} img={item.img} onClick={() => handleClick(item)} />
               </React.Fragment>

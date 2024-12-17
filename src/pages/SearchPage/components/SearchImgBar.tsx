@@ -16,7 +16,7 @@ const SearchImgBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => 
   const handleBack = () => navigate(-1);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value.trim());
+    setQuery(event.target.value);
   };
 
   return (
