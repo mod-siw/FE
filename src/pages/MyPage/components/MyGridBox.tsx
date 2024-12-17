@@ -27,18 +27,8 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
   const [fadeOut, setFadeOut] = useState<number | null>(null);
 
-  const handleClick = (id: number) => {
-    setFadeOut(id);
-    setTimeout(() => {
-      setItemId(id);
-    }, 600);
-    setTimeout(() => {
-      setIsItemClicked(true);
-    }, 1500);
-  };
-
   useEffect(() => {
-    if (isItemClicked) {
+    if (isItemClicked && animate) {
       const timer = setTimeout(() => {
         setIsItemClicked(false);
         navigate(`/detail/${itemId}`, { state: { fromMyPage: true } });
@@ -47,7 +37,24 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [isItemClicked, navigate]);
+  }, [isItemClicked, navigate, animate]);
+
+  const handleClick = (id: number) => {
+    if (!animate) {
+      setItemId(id);
+      setIsItemClicked(true);
+      navigate(`/detail/${id}`, { state: { fromMyPage: true } });
+      return;
+    }
+
+    setFadeOut(id);
+    setTimeout(() => {
+      setItemId(id);
+    }, 600);
+    setTimeout(() => {
+      setIsItemClicked(true);
+    }, 1500);
+  };
 
   const handleDefaultClick = () => {
     navigate('/made', { state: { prev: '/my' } });
@@ -68,14 +75,14 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
       <GridContainer>
         {filledData.map((item) => (
           <Block key={item.id}>
-            {itemId === item.id && animate ? (
+            {itemId === item.id ? (
               isDarkMode ? (
                 <ClickedSnow />
               ) : (
                 <ClickedSnowWhite />
               )
             ) : (
-              <FadeWrapper isFading={animate && fadeOut === item.id}>
+              <FadeWrapper isFading={fadeOut === item.id}>
                 {item.id > 0 ? (
                   <Item
                     id={item.id}
@@ -89,11 +96,13 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
                   <ClickedSnow
                     style={{ width: '100%', height: '100%' }}
                     onClick={handleDefaultClick}
+                    cursor="pointer"
                   />
                 ) : (
                   <ClickedSnowWhite
                     style={{ width: '100%', height: '100%' }}
                     onClick={handleDefaultClick}
+                    cursor="pointer"
                   />
                 )}
               </FadeWrapper>

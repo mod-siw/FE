@@ -10,6 +10,7 @@ import { Union } from '../../assets';
 import { useTheme } from 'contexts/ThemeContext';
 
 import { useUser } from 'contexts/UserContext';
+import { useItemContext } from 'contexts/ItemContext';
 import { GetMyBlack, GetMyWhite } from 'api/my';
 import { PostLogout } from 'api/auth';
 import { getCookie } from 'api/http';
@@ -22,6 +23,7 @@ const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { nickname, clearUserData } = useUser();
+  const { setIsItemClicked, setItemId } = useItemContext();
   const { isDarkMode } = useTheme();
 
   const [isOpened, setIsOpened] = useState(false);
@@ -61,6 +63,12 @@ const MyPage = () => {
       setIsGridVisible(true);
     }
   }, []);
+
+  // 상세페이지 갔다가 다시 돌아올 경우 대비 클릭 상태 초기화
+  useEffect(() => {
+    setIsItemClicked(false);
+    setItemId(0);
+  }, [setIsItemClicked, setItemId]);
 
   const handleOpen = () => {
     setIsOpened(true);
