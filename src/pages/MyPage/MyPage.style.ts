@@ -42,18 +42,10 @@ const Top = styled.div`
   margin-top: 4.2rem;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   padding: 0;
-`;
-
-const Title = styled.div`
-  padding-left: 3rem;
-  color: ${({ theme }) => theme.colors.textColor};
-
-  ${({ theme }) => theme.fonts.head_medium}
-
-  white-space: pre-wrap;
 `;
 
 const HomeBtn = styled.div`
@@ -65,8 +57,19 @@ const HomeBtn = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  align-self: flex-end;
 
   cursor: pointer;
+`;
+
+const Title = styled.div`
+  padding-left: 3rem;
+
+  //width: 29.6rem;
+  color: ${({ theme }) => theme.colors.textColor};
+  ${({ theme }) => theme.fonts.head_medium}
+
+  white-space: pre-wrap;
 `;
 
 const ShareBtn = styled.div`
