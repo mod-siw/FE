@@ -5,7 +5,7 @@ export const Entire = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 `;
 
