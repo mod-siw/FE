@@ -62,6 +62,7 @@ export const Background = styled.div`
 
 export const CenterContainer = styled.div`
   position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,10 +75,12 @@ export const InfoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   gap: 1.1rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 `;
 
 export const Information = styled.div`
@@ -88,6 +91,7 @@ export const Information = styled.div`
 export const Name = styled.div`
   ${({ theme }) => theme.fonts.title_semibold}
   color: ${({ theme }) => theme.colors.white};
+  white-space: pre-wrap;
 `;
 
 export const CommentWrapper = styled.div`
