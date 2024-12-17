@@ -34,7 +34,7 @@ const DetailPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const fromMy = location.state?.from === 'my';
+  const fromMy = location.state?.fromMyPage;
   const localNickname = getLocalStorageItem('nickname');
 
   useEffect(() => {
