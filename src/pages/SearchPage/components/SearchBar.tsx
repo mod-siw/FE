@@ -48,13 +48,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
       ) : (
         <></>
       )}
-      <S.InputContainer>
-        <input ref={inputRef} placeholder="작품 분야, 제목, 작성자로 검색해보세요" />
+      <S.InputContainer isDarkMode={isDarkMode}>
+        <input ref={inputRef} placeholder="제목, 작성자로 검색해보세요" />
         <Search
           width={22}
           height={22}
           style={{ cursor: 'pointer' }}
           onClick={handleSearch}
+          stroke={isDarkMode ? '#ffffff' : '#000000'}
         />
       </S.InputContainer>
     </S.Container>
