@@ -41,7 +41,7 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
     if (isItemClicked) {
       const timer = setTimeout(() => {
         setIsItemClicked(false);
-        navigate(`/detail/${itemId}`);
+        navigate(`/detail/${itemId}`, { state: { fromMyPage: true } });
         setItemId(0);
       }, 2800);
 

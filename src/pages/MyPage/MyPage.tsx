@@ -25,7 +25,9 @@ const MyPage = () => {
   const { isDarkMode } = useTheme();
 
   const [isOpened, setIsOpened] = useState(false);
-  const [isGridVisible, setIsGridVisible] = useState(false);
+  const [isGridVisible, setIsGridVisible] = useState(
+    location.state?.isGridVisible || false,
+  );
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const token = getCookie('access_token');
