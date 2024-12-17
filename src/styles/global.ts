@@ -13,6 +13,13 @@ const GlobalStyle = createGlobalStyle`
     font-family: Pretendard;
     font-size: 62.5%;
     transition: background 0.3s ease;
+
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   * {
