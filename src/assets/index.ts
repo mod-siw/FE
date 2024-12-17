@@ -17,7 +17,6 @@ export { default as Kakaotalk } from './Kakaotalk';
 export { default as Menu } from './Menu';
 export { default as MiniSymbol } from './MiniSymbol';
 export { default as MiniSymbol2 } from './MiniSymbol2';
-export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
 export { default as SymbolMask01 } from './SymbolMask01';

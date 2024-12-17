@@ -8,11 +8,10 @@ interface ItemEffectProps {
   top: string;
   left: string;
   angle: string;
-  animationClass: string;
   data: Post;
 }
 
-const ItemEffect = ({ top, left, angle, animationClass, data }: ItemEffectProps) => {
+const ItemEffect = ({ top, left, angle, data }: ItemEffectProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -20,13 +19,13 @@ const ItemEffect = ({ top, left, angle, animationClass, data }: ItemEffectProps)
   };
 
   return (
-    <S.Box $top={top} $left={left} $angle={angle} className={animationClass}>
+    <S.Box $top={top} $left={left} $angle={angle}>
       <Item
         id={data.id}
         img={data.img}
         frame={data.frame}
         color={data.color}
-        size={12}
+        size={10.2}
         onClick={handleClick}
       />
     </S.Box>

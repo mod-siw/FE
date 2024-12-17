@@ -21,17 +21,22 @@ const ListPage = () => {
   const { isDarkMode } = useTheme();
   const nickname = getLocalStorageItem('nickname');
 
+  const categoryName = pathToCategory[category || 'movie']?.name || '영화';
+
+  const { items, userPostCount, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useCategoryInfiniteQuery(categoryName);
+
   const handleGoMake = () => {
     if (nickname) {
-      navigate('/made', { state: { prev: `/detail/${category}` } });
+      if (userPostCount < 9) {
+        navigate('/made', { state: { prev: `/list/${category}` } });
+      } else {
+        alert('포스트는 최대 9개까지 생성할 수 있습니다');
+      }
     } else {
       navigate('/login');
     }
   };
-  const categoryName = pathToCategory[category || 'movie']?.name || '영화';
-
-  const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useCategoryInfiniteQuery(categoryName);
 
   return (
     <S.Wrapper>

@@ -6,6 +6,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0rem 2rem 0rem 2rem;
+
+  @media (max-width: 375px) {
+    padding: 0rem 2.2rem;
+  }
 `;
 
 interface MarginProps {
@@ -13,11 +17,14 @@ interface MarginProps {
   num2?: string;
 }
 
-const Input = styled.input<MarginProps>`
+const Input = styled.input.attrs(() => ({
+  autoComplete: 'off',
+}))<MarginProps>`
   margin-top: ${({ num1 }) => num1 || '0rem'};
   margin-bottom: ${({ num2 }) => num2 || '0rem'};
   display: flex;
-  width: 36.2rem;
+  width: 100%;
+  max-width: 36.2rem;
   padding: 1.8rem 2rem;
   flex-direction: column;
   justify-content: center;
@@ -26,19 +33,9 @@ const Input = styled.input<MarginProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray02};
   background: transparent;
 
-  color: ${({ theme }) => theme.colors.gray03};
+  color: ${({ theme }) => theme.colors.textColor};
 
   ${({ theme }) => theme.fonts.body16_medium}
-
-  &:focus {
-    outline: none;
-  }
-
-  &:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px ${({ theme }) => theme.colors.bgColor} inset;
-    -webkit-text-fill-color: ${({ theme }) => theme.colors.gray03};
-    transition: background-color 5000s ease-in-out 0s;
-  }
 `;
 
 // 로그인 페이지
@@ -48,7 +45,8 @@ const KakaoBtn = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1.3rem;
-  width: 33.6rem;
+  width: 100%;
+  max-width: 33.6rem;
   height: 4.7rem;
   flex-shrink: 0;
   border-radius: 1.2rem;
@@ -72,7 +70,8 @@ const KakaoBtn = styled.div`
 
 const Line = styled.div`
   margin-bottom: 2.6rem;
-  width: 32.8rem;
+  width: 100%;
+  max-width: 32.8rem;
   height: 0.1rem;
   background: ${({ theme }) => theme.colors.gray02};
 `;
@@ -90,6 +89,8 @@ const SignupBtn = styled.div`
 // 회원가입 페이지
 const Container = styled.div`
   padding: 0;
+  margin: 0;
+  width: 100%;
 `;
 
 const Title = styled.div<MarginProps>`

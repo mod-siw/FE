@@ -27,8 +27,16 @@ export const useCategoryInfiniteQuery = (category: string) => {
     return [];
   }, [data]);
 
+  const userPostCount = useMemo(() => {
+    if (data?.pages?.length) {
+      return data.pages[0]?.data?.user_post_count || 0;
+    }
+    return 0;
+  }, [data]);
+
   return {
     items,
+    userPostCount,
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
