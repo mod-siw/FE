@@ -49,7 +49,7 @@ const DetailPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleBack = () => {
-    const prevPath = location.state?.prev || '/my';
+    const prevPath = location.state?.prev || -1;
     navigate(prevPath, { state: { isGridVisible: true } });
   };
 
