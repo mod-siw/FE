@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const Entire = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+`;
+
+/* 배경이미지 + 그림자 관련 */
 export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -8,19 +18,25 @@ export const Wrapper = styled.div`
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-  }
+  position: absolute;
+`;
+
+export const ShadowLayer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+`;
+
+/* 컨텐츠 관련 */
+export const Container = styled.div`
+  position: absolute;
+  width: 100%;
+  z-index: 10;
 `;
 
 export const UpperBtn = styled.div`
@@ -31,10 +47,6 @@ export const UpperBtn = styled.div`
   z-index: 900;
 `;
 
-export const Container = styled.div`
-  z-index: 2;
-`;
-
 export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
   color: ${({ color }) => color};
@@ -42,8 +54,6 @@ export const Title = styled.div<{ color: string }>`
 `;
 
 export const Background = styled.div`
-  /* position: absolute; */
-  top: 41.5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +65,7 @@ export const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -1rem;
 `;
 
 export const InfoWrapper = styled.div`
@@ -85,7 +96,6 @@ export const CommentWrapper = styled.div`
   flex-direction: column;
   padding: 0 3rem;
   margin-top: -10rem;
-  /* margin-top: 106%; */
 `;
 
 export const Comment = styled.div<{ color: string }>`
