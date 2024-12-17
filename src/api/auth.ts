@@ -79,7 +79,11 @@ export const PostDuplicateId = async (username: string) => {
 };
 
 // GET : 카카오 로그인
-export const KakaoLogin = async (code: string, navigate: (path: string) => void) => {
+export const KakaoLogin = async (
+  code: string,
+  navigate: (path: string) => void,
+  setNickname: (nickname: string | null) => void,
+) => {
   try {
     const response = await http.get(`/accounts/kakao/callback/?code=${code}`);
 
@@ -96,6 +100,7 @@ export const KakaoLogin = async (code: string, navigate: (path: string) => void)
       // 이미 접속한 적 있는 경우
       setLocalStorageItem('id', id.toString());
       setLocalStorageItem('nickname', nickname);
+      setNickname(nickname);
 
       document.cookie = `access_token=${access_token}; expires=${accessExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `refresh_token=${refresh_token}; expires=${refreshExpirationDate.toUTCString()}; path=/; SameSite=Lax`;
