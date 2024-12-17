@@ -7,6 +7,10 @@ export const Wrapper = styled.div<{ size: number }>`
   cursor: pointer;
   z-index: 3;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media (max-width: 400px) {
     width: 100%;
     height: 100%;
