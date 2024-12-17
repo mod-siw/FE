@@ -1,4 +1,5 @@
 import * as S from './ListPage.style';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { pathToCategory } from 'constants/category';
 import { useTheme } from 'contexts/ThemeContext';
@@ -8,6 +9,7 @@ import { Union } from 'assets';
 import FAB from 'components/FAB/FAB';
 import Onboarding from './components/Onboarding';
 import ItemList from 'components/ItemList/ItemList';
+import ListPopup from './components/ListPopup';
 
 // data
 import { useItemContext } from 'contexts/ItemContext';
@@ -20,6 +22,7 @@ const ListPage = () => {
   const { isItemClicked } = useItemContext();
   const { isDarkMode } = useTheme();
   const nickname = getLocalStorageItem('nickname');
+  const [isPopupVisible, setPopupVisible] = useState(false);
 
   const categoryName = pathToCategory[category || 'movie']?.name || '영화';
 
@@ -31,7 +34,7 @@ const ListPage = () => {
       if (userPostCount < 9) {
         navigate('/made', { state: { prev: `/list/${category}` } });
       } else {
-        alert('포스트는 최대 9개까지 생성할 수 있습니다');
+        setPopupVisible(true);
       }
     } else {
       navigate('/login');
@@ -60,6 +63,7 @@ const ListPage = () => {
       </S.ListDiv>
       {isItemClicked && <Onboarding />}
       <FAB />
+      {isPopupVisible && <ListPopup onClose={() => setPopupVisible(false)} />}
     </S.Wrapper>
   );
 };
