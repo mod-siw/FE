@@ -19,11 +19,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: absolute;
+  position: fixed;
 `;
 
 export const ShadowLayer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
