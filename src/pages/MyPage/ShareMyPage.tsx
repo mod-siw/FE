@@ -4,6 +4,9 @@ import { S } from './MyPage.style';
 import MyGridBox from './components/MyGridBox';
 import Popup from './components/Popup';
 
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from 'styles/theme';
+
 import { GetShareBlack, GetShareWhite } from 'api/my';
 import { getCookie } from 'api/http';
 
@@ -16,6 +19,7 @@ const ShareMyPage: React.FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const isDarkMode = mode === 'black';
+  const theme = isDarkMode ? darkTheme : lightTheme;
   const token = getCookie('access_token');
 
   useEffect(() => {
@@ -46,21 +50,36 @@ const ShareMyPage: React.FC = () => {
   }, [isDarkMode]);
 
   return (
-    <S.Wrapper>
-      <S.Top>
-        <S.Title>
-          2024년
-          <br />
-          {nickname}님의 가슴을
-          <br />
-          뛰게 만든
-        </S.Title>
-      </S.Top>
-      <MyGridBox data={items} num="14.4rem" />
-      {isPopupVisible && (
-        <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
-      )}
-    </S.Wrapper>
+    <ThemeProvider theme={theme}>
+      <S.SharePageGlobalStyle />
+      <S.Wrapper2>
+        <S.Top>
+          <S.Title>
+            {isDarkMode ? (
+              <>
+                2024년
+                <br />
+                {nickname}님의 가슴을
+                <br />
+                뛰게 만든
+              </>
+            ) : (
+              <>
+                2024년
+                <br />
+                {nickname}님의 순간을
+                <br />
+                함께한
+              </>
+            )}
+          </S.Title>
+        </S.Top>
+        <MyGridBox data={items} num="14.4rem" />
+        {isPopupVisible && (
+          <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
+        )}
+      </S.Wrapper2>
+    </ThemeProvider>
   );
 };
 

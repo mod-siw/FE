@@ -108,8 +108,13 @@ export default MyGridBox;
 const Wrapper = styled.div<{ marginBottom?: string }>`
   padding: 3.7rem;
   margin: 4.3rem 0rem ${({ marginBottom }) => marginBottom || '4.3rem'} 0rem;
-  width: 40.2rem;
-  height: 40.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 40.2rem;
+  max-height: 40.2rem;
   flex-shrink: 0;
 
   border: ${({ theme }) => theme.colors.gray02};
