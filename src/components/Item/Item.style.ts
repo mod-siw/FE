@@ -6,6 +6,12 @@ export const Wrapper = styled.div<{ size: number }>`
   height: ${({ size }) => `${size}rem`};
   cursor: pointer;
   z-index: 3;
+
+  @media (max-width: 400px) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+  }
 `;
 
 export const Image = styled.img`
