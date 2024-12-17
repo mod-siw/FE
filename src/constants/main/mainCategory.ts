@@ -79,7 +79,7 @@ export const mainCategoryBlack = [
   },
   {
     category: 'youtube',
-    title: ['유저들의 순간 속', '유튜브 한 편씩 모아봤어요'],
+    title: ['유저들의 순간 속', '유튜브 하나씩 모아봤어요'],
     data: [
       {
         id: 1,
