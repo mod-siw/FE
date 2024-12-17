@@ -2,6 +2,7 @@ import * as S from './SearchBar.style';
 import { Back, Search } from 'assets';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useRef } from 'react';
+import { useTheme } from 'contexts/ThemeContext';
 
 export interface SearchBarProps {
   isBack: boolean;
@@ -10,6 +11,7 @@ export interface SearchBarProps {
 }
 
 const SearchImgBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
+  const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -24,7 +26,7 @@ const SearchImgBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => 
       {isBack && (
         <Back width={24} height={24} style={{ cursor: 'pointer' }} onClick={handleBack} />
       )}
-      <S.InputContainer>
+      <S.InputContainer isDarkMode={isDarkMode}>
         <input
           ref={inputRef}
           placeholder="작품 분야, 제목, 작성자로 검색해보세요"
