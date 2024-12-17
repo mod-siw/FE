@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: auto;
-  margin-bottom: 35%;
+  margin-bottom: 10rem;
   overflow-x: hidden;
   flex-shrink: 0;
   .swiper {
