@@ -86,8 +86,13 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
                     size={10}
                     onClick={() => handleClick(item.id)}
                   />
+                ) : isDarkMode ? (
+                  <ClickedSnow
+                    style={{ width: '100%', height: '100%' }}
+                    onClick={handleDefaultClick}
+                  />
                 ) : (
-                  <Mydefaultimg
+                  <ClickedSnowWhite
                     style={{ width: '100%', height: '100%' }}
                     onClick={handleDefaultClick}
                   />
