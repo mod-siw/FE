@@ -60,10 +60,10 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
     navigate('/made', { state: { prev: '/my' } });
   };
 
-  const filledData = [...data];
+  const filledData = data.slice();
   while (filledData.length < 9) {
     filledData.push({
-      id: -filledData.length,
+      id: -1 * (filledData.length + 1),
       img: '',
       frame: '',
       color: 0,
@@ -83,7 +83,7 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
               )
             ) : (
               <FadeWrapper isFading={fadeOut === item.id}>
-                {item.id > 0 ? (
+                {item.img ? (
                   <Item
                     id={item.id}
                     img={item.img}

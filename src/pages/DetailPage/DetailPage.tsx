@@ -6,7 +6,6 @@ import { ItemData } from 'types/type';
 import html2canvas from 'html2canvas';
 
 // components
-import { UnionDetail } from 'assets/index';
 import {
   Detail2024,
   DetailHat,
@@ -23,20 +22,15 @@ import DetailMenu from './components/DetailMenu';
 // data
 import { GetPostDetail } from 'api/post';
 import { useTheme } from 'contexts/ThemeContext';
-import { getLocalStorageItem } from 'contexts/UserContext';
 import { saveAs } from 'file-saver';
 import { getCookie } from 'api/http';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [itemData, setItemData] = useState<ItemData | null>(null);
   const { isDarkMode } = useTheme();
+  const [itemData, setItemData] = useState<ItemData | null>(null);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const fromMy = location.state?.fromMyPage;
-  const localNickname = getLocalStorageItem('nickname');
-
+  // 데이터 받아오기
   useEffect(() => {
     const numberId = Number(id);
     GetPostDetail(isDarkMode, numberId).then((res) => setItemData(res.data));
@@ -44,19 +38,27 @@ const DetailPage = () => {
 
   const { colorMap } = useRenderFrame();
   const color = itemData?.color ? colorMap[itemData.color] : 'transparent';
-  //const isMine = itemData?.nickname === localNickname && fromMy;
+
+  // 이전 경로 판단
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromMy = location.state?.fromMyPage;
+
   const isMine = getCookie('access_token') && fromMy;
   const [openMenu, setOpenMenu] = useState(false);
 
+  // 닫기 버튼 클릭 함수
   const handleBack = () => {
     const prevPath = location.state?.prev || -1;
     navigate(prevPath, { state: { isGridVisible: true } });
   };
 
+  // 미트볼 버튼 클릭 함수
   const handleMenu = () => {
     setOpenMenu(!openMenu);
   };
 
+  // 미트볼 - 내보내기 클릭 함수
   const divRef = useRef<HTMLDivElement>(null);
   const handleCapture = async () => {
     if (!divRef.current) return;
@@ -79,7 +81,7 @@ const DetailPage = () => {
     }
   };
 
-  // 배경 이미지 추출 관련
+  // 배경 이미지 추출
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -109,6 +111,7 @@ const DetailPage = () => {
     loadImage();
   }, [itemData?.img]);
 
+  // 배경 투명 프레임
   const renderDetailFrame = (frame: string | undefined) => {
     switch (frame) {
       case 'TREE':
@@ -131,55 +134,55 @@ const DetailPage = () => {
   return (
     <>
       {itemData && (
-        <div ref={divRef}>
+        <S.Entire ref={divRef}>
           <S.Wrapper
             style={{ backgroundImage: imageDataUrl ? `url(${imageDataUrl})` : 'none' }}
           >
-            <S.Container>
-              <S.UpperBtn>
-                {isMine ? (
-                  <>
-                    <Menu width={34} height={34} onClick={handleMenu} />
-                    {openMenu && (
-                      <DetailMenu
-                        post_id={Number(id)}
-                        handleCapture={handleCapture}
-                        setOpenMenu={setOpenMenu}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <Close width={25} height={25} onClick={handleBack} />
-                )}
-              </S.UpperBtn>
-              <S.Title color={color}>
-                2024년
-                <br />
-                {itemData.nickname} 님의 순간을
-                <br />
-                함께 한 {itemData.category}
-              </S.Title>
-              <S.Background>
-                <S.CenterContainer>
-                  {/* <UnionDetail width={535} height={535} /> */}
-                  {renderDetailFrame(itemData.frame)}
-                  <S.InfoWrapper>
-                    <S.Information>{itemData.information}</S.Information>
-                    <S.Name>{itemData.name}</S.Name>
-                  </S.InfoWrapper>
-                </S.CenterContainer>
-              </S.Background>
-              <S.CommentWrapper>
-                <S.Comment color={color}>
-                  {itemData.nickname}'s 한줄평
-                  <Union width={17} height={17} fill={color} />
-                </S.Comment>
-                <S.Line color={color} />
-                <S.Description color={color}>{itemData.description}</S.Description>
-              </S.CommentWrapper>
-            </S.Container>
+            <S.ShadowLayer className="background-layer" />
           </S.Wrapper>
-        </div>
+          <S.Container className="content-layer">
+            <S.UpperBtn>
+              {isMine ? (
+                <>
+                  <Menu width={34} height={34} onClick={handleMenu} />
+                  {openMenu && (
+                    <DetailMenu
+                      post_id={Number(id)}
+                      handleCapture={handleCapture}
+                      setOpenMenu={setOpenMenu}
+                    />
+                  )}
+                </>
+              ) : (
+                <Close width={25} height={25} onClick={handleBack} />
+              )}
+            </S.UpperBtn>
+            <S.Title color={color}>
+              2024년
+              <br />
+              {itemData.nickname} 님의 순간을
+              <br />
+              함께 한 {itemData.category}
+            </S.Title>
+            <S.Background>
+              <S.CenterContainer>
+                {renderDetailFrame(itemData.frame)}
+                <S.InfoWrapper>
+                  <S.Information>{itemData.information}</S.Information>
+                  <S.Name>{itemData.name}</S.Name>
+                </S.InfoWrapper>
+              </S.CenterContainer>
+            </S.Background>
+            <S.CommentWrapper>
+              <S.Comment color={color}>
+                {itemData.nickname}'s 한줄평
+                <Union width={17} height={17} fill={color} />
+              </S.Comment>
+              <S.Line color={color} />
+              <S.Description color={color}>{itemData.description}</S.Description>
+            </S.CommentWrapper>
+          </S.Container>
+        </S.Entire>
       )}
     </>
   );
