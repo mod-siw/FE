@@ -7,6 +7,14 @@ import html2canvas from 'html2canvas';
 
 // components
 import { UnionDetail } from 'assets/index';
+import {
+  Detail2024,
+  DetailHat,
+  DetailMan,
+  DetailStar,
+  DetailTree,
+  DetailUnion,
+} from 'assets/index';
 import { Union } from 'assets/index';
 import { Close } from 'assets/index';
 import { Menu } from 'assets/index';
@@ -26,7 +34,7 @@ const DetailPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const fromMy = location.state?.from === 'my';
+  const fromMy = location.state?.fromMyPage;
   const localNickname = getLocalStorageItem('nickname');
 
   useEffect(() => {
@@ -41,7 +49,8 @@ const DetailPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleBack = () => {
-    navigate(-1);
+    const prevPath = location.state?.prev || -1;
+    navigate(prevPath, { state: { isGridVisible: true } });
   };
 
   const handleMenu = () => {
@@ -100,6 +109,25 @@ const DetailPage = () => {
     loadImage();
   }, [itemData?.img]);
 
+  const renderDetailFrame = (frame: string | undefined) => {
+    switch (frame) {
+      case 'TREE':
+        return <DetailTree width={535} height={535} />;
+      case 'SNOW':
+        return <DetailUnion width={535} height={535} />;
+      case 'HAT':
+        return <DetailHat width={535} height={535} />;
+      case 'YEAR':
+        return <Detail2024 width={535} height={535} />;
+      case 'MAN':
+        return <DetailMan width={535} height={535} />;
+      case 'STAR':
+        return <DetailStar width={535} height={535} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       {itemData && (
@@ -133,7 +161,8 @@ const DetailPage = () => {
               </S.Title>
               <S.Background>
                 <S.CenterContainer>
-                  <UnionDetail width={535} height={535} />
+                  {/* <UnionDetail width={535} height={535} /> */}
+                  {renderDetailFrame(itemData.frame)}
                   <S.InfoWrapper>
                     <S.Information>{itemData.information}</S.Information>
                     <S.Name>{itemData.name}</S.Name>
