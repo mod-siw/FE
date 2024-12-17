@@ -36,6 +36,7 @@ const LoginPage = () => {
   };
 
   const handleKakaoLogin = () => {
+    clearCookies();
     const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL || '';
     if (!kakaoAuthUrl) {
       alert('카카오 로그인 URL이 설정되지 않았습니다.');
