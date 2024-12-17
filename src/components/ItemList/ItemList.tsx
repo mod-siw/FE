@@ -73,9 +73,9 @@ const ItemList: React.FC<ItemListProps> = ({
         <React.Fragment key={item.id}>
           {itemId === item.id ? (
             isDarkMode ? (
-              <ClickedSnow />
+              <ClickedSnow width={160} height={160} />
             ) : (
-              <ClickedSnowWhite />
+              <ClickedSnowWhite width={160} height={160} />
             )
           ) : (
             <S.FadeWrapper isFading={fadeOut === item.id}>
