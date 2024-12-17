@@ -12,9 +12,12 @@ const DetailMenu = ({ post_id, handleCapture, setOpenMenu }: DetailMenuProps) =>
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
 
+  console.log('post_id: ', post_id);
+
   // 삭제
   const handleDelete = () => {
     DeleteMyPost(isDarkMode, post_id);
+    console.log('post_id: ', post_id);
     navigate('/my');
   };
 
