@@ -3,7 +3,6 @@ import styled, { keyframes, css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Item from 'components/Item/Item';
 
-import { Mydefaultimg } from 'assets/index';
 import { ClickedSnow } from 'assets/index';
 import { ClickedSnowWhite } from 'assets/index';
 import FAB from 'components/FAB/FAB';
