@@ -76,6 +76,18 @@ const MyPage = () => {
     navigate('/');
   };
 
+  // 공유하기
+  const handleShare = () => {
+    const id = localStorage.getItem('id');
+    const mode = isDarkMode ? 'black' : 'white';
+    if (id) {
+      navigate(`/${nickname}/${id}/${mode}`);
+    } else {
+      console.error('유저 ID를 찾을 수 없습니다.');
+      alert('유저 ID를 확인할 수 없습니다.');
+    }
+  };
+
   // 로그아웃
   const handleLogout = async () => {
     try {
@@ -119,7 +131,7 @@ const MyPage = () => {
       )}
       {isGridVisible && (
         <>
-          <S.ShareBtn onClick={() => alert('공유 기능!')}>
+          <S.ShareBtn onClick={handleShare}>
             <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
             <span>공유하기</span>
             <Union width={17} fill={isDarkMode ? '#FFFFFF' : '#0E0C0C'} />
