@@ -160,7 +160,7 @@ const DetailPage = () => {
             <S.Title color={color}>
               2024년
               <br />
-              {itemData.nickname} 님의 순간을
+              {itemData.nickname}님의 순간을
               <br />
               함께 한 {itemData.category}
             </S.Title>

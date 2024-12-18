@@ -35,7 +35,7 @@ const rotateArrow4 = createRotateArrow('67.5deg', '40deg', '8rem 0 0 5rem');
 
 export const Wrapper = styled.div`
   position: absolute;
-  bottom: 10%;
+  bottom: 5rem;
   width: 100%;
 `;
 

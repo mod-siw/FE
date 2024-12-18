@@ -5,7 +5,6 @@ export const Entire = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
 `;
 
@@ -20,6 +19,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
 
   position: absolute;
+  will-change: transform;
+  transform: none;
 `;
 
 export const ShadowLayer = styled.div`
@@ -30,6 +31,9 @@ export const ShadowLayer = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
+
+  will-change: transform;
+  transform: none;
 `;
 
 /* 컨텐츠 관련 */
@@ -41,7 +45,7 @@ export const Container = styled.div`
 
 export const UpperBtn = styled.div`
   position: absolute;
-  top: 1.76rem;
+  top: 3.26rem;
   right: 1.5rem;
   cursor: pointer;
   z-index: 900;
@@ -50,7 +54,7 @@ export const UpperBtn = styled.div`
 export const Title = styled.div<{ color: string }>`
   ${({ theme }) => theme.fonts.body16_medium}
   color: ${({ color }) => color};
-  margin: 4.16rem 0 0 2.9rem;
+  margin: 5.66rem 0 0 2.9rem;
 `;
 
 export const Background = styled.div`
@@ -62,10 +66,11 @@ export const Background = styled.div`
 
 export const CenterContainer = styled.div`
   position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -1rem;
+  margin-top: -2.5rem;
 `;
 
 export const InfoWrapper = styled.div`
@@ -74,20 +79,27 @@ export const InfoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   gap: 1.1rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 `;
 
 export const Information = styled.div`
   ${({ theme }) => theme.fonts.body14_medium}
   color: ${({ theme }) => theme.colors.white};
+  width: 27.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Name = styled.div`
   ${({ theme }) => theme.fonts.title_semibold}
   color: ${({ theme }) => theme.colors.white};
+  white-space: pre-wrap;
 `;
 
 export const CommentWrapper = styled.div`
