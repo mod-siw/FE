@@ -18,7 +18,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
     window.localStorage.removeItem('query');
   };
   const { isDarkMode } = useTheme();
-  console.log(isDarkMode, ': isDarkMode');
   const inputRef = useRef<HTMLInputElement>(null); // 입력창 ref
 
   useEffect(() => {

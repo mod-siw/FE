@@ -24,8 +24,6 @@ export const GetCategoryList = async (
 
   try {
     const response = await http.get(url);
-    console.log('카테고리 목록 조회 성공');
-    console.log(response);
     return Promise.resolve(response.data);
   } catch (error) {
     console.log('카테고리 목록 조회 실패', error);
@@ -38,8 +36,6 @@ export const GetPostDetail = async (isDarkMode: boolean, post_id: number) => {
   const theme = isDarkMode ? 'black' : 'white';
   try {
     const response = await http.get(`/main/${theme}/${post_id}/`);
-    console.log('포스트 상세 조회 성공');
-    console.log(response);
     return Promise.resolve(response.data);
   } catch (error) {
     console.log('포스트 상세 조회 실패', error);

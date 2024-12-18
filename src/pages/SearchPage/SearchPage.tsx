@@ -17,7 +17,6 @@ const SearchPage = () => {
     useSearchInfiniteQuery(query);
 
   useEffect(() => {
-    console.log('query: ' + query);
     window.localStorage.setItem('query', query); // 검색어 저장
   }, [query]);
 

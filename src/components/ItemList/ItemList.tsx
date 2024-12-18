@@ -42,7 +42,6 @@ const ItemList: React.FC<ItemListProps> = ({
   useEffect(() => {
     if (inView) {
       fetchNextPage();
-      console.log(inView, '다음페이지');
     }
   }, [inView]);
 
