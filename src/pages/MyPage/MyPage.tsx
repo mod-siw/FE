@@ -32,14 +32,12 @@ const MyPage = () => {
   const [items, setItems] = useState([]);
   const token = getCookie('access_token');
 
-  // 로그인 정보 없을 때
   useEffect(() => {
     if (!token) {
       navigate('/login');
     }
   }, [token, navigate]);
 
-  // 데이터 불러오기
   useEffect(() => {
     const GetMyList = async () => {
       try {
@@ -59,7 +57,7 @@ const MyPage = () => {
     setItemId(0);
   }, [setIsItemClicked, setItemId]);
 
-  // GiftBox 열기 핸들러
+  // GiftBox 열기
   const handleOpen = () => {
     setIsOpened(true);
 
@@ -70,7 +68,7 @@ const MyPage = () => {
     }, 1000);
   };
 
-  // 홈 버튼 핸들러
+  // 홈
   const handleMain = () => {
     sessionStorage.removeItem('isGiftBoxShown'); // 상태 초기화
     navigate('/');
@@ -81,7 +79,15 @@ const MyPage = () => {
     const id = localStorage.getItem('id');
     const mode = isDarkMode ? 'black' : 'white';
     if (id) {
-      navigate(`/${nickname}/${id}/${mode}`);
+      const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          navigate(`/${nickname}/${id}/${mode}`, { state: { isCopied: true } }); // 상태 전달
+        })
+        .catch((error) => {
+          alert('링크를 클립보드에 복사할 수 없습니다. 다시 시도해주세요.');
+        });
     } else {
       console.error('유저 ID를 찾을 수 없습니다.');
       alert('유저 ID를 확인할 수 없습니다.');
