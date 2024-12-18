@@ -29,7 +29,6 @@ export const PostMadeData = async (data: FormDataType) => {
 export const GetSearchImg = async (category: string, keyword: string) => {
   try {
     const response = await http.get(`/home/img/?category=${category}&keyword=${keyword}`);
-    console.log(response.data);
     return Promise.resolve(response.data);
   } catch (error) {
     console.log('이미지 검색 조회 실패', error);
