@@ -59,6 +59,7 @@ const ListPage = () => {
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
+          isSearch={false}
         />
       </S.ListDiv>
       {isItemClicked && <Onboarding />}

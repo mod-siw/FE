@@ -1,5 +1,23 @@
 import styled, { keyframes, css } from 'styled-components';
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
 export const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -11,6 +29,8 @@ export const Background = styled.div`
   align-items: center;
   background: rgba(0, 0, 0, 0.65);
   z-index: 100;
+
+  animation: ${fadeIn} 0.4s ease-in-out;
 `;
 
 export const Container = styled.div`
