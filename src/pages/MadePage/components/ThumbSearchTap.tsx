@@ -22,15 +22,13 @@ const ThumbSearchTap = ({ conditions, setConditions }: MadeProps) => {
   const [selectedFrame, setSelectedFrame] = useState<string>('SNOW');
 
   const handleCircleClick = (colorId: number) => {
-    const newColorId = colorId === selectedColorId ? 1 : colorId;
-    setSelectedColorId(newColorId);
-    setFormData((prev) => ({ ...prev, color: newColorId }));
+    setSelectedColorId(colorId);
+    setFormData((prev) => ({ ...prev, color: colorId }));
   };
 
   const handleFrameClick = (name: string) => {
-    const newFrame = name === selectedFrame ? 'SNOW' : name;
-    setSelectedFrame(newFrame);
-    setFormData((prev) => ({ ...prev, frame: newFrame }));
+    setSelectedFrame(name);
+    setFormData((prev) => ({ ...prev, frame: name }));
   };
 
   return (
