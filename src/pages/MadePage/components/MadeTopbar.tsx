@@ -14,21 +14,21 @@ interface MadeTopbarProps {
   isNextEnabled: boolean;
 }
 
-const initialFormData: FormDataType = {
-  category: '',
-  name: '',
-  description: '',
-  information: '',
-  color: 1,
-  frame: 'SNOW',
-  img: null,
-};
-
 const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formData, setFormData } = useFormContext();
   const { isDarkMode } = useTheme();
+
+  const initialFormData: FormDataType = {
+    category: '',
+    name: '',
+    description: '',
+    information: '',
+    color: 1,
+    frame: 'SNOW',
+    img: null,
+  };
 
   const resetFormData = () => setFormData(initialFormData);
   const theme = isDarkMode ? darkTheme : lightTheme;
@@ -48,7 +48,9 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
     if (isNextEnabled) {
       if (step === 2) {
         handlePost();
-        navigate('/my', { state: { isGridVisible: true } });
+        setTimeout(() => {
+          navigate('/my', { state: { isGridVisible: true } });
+        }, 500);
       } else {
         onNext();
       }
@@ -83,6 +85,8 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding: 3.8rem 2rem 2.2rem;
+
+  z-index: 5000;
 
   @media (min-width: 425px) {
     width: 390px;
