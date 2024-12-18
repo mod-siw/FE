@@ -14,7 +14,8 @@ export interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(-1);
+    navigate('/');
+    window.localStorage.removeItem('query');
   };
   const { isDarkMode } = useTheme();
   console.log(isDarkMode, ': isDarkMode');
@@ -31,6 +32,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isBack, query, setQuery }) => {
       const value = inputRef.current.value.trim();
       if (value) {
         setQuery(value);
+        window.localStorage.setItem('query', value);
       }
     }
   };

@@ -12,12 +12,13 @@ import { useItemContext } from 'contexts/ItemContext';
 import { useSearchInfiniteQuery } from 'hooks/useInfiniteQuery';
 
 const SearchPage = () => {
-  const [query, setQuery] = useState(''); // 검색어
+  const [query, setQuery] = useState(() => window.localStorage.getItem('query') || ''); // 검색어 유지
   const { items, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useSearchInfiniteQuery(query);
 
   useEffect(() => {
     console.log('query: ' + query);
+    window.localStorage.setItem('query', query); // 검색어 저장
   }, [query]);
 
   const { isItemClicked } = useItemContext(); // 온보딩 트리거

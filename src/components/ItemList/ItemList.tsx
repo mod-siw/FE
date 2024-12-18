@@ -17,6 +17,7 @@ interface ItemListProps {
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
   fetchNextPage: () => void;
+  isSearch: boolean;
 }
 
 const ItemList: React.FC<ItemListProps> = ({
@@ -24,6 +25,7 @@ const ItemList: React.FC<ItemListProps> = ({
   isFetchingNextPage,
   hasNextPage,
   fetchNextPage,
+  isSearch,
 }) => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
@@ -59,7 +61,7 @@ const ItemList: React.FC<ItemListProps> = ({
     if (isItemClicked) {
       const timer = setTimeout(() => {
         setIsItemClicked(false);
-        navigate(`/detail/${itemId}`);
+        navigate(`/detail/${itemId}`, isSearch ? { state: { prev: '/search' } } : {});
         setItemId(0);
       }, 2800); // 3초 뒤에 onboarding 끝난 후 상세 페이지로 이동
 
