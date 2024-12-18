@@ -46,7 +46,7 @@ export const Container = styled.div`
 export const UpperBtn = styled.div`
   position: absolute;
   top: 3.26rem;
-  right: 1.5rem;
+  right: 3rem;
   cursor: pointer;
   z-index: 900;
 `;
@@ -85,6 +85,8 @@ export const InfoWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+
+  padding: 0 3rem;
 `;
 
 export const Information = styled.div`
