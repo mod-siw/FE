@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTheme } from 'contexts/ThemeContext';
 import * as S from './MainPage.style';
 import { PanInfo } from 'framer-motion';
@@ -11,37 +11,40 @@ import { mainCategoryBlack, mainCategoryWhite } from 'constants/main/mainCategor
 
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const yOffsetRef = useRef(0);
 
   const { isDarkMode } = useTheme();
   const mainCategories = isDarkMode ? mainCategoryBlack : mainCategoryWhite;
 
-  const pages = [
-    <Landing />,
-    ...mainCategories.map((category, index) => (
-      <Scroll key={index} category={category} />
-    )),
-  ];
-
-  const handleDrag = (event: MouseEvent | TouchEvent, info: PanInfo) => {
-    yOffsetRef.current = info.offset.y;
-  };
+  const pages = useMemo(
+    () => [
+      <Landing key="landing" />,
+      ...mainCategories.map((category, index) => (
+        <Scroll key={index} category={category} />
+      )),
+    ],
+    [mainCategories],
+  );
 
   const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
     if (info.offset.y < -100) {
       setCurrentPage((prev) => (prev + 1) % pages.length);
+    } else if (info.offset.y > 100) {
+      setCurrentPage((prev) => (prev - 1 + pages.length) % pages.length);
     }
+  };
+
+  const resetPage = () => {
+    setCurrentPage(0);
   };
 
   return (
     <S.Wrapper>
-      <Header />
+      <Header resetPage={resetPage} />
       <S.Page
         key={currentPage}
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         dragElastic={0}
-        onDrag={handleDrag}
         onDragEnd={handleDragEnd}
         initial={{ y: 0 }}
         transition={{ duration: 0.8 }}
