@@ -50,7 +50,7 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
         handlePost();
         setTimeout(() => {
           navigate('/my', { state: { isGridVisible: true } });
-        }, 500);
+        }, 700);
       } else {
         onNext();
       }
@@ -87,6 +87,7 @@ const Wrapper = styled.div`
   padding: 3.8rem 2rem 2.2rem;
 
   z-index: 5000;
+  background-color: ${({ theme }) => theme.colors.bgColor};
 
   @media (min-width: 425px) {
     width: 390px;
@@ -100,7 +101,6 @@ const NextDiv = styled.div<{ isDisabled: boolean }>`
   align-items: center;
   gap: 7.5px;
   flex-shrink: 0;
-  opacity: ${({ isDisabled }) => (isDisabled ? 1 : 1)};
   cursor: pointer;
   p {
     font: ${({ theme }) => theme.fonts.body16_semibold};
