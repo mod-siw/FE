@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
 
     &::-webkit-scrollbar {
       display: none;
+      width: 0;  
+      height: 0;
+      background: transparent;  
+      -webkit-appearance: none;
     }
   }
 
@@ -28,7 +32,11 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
-      display: none; 
+      display: none;
+      width: 0;  
+      height: 0;
+      background: transparent;  
+      -webkit-appearance: none;
     }
   }
 

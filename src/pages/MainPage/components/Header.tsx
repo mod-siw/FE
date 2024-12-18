@@ -4,7 +4,11 @@ import * as S from './Header.style';
 import { useTheme } from 'contexts/ThemeContext';
 import { getCookie } from 'api/http';
 
-const Header = () => {
+interface HeaderProps {
+  resetPage: () => void;
+}
+
+const Header = ({ resetPage }: HeaderProps) => {
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
   const token = getCookie('access_token');
@@ -17,9 +21,14 @@ const Header = () => {
     }
   };
 
+  const handleToggleClick = () => {
+    toggleTheme();
+    resetPage();
+  };
+
   return (
     <S.Container>
-      <S.ToggleBtn onClick={toggleTheme} isDarkMode={isDarkMode}>
+      <S.ToggleBtn onClick={handleToggleClick} isDarkMode={isDarkMode}>
         {isDarkMode ? (
           <>
             <SymbolMask02 width={29} height={29} fill={'#FFFFFF'} />
