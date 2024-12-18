@@ -3,9 +3,9 @@ import type { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 const SvgDelete = (props: SVGProps<SVGSVGElement>) => {
-  const theme = useTheme();
+  const { isDarkMode } = useTheme();
 
-  const defaultColor = theme.isDarkMode ? '#fff' : '#0E0C0C';
+  const defaultColor = isDarkMode ? '#fff' : '#0E0C0C';
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" {...props}>
