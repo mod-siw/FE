@@ -70,7 +70,7 @@ const ShareMyPage: React.FC = () => {
             )}
           </S.Title>
         </S.Top>
-        <MyGridBox data={items} num="14.4rem" />
+        <MyGridBox data={items} num="14.4rem" isDarkMode={isDarkMode} />
         {isPopupVisible && (
           <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
         )}
