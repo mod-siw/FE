@@ -10,7 +10,7 @@ const SvgDelete = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" {...props}>
       <path
-        stroke={defaultColor}
+        stroke={props.stroke ?? defaultColor}
         strokeLinecap="square"
         strokeLinejoin="round"
         strokeWidth={1.8}

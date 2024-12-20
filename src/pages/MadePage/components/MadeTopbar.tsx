@@ -6,7 +6,7 @@ import { darkTheme, lightTheme } from 'styles/theme';
 import { useTheme } from 'contexts/ThemeContext';
 
 import { useFormContext, FormDataType } from '../../../contexts/MadeFormContext';
-import { PostMadeData } from 'api/made';
+import { PostMadeData, PostWhiteData } from 'api/made';
 
 interface MadeTopbarProps {
   step: number;
@@ -34,7 +34,11 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const handlePost = async () => {
-    await PostMadeData(formData);
+    if (isDarkMode) {
+      await PostMadeData(formData);
+    } else {
+      await PostWhiteData(formData);
+    }
     resetFormData();
   };
 
@@ -59,7 +63,12 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
 
   return (
     <Wrapper>
-      <Delete width={25} onClick={handleDelete} />
+      <Delete
+        width={25}
+        onClick={handleDelete}
+        stroke={isDarkMode ? '#FFFFFF' : '#0E0C0C'}
+      />
+
       <NextDiv onClick={handleClick} isDisabled={!isNextEnabled}>
         <MiniSymbol
           width={12.75}
