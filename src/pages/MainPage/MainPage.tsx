@@ -7,7 +7,8 @@ import Landing from './components/landing/Landing';
 import Scroll from './components/scroll/Scroll';
 import Header from './components/Header';
 import FAB from 'components/FAB/FAB';
-import { mainCategoryBlack, mainCategoryWhite } from 'constants/main/mainCategory';
+import { mainCategoryBlack } from 'constants/main/mainCategoryBlack';
+import { mainCategoryWhite } from 'constants/main/mainCategoryWhite';
 
 const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(0);

@@ -9,6 +9,13 @@ export const Wrapper = styled.div`
   @supports (-webkit-appearance: none) and (stroke-color: transparent) {
     min-height: -webkit-fill-available;
   }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Title = styled.h1<{ color: keyof DefaultTheme['colors'] }>`
