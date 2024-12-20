@@ -8,7 +8,7 @@ interface ScrollProps {
   category: {
     category: string;
     title: string[];
-    data: { id: number; name: string; img: string }[];
+    data: { id: number; img: string }[];
   };
 }
 

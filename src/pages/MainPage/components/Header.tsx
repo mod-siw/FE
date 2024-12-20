@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { SymbolMask02 } from 'assets';
+import { SymbolMask2 } from 'assets';
 import * as S from './Header.style';
 import { useTheme } from 'contexts/ThemeContext';
 import { getCookie } from 'api/http';
@@ -31,7 +31,7 @@ const Header = ({ resetPage }: HeaderProps) => {
       <S.ToggleBtn onClick={handleToggleClick} isDarkMode={isDarkMode}>
         {isDarkMode ? (
           <>
-            <SymbolMask02 width={29} height={29} fill={'#FFFFFF'} />
+            <SymbolMask2 width={29} height={29} fill={'#FFFFFF'} />
             <S.Line />
             <p>문화</p>
           </>
@@ -39,7 +39,7 @@ const Header = ({ resetPage }: HeaderProps) => {
           <>
             <p>일상</p>
             <S.Line />
-            <SymbolMask02 width={29} height={29} fill={'#0E0C0C'} />
+            <SymbolMask2 width={29} height={29} fill={'#0E0C0C'} />
           </>
         )}
       </S.ToggleBtn>
