@@ -53,8 +53,6 @@ export const DeleteMyPost = async (isDarkMode: boolean, post_id: number) => {
       throw new Error('토큰이 올바르지 않습니다.');
     }
     const response = await http.delete(`/main/${theme}/${post_id}/delete/`);
-    console.log('포스트 삭제 성공');
-    console.log(response);
     return Promise.resolve(response.data);
   } catch (error) {
     console.log('포스트 삭제 실패', error);

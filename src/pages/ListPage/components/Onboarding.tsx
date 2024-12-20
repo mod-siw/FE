@@ -45,7 +45,7 @@ const Onboarding = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimationStart(true);
-    }, 800); // 확장 애니메이션 전 1.5초 지연
+    }, 800); // 확장 애니메이션 전 0.8초 지연
 
     return () => clearTimeout(timer);
   }, []);

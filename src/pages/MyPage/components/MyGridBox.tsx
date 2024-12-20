@@ -5,7 +5,6 @@ import Item from 'components/Item/Item';
 
 import { ClickedSnow } from 'assets/index';
 import { ClickedSnowWhite } from 'assets/index';
-import FAB from 'components/FAB/FAB';
 import Onboarding from 'pages/ListPage/components/Onboarding';
 
 import { useItemContext } from 'contexts/ItemContext';
@@ -14,15 +13,18 @@ import { useTheme } from 'contexts/ThemeContext';
 interface GridProps {
   data: { id: number; img: string; frame: string; color: number }[];
   num?: string;
+  isDarkMode?: boolean;
 }
 
 const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   data,
   num,
   animate = true,
+  isDarkMode: propIsDarkMode,
 }) => {
   const navigate = useNavigate();
-  const { isDarkMode } = useTheme();
+  const { isDarkMode: contextIsDarkMode } = useTheme();
+  const isDarkMode = propIsDarkMode ?? contextIsDarkMode; // Prop 우선
 
   const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
   const [fadeOut, setFadeOut] = useState<number | null>(null);

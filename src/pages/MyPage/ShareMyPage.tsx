@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { S } from './MyPage.style';
 import MyGridBox from './components/MyGridBox';
 import Popup from './components/Popup';
@@ -11,26 +11,22 @@ import { GetShareBlack, GetShareWhite } from 'api/my';
 import { getCookie } from 'api/http';
 
 const ShareMyPage: React.FC = () => {
+  const location = useLocation();
   const { nickname, id, mode } = useParams<{
     nickname: string;
     id: string;
     mode: string;
   }>();
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(location.state?.isCopied || false);
   const [items, setItems] = useState([]);
   const isDarkMode = mode === 'black';
   const theme = isDarkMode ? darkTheme : lightTheme;
   const token = getCookie('access_token');
 
   useEffect(() => {
-    if (token) {
-      // URL 복사 후 팝업 표시
-      const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
-      navigator.clipboard.writeText(url).then(() => {
-        setIsPopupVisible(true);
-      });
+    if (isPopupVisible) {
     }
-  }, [nickname, id, mode]);
+  }, [isPopupVisible]);
 
   useEffect(() => {
     const GetMyList = async () => {
@@ -74,7 +70,7 @@ const ShareMyPage: React.FC = () => {
             )}
           </S.Title>
         </S.Top>
-        <MyGridBox data={items} num="14.4rem" />
+        <MyGridBox data={items} num="14.4rem" isDarkMode={isDarkMode} />
         {isPopupVisible && (
           <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
         )}

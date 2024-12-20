@@ -33,6 +33,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
+          isSearch={true}
         />
       )}
     </>
