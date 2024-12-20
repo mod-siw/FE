@@ -55,7 +55,6 @@ const ImgSearchPage = () => {
   }, [query, formData.category]);
 
   const handleClick = (item: ImgItemType) => {
-    console.log(item);
     setFormData((prev) => ({
       ...prev,
       name: item.name,
