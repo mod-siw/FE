@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState, useCallback, useEffect } from 'react';
+import { useRef, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
@@ -23,25 +23,6 @@ const Carousel = ({ data }: CarouselProps) => {
 
     return shuffled.length <= 8 ? shuffled : shuffled.slice(0, 8);
   }, [data]);
-
-  const preLoadImages = useCallback(async () => {
-    const loadPromises = selectedData.map((item) => {
-      return new Promise<void>((resolve, reject) => {
-        const img = new Image();
-        img.src = item.img;
-        img.onload = () => resolve();
-        img.onerror = () => reject();
-      });
-    });
-
-    try {
-      await Promise.all(loadPromises);
-    } catch (error) {}
-  }, [selectedData]);
-
-  useEffect(() => {
-    preLoadImages();
-  }, [preLoadImages]);
 
   return (
     <S.Container>
