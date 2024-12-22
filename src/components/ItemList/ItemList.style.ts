@@ -18,6 +18,8 @@ export const Container = styled.div`
   padding-bottom: 4.2rem;
   justify-self: center;
 
+  min-height: calc(16rem + 1.6rem);
+
   @media (max-width: 400px) {
     width: 100%;
   }
