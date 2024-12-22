@@ -23,6 +23,7 @@ export const Image = styled.img`
   height: 99%;
   object-fit: cover;
   object-position: center;
+  aspect-ratio: 1 / 1;
 `;
 
 export const FrameWrapper = styled.div`
@@ -31,4 +32,13 @@ export const FrameWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+
+export const EmptyBox = styled.div`
+  width: 99%;
+  height: 99%;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1 / 1;
+  background-color: #ffffff;
 `;
