@@ -101,7 +101,15 @@ export const Information = styled.div`
 export const Name = styled.div`
   ${({ theme }) => theme.fonts.title_semibold}
   color: ${({ theme }) => theme.colors.white};
+
   white-space: pre-wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 34rem;
+  max-height: 10rem;
 `;
 
 export const CommentWrapper = styled.div`
