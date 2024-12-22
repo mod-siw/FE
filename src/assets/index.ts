@@ -26,6 +26,8 @@ export { default as MiniSymbol2 } from './MiniSymbol2';
 export { default as Mydefaultimg } from './Mydefaultimg';
 export { default as Rectangle } from './Rectangle';
 export { default as Search } from './Search';
+export { default as SymbolMask01 } from './SymbolMask01';
+export { default as SymbolMask02 } from './SymbolMask02';
 export { default as SymbolMask1 } from './SymbolMask1';
 export { default as SymbolMask2 } from './SymbolMask2';
 export { default as SymbolHat1 } from './SymbolHat1';

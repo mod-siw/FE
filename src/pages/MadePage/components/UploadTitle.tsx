@@ -12,7 +12,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
   const { formData, setFormData } = useFormContext();
   const { isDarkMode } = useTheme();
 
-  const [title, setTitle] = useState((formData.name ?? '').slice(0, 16));
+  const [title, setTitle] = useState((formData.name ?? '').slice(0, 20));
   const [reason, setReason] = useState('');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -23,7 +23,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
     }
 
     timerRef.current = setTimeout(() => {
-      const isTitleValid = title.trim().length > 0 && title.trim().length <= 16;
+      const isTitleValid = title.trim().length > 0 && title.trim().length <= 20;
       const isReasonValid = reason.trim().length > 0 && reason.trim().length <= 55;
 
       const isOK = isDarkMode ? isTitleValid && isReasonValid : isReasonValid;
@@ -47,7 +47,7 @@ const UploadTitle = ({ conditions, setConditions }: MadeProps) => {
     <>
       <S.Title>제목을 입력해주세요</S.Title>
       <S.InputTitle
-        placeholder="작품의 제목을 알려주세요 (16자 이내)"
+        placeholder="작품의 제목을 알려주세요 (18자 이내)"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={16}
