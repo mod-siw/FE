@@ -11,7 +11,7 @@ const SvgFrameTree = (props: SVGProps<SVGSVGElement>) => (
         clipRule="evenodd"
       />
     </g>
-    <path stroke={props.fill} d="M.5.5h99v99H.5z" />
+    <path stroke={props.fill} strokeWidth={1.5} d="M.5.5h99v99H.5z" />
     <defs>
       <clipPath id="Frame-TREE_svg__a">
         <path fill={props.fill} d="M0 0h100v100H0z" />

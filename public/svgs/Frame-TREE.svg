@@ -3,7 +3,7 @@
 <rect width="100" height="100" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M100 1H0V101H100V1ZM84.5006 44.5449L50.2502 4.00013L15.9998 44.5449H37.4974L15.9998 69.7253H37.5115L15.9998 95.1903H84.5006L62.989 69.7253H84.5006L63.0031 44.5449H84.5006Z" fill="white"/>
 </g>
-<rect x="0.5" y="0.5" width="99" height="99" stroke="white"/>
+<rect x="0.5" y="0.5" width="99" height="99" stroke="white" stroke-width="1.5"/>
 <defs>
 <clipPath id="clip0_579_9788">
 <rect width="100" height="100" fill="white"/>
