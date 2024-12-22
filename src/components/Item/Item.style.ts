@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div<{ size: number }>`
   position: relative;
   width: ${({ size }) => `${size}rem`};
-  height: ${({ size }) => `${size}rem`};
+  max-height: ${({ size }) => `${size}rem`};
   cursor: pointer;
   z-index: 3;
 
