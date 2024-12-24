@@ -13,8 +13,8 @@ const DetailMenu = ({ post_id, handleCapture, setOpenMenu }: DetailMenuProps) =>
   const navigate = useNavigate();
 
   // 삭제
-  const handleDelete = () => {
-    DeleteMyPost(isDarkMode, post_id);
+  const handleDelete = async () => {
+    await DeleteMyPost(isDarkMode, post_id);
     navigate('/my');
   };
 
