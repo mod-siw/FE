@@ -50,6 +50,7 @@ const ShareMyPage: React.FC = () => {
       <S.SharePageGlobalStyle />
       <S.Wrapper2>
         <S.Top>
+          <S.HomeBtn isHidden />
           <S.Title>
             {isDarkMode ? (
               <>

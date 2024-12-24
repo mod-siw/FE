@@ -1,4 +1,4 @@
-import { styled, createGlobalStyle } from 'styled-components';
+import { styled, createGlobalStyle, css } from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 0;
@@ -48,9 +48,10 @@ const Top = styled.div`
   padding: 0;
 `;
 
-const HomeBtn = styled.div`
+const HomeBtn = styled.div<{ isHidden?: boolean }>`
   padding: 0.3rem 3rem 0 0;
   color: ${({ theme }) => theme.colors.textColor};
+  height: 1.7rem;
 
   font-family: Pretendard;
   font-size: 14px;
@@ -60,6 +61,12 @@ const HomeBtn = styled.div`
   align-self: flex-end;
 
   cursor: pointer;
+
+  ${({ isHidden }) =>
+    isHidden &&
+    css`
+      visibility: hidden;
+    `}
 `;
 
 const Title = styled.div`

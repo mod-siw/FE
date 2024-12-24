@@ -109,7 +109,11 @@ const MyPage = () => {
   return (
     <S.Wrapper>
       <S.Top>
-        {isGridVisible && <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>}
+        {isGridVisible ? (
+          <S.HomeBtn onClick={handleMain}>home</S.HomeBtn>
+        ) : (
+          <S.HomeBtn isHidden />
+        )}
         <S.Title>
           {isDarkMode ? (
             <>
