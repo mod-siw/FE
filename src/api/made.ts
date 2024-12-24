@@ -29,7 +29,8 @@ export const PostMadeData = async (data: FormDataType) => {
 export const PostWhiteData = async (data: FormDataType) => {
   try {
     const formData = new FormData();
-    formData.append('category', data.category);
+    const adjustedCategory = data.category === '앱' ? '어플' : data.category;
+    formData.append('category', adjustedCategory);
     formData.append('name', data.name ?? ' ');
     formData.append('description', data.description);
     formData.append('color', data.color.toString());
@@ -40,7 +41,6 @@ export const PostWhiteData = async (data: FormDataType) => {
     }
 
     const response = await http.post('/home/white/post/', formData);
-    console.log(response.data);
     return Promise.resolve(response.data.data);
   } catch (error) {
     console.error('데이터 전송 실패', error);
