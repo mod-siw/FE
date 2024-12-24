@@ -48,13 +48,11 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
     navigate(prevPath, { state: { isGridVisible: true } });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isNextEnabled) {
       if (step === 2) {
-        handlePost();
-        setTimeout(() => {
-          navigate('/my', { state: { isGridVisible: true } });
-        }, 700);
+        await handlePost();
+        navigate('/my', { state: { isGridVisible: true } });
       } else {
         onNext();
       }
