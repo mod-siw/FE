@@ -1,21 +1,24 @@
+import { useMemo } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetCategoryList } from 'api/post';
 import { GetSearchList } from 'api/search';
 import { useTheme } from 'contexts/ThemeContext';
-import { useMemo } from 'react';
 
 export const useCategoryInfiniteQuery = (category: string) => {
   const { isDarkMode } = useTheme();
 
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getCategoryList', category],
-    queryFn: ({ pageParam = '' }) => {
-      return GetCategoryList(isDarkMode, category, pageParam);
+    queryFn: ({ pageParam = 1 }) => GetCategoryList(isDarkMode, category, pageParam),
+    getNextPageParam: (lastPage, pages) => {
+      const { total_pages } = lastPage.data ?? {};
+      const currentPage = pages.length;
+      return currentPage < total_pages ? currentPage + 1 : null;
     },
-    getNextPageParam: (lastPage) => {
-      return lastPage.data?.next || undefined;
-    },
-    initialPageParam: '',
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+    retry: 3,
+    initialPageParam: 1,
   });
 
   const items = useMemo(() => {
@@ -48,15 +51,16 @@ export const useSearchInfiniteQuery = (keyword: string) => {
 
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getSearchList', keyword],
-    queryFn: ({ pageParam = '' }) => {
-      // pageParam이 비어 있으면 기본 엔드포인트 호출
-      return GetSearchList(isDarkMode, keyword, pageParam);
+    queryFn: ({ pageParam = 1 }) => GetSearchList(isDarkMode, keyword, pageParam),
+    getNextPageParam: (lastPage, pages) => {
+      const { total_pages } = lastPage.data ?? {};
+      const currentPage = pages.length;
+      return currentPage < total_pages ? currentPage + 1 : null;
     },
-    getNextPageParam: (lastPage) => {
-      // lastPage.data?.next 필드를 사용하여 다음 요청 URL 반환
-      return lastPage.data?.next || undefined;
-    },
-    initialPageParam: '', // 첫 요청 시 기본값 설정
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+    retry: 3,
+    initialPageParam: 1,
   });
 
   const items = useMemo(() => {
