@@ -1,32 +1,10 @@
-import { styled, createGlobalStyle, css } from 'styled-components';
+import { styled, css } from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const SharePageGlobalStyle = createGlobalStyle`
- html,
-  body {
-    background: ${({ theme }) => theme.colors.bgColor};
-    color: ${({ theme }) => theme.colors.textColor};
-    font-family: Pretendard;
-    font-size: 62.5%;
-    transition: background 0.3s ease;
-  }
-
-  &::-webkit-scrollbar {
-      display: none; 
-    }
-
-    @media (min-width: 425px) {
-    body {
-      width: 390px;
-      margin: 0 auto;
-    } 
-    }
 `;
 
 const Wrapper2 = styled.div`
@@ -122,7 +100,6 @@ const LogoutBtn = styled.div`
 
 export const S = {
   Wrapper,
-  SharePageGlobalStyle,
   Wrapper2,
   Top,
   Title,
