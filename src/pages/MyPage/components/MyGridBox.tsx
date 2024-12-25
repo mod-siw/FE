@@ -62,6 +62,8 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   };
 
   const handleDefaultClick = () => {
+    if (animate) return;
+
     navigate('/made', { state: { prev: '/my' } });
   };
 
