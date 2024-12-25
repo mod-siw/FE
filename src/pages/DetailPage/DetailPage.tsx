@@ -50,7 +50,7 @@ const DetailPage = () => {
   // 닫기 버튼 클릭 함수
   const handleBack = () => {
     const prevPath = location.state?.prev || -1;
-    navigate(prevPath, { state: { isGridVisible: true } });
+    navigate(prevPath, { state: { prev: `/detail/${id}`, isGridVisible: true } });
   };
 
   // 미트볼 버튼 클릭 함수
