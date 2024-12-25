@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { S } from './MyPage.style';
 
@@ -79,17 +79,16 @@ const MyPage = () => {
     const id = localStorage.getItem('id');
     const mode = isDarkMode ? 'black' : 'white';
     if (id) {
-      const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
+      const url = `${window.location.origin}/share/${id}/${mode}`;
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          navigate(`/${nickname}/${id}/${mode}`, { state: { isCopied: true } }); // 상태 전달
+          navigate(`/share/${id}/${mode}`, { state: { isCopied: true } }); // 상태 전달
         })
         .catch((error) => {
           alert('링크를 클립보드에 복사할 수 없습니다. 다시 시도해주세요.');
         });
     } else {
-      console.error('유저 ID를 찾을 수 없습니다.');
       alert('유저 ID를 확인할 수 없습니다.');
     }
   };
@@ -101,7 +100,6 @@ const MyPage = () => {
       clearUserData();
       navigate('/');
     } catch (error) {
-      console.error('로그아웃 실패:', error);
       alert('로그아웃에 실패했습니다. 다시 시도해 주세요.');
     }
   };
