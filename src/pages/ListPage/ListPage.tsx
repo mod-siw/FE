@@ -1,6 +1,6 @@
 import * as S from './ListPage.style';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { pathToCategory } from 'constants/category';
 import { useTheme } from 'contexts/ThemeContext';
 
@@ -19,7 +19,7 @@ import { getLocalStorageItem } from 'contexts/UserContext';
 const ListPage = () => {
   const navigate = useNavigate();
   const { category } = useParams<{ category: string }>();
-  const { isItemClicked } = useItemContext();
+  const { isItemClicked, setIsItemClicked, itemId, setItemId } = useItemContext();
   const { isDarkMode } = useTheme();
   const nickname = getLocalStorageItem('nickname');
   const [isPopupVisible, setPopupVisible] = useState(false);
@@ -40,6 +40,15 @@ const ListPage = () => {
       navigate('/login');
     }
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/list')) {
+      setIsItemClicked(false);
+      setItemId(0);
+    }
+  }, [location.pathname]);
 
   return (
     <S.Wrapper>

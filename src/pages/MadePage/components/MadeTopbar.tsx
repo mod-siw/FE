@@ -1,24 +1,29 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Delete, MiniSymbol } from 'assets';
 import { darkTheme, lightTheme } from 'styles/theme';
 import { useTheme } from 'contexts/ThemeContext';
+import MadePopup from './MadePopup';
 
 import { useFormContext, FormDataType } from '../../../contexts/MadeFormContext';
 import { PostMadeData, PostWhiteData } from 'api/made';
 
 interface MadeTopbarProps {
   step: number;
-  onNext: () => void;
+  handleNext: () => void;
   isNextEnabled: boolean;
 }
 
-const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
+const MadeTopbar = ({ step, handleNext, isNextEnabled }: MadeTopbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formData, setFormData } = useFormContext();
   const { isDarkMode } = useTheme();
+
+  const [isPopupVisible, setPopupVisible] = useState(false);
 
   const initialFormData: FormDataType = {
     category: '',
@@ -34,12 +39,18 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const handlePost = async () => {
-    if (isDarkMode) {
-      await PostMadeData(formData);
-    } else {
-      await PostWhiteData(formData);
+    try {
+      if (isDarkMode) {
+        await PostMadeData(formData);
+      } else {
+        await PostWhiteData(formData);
+      }
+      resetFormData();
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 500) {
+        setPopupVisible(true);
+      }
     }
-    resetFormData();
   };
 
   const handleDelete = () => {
@@ -54,31 +65,36 @@ const MadeTopbar = ({ step, onNext, isNextEnabled }: MadeTopbarProps) => {
         await handlePost();
         navigate('/my', { state: { isGridVisible: true } });
       } else {
-        onNext();
+        handleNext();
       }
     }
   };
 
   return (
-    <Wrapper>
-      <Delete
-        width={25}
-        onClick={handleDelete}
-        stroke={isDarkMode ? '#FFFFFF' : '#0E0C0C'}
-      />
+    <>
+      <Wrapper>
+        <Delete
+          width={25}
+          onClick={handleDelete}
+          stroke={isDarkMode ? '#FFFFFF' : '#0E0C0C'}
+        />
 
-      <NextDiv onClick={handleClick} isDisabled={!isNextEnabled}>
-        <MiniSymbol
-          width={12.75}
-          color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
-        />
-        <p>{step === 2 ? '저장' : '다음'}</p>
-        <MiniSymbol
-          width={12.75}
-          color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
-        />
-      </NextDiv>
-    </Wrapper>
+        <NextDiv onClick={handleClick} isDisabled={!isNextEnabled}>
+          <MiniSymbol
+            width={12.75}
+            color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
+          />
+          <p>{step === 2 ? '저장' : '다음'}</p>
+          <MiniSymbol
+            width={12.75}
+            color={!isNextEnabled ? theme.colors.gray02 : theme.colors.textColor}
+          />
+        </NextDiv>
+      </Wrapper>
+      {isPopupVisible && (
+        <MadePopup onClose={() => setPopupVisible(false)} handleNext={handleNext} />
+      )}
+    </>
   );
 };
 
@@ -93,7 +109,7 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 3.8rem 2rem 2.2rem;
 
-  z-index: 5000;
+  z-index: 500;
   background-color: ${({ theme }) => theme.colors.bgColor};
 
   @media (min-width: 425px) {

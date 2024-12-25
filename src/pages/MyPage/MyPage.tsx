@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { S } from './MyPage.style';
 
@@ -28,7 +28,9 @@ const MyPage = () => {
       location.state?.isGridVisible ||
       false,
   );
+
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
+  const [isSharePopupVisible, setSharePopupVisible] = useState(false);
   const [items, setItems] = useState([]);
   const token = getCookie('access_token');
 
@@ -40,12 +42,8 @@ const MyPage = () => {
 
   useEffect(() => {
     const GetMyList = async () => {
-      try {
-        const response = isDarkMode ? await GetMyBlack() : await GetMyWhite();
-        setItems(response.data.content_list || []);
-      } catch (error) {
-        console.error('데이터 로드 실패:', error);
-      }
+      const response = isDarkMode ? await GetMyBlack() : await GetMyWhite();
+      setItems(response.data.content_list || []);
     };
 
     GetMyList();
@@ -75,23 +73,27 @@ const MyPage = () => {
   };
 
   // 공유하기
-  const handleShare = () => {
+  const getUserInfo = (isDarkMode: boolean) => {
     const id = localStorage.getItem('id');
     const mode = isDarkMode ? 'black' : 'white';
-    if (id) {
-      const url = `${window.location.origin}/${nickname}/${id}/${mode}`;
-      navigator.clipboard
-        .writeText(url)
-        .then(() => {
-          navigate(`/${nickname}/${id}/${mode}`, { state: { isCopied: true } }); // 상태 전달
-        })
-        .catch((error) => {
-          alert('링크를 클립보드에 복사할 수 없습니다. 다시 시도해주세요.');
-        });
-    } else {
-      console.error('유저 ID를 찾을 수 없습니다.');
+    return { id, mode };
+  };
+
+  const handleShare = () => {
+    const { id, mode } = getUserInfo(isDarkMode);
+
+    if (!id) {
       alert('유저 ID를 확인할 수 없습니다.');
+      return;
     }
+
+    const url = `${window.location.origin}/share/${id}/${mode}`;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => setSharePopupVisible(true))
+      .catch(() => {
+        alert('링크를 클립보드에 복사할 수 없습니다. 다시 시도해주세요.');
+      });
   };
 
   // 로그아웃
@@ -101,9 +103,15 @@ const MyPage = () => {
       clearUserData();
       navigate('/');
     } catch (error) {
-      console.error('로그아웃 실패:', error);
       alert('로그아웃에 실패했습니다. 다시 시도해 주세요.');
     }
+  };
+
+  const handleCloseSharePopup = () => {
+    const { id, mode } = getUserInfo(isDarkMode);
+    setSharePopupVisible(false);
+    if (id) navigate(`/share/${id}/${mode}`);
+    else alert('유저 ID를 확인할 수 없습니다.');
   };
 
   return (
@@ -156,6 +164,7 @@ const MyPage = () => {
           onConfirm={handleLogout}
         />
       )}
+      {isSharePopupVisible && <Popup type="clipboard" onClose={handleCloseSharePopup} />}
     </S.Wrapper>
   );
 };

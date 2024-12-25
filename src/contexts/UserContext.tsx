@@ -47,6 +47,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setNickname(null);
     localStorage.removeItem('username');
     localStorage.removeItem('nickname');
+    localStorage.removeItem('id');
     clearCookies();
   };
 
