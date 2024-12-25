@@ -7,8 +7,6 @@ import PickTheme from './components/PickTheme';
 import ThumbSearchTap from './components/ThumbSearchTap';
 import UploadTitle from './components/UploadTitle';
 
-import { FormProvider } from '../../contexts/MadeFormContext';
-
 type ConditionState = {
   pickTheme: boolean;
   thumbSearch: boolean;
@@ -50,11 +48,14 @@ const MadePage = () => {
     />,
   ];
 
-  const handleNext = () => {
+  const handleNext = (newStep?: number) => {
     const currentCondition = Object.values(conditions)[step];
     if (!currentCondition) return;
 
-    if (step < components.length - 1) {
+    if (newStep !== undefined) {
+      //인자 안 넣었을 경우
+      setStep(newStep);
+    } else if (step < components.length - 1) {
       setStep(step + 1);
     }
   };
@@ -63,7 +64,7 @@ const MadePage = () => {
     <>
       <MadeTopbar
         step={step}
-        onNext={handleNext}
+        handleNext={handleNext}
         isNextEnabled={Object.values(conditions)[step]}
       />
       <Wrapper>{components[step]}</Wrapper>
