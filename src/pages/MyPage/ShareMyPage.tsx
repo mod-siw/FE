@@ -3,24 +3,23 @@ import { useParams, useLocation } from 'react-router-dom';
 import { S } from './MyPage.style';
 import { useTheme } from 'contexts/ThemeContext';
 import MyGridBox from './components/MyGridBox';
-import Popup from './components/Popup';
 
 import { GetShareBlack, GetShareWhite } from 'api/my';
 
 const ShareMyPage = () => {
   const location = useLocation();
   const { id, mode } = useParams<{ id: string; mode: string }>();
-  const [isPopupVisible, setIsPopupVisible] = useState(location.state?.isCopied || false);
+  const isDarkMode = mode === 'black';
+  const { setIsDarkMode } = useTheme();
+
   const [items, setItems] = useState([]);
   const [nickname, setNickname] = useState('');
-  const isDarkMode = mode === 'black';
 
-  const { setIsDarkMode } = useTheme();
   useEffect(() => {
-    if (!isDarkMode) {
-      setIsDarkMode(false);
-    } else {
+    if (isDarkMode) {
       setIsDarkMode(true);
+    } else {
+      setIsDarkMode(false);
     }
   }, [location.pathname]);
 
@@ -63,9 +62,6 @@ const ShareMyPage = () => {
         </S.Title>
       </S.Top>
       <MyGridBox data={items} num="14.4rem" isDarkMode={isDarkMode} />
-      {isPopupVisible && (
-        <Popup type="clipboard" onClose={() => setIsPopupVisible(false)} />
-      )}
     </S.Wrapper2>
   );
 };
