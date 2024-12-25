@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Item from 'components/Item/Item';
 
 import { ClickedSnow } from 'assets/index';
@@ -26,6 +26,9 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   const { isDarkMode: contextIsDarkMode } = useTheme();
   const isDarkMode = propIsDarkMode ?? contextIsDarkMode; // Prop 우선
 
+  const location = useLocation();
+  const isFromMyPage = location.pathname.includes('my');
+
   const { itemId, setItemId, isItemClicked, setIsItemClicked } = useItemContext();
   const [fadeOut, setFadeOut] = useState<number | null>(null);
 
@@ -33,7 +36,7 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
     if (isItemClicked && animate) {
       const timer = setTimeout(() => {
         setIsItemClicked(false);
-        navigate(`/detail/${itemId}`, { state: { fromMyPage: true } });
+        navigate(`/detail/${itemId}`, { state: { fromMyPage: isFromMyPage } });
         setItemId(0);
       }, 2800);
 
@@ -59,6 +62,8 @@ const MyGridBox: React.FC<GridProps & { animate?: boolean }> = ({
   };
 
   const handleDefaultClick = () => {
+    if (animate) return;
+
     navigate('/made', { state: { prev: '/my' } });
   };
 
