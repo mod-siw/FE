@@ -17,7 +17,6 @@ export const PostMadeData = async (data: FormDataType) => {
     }
 
     const response = await http.post('/home/black/', formData);
-    console.log(response.data);
     return Promise.resolve(response.data.data);
   } catch (error) {
     console.error('데이터 전송 실패', error);
@@ -40,7 +39,6 @@ export const PostWhiteData = async (data: FormDataType) => {
     }
 
     const response = await http.post('/home/white/post/', formData);
-    console.log(response.data);
     return Promise.resolve(response.data.data);
   } catch (error) {
     console.error('데이터 전송 실패', error);
