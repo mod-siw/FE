@@ -47,7 +47,6 @@ const ListPage = () => {
     if (location.pathname.includes('/list')) {
       setIsItemClicked(false);
       setItemId(0);
-      console.log(itemId);
     }
   }, [location.pathname]);
 
